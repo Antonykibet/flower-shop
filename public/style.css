@@ -19,7 +19,7 @@ body{
     }
     #home{
         margin-top: 7vh;
-        background-image: url('pexels-teona-swift-6913055.jpg');
+        background-image: url('./images/pexels-teona-swift-6913055.jpg');
         background-position: center;
         background-size: 150%;
         height: 100vh;
