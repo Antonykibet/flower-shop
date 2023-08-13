@@ -24,6 +24,9 @@ app.get('/getFlowers',async (req,res)=>{
     console.log(result)
     res.json(result)
 })
+app.get('/cart',(req,res)=>{
+    res.sendFile(path.join(__dirname,'/cart.html'))
+})
 app.listen(PORT,async()=>{
     await dbClient.connect()
     console.log(`db connected...`)

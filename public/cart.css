@@ -1,0 +1,31 @@
+body{
+    margin: 0px;
+}
+@media screen and (max-width: 1000px) {
+    #mobileHeader{
+        height: 7vh;
+        width: 100%;
+        background-color: whitesmoke;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 24px;
+        position: fixed;
+        top: 0;
+        z-index: 5;
+    }
+    .productDiv{
+        border: solid;
+        margin-top: 100px;
+    }
+    .imageRowDiv{
+        display: flex;
+        justify-content: space-between;
+    }
+    .productImage{
+        width: 170px;
+        height: 20vh;
+        object-fit: cover;
+        object-position: center 35%;
+    }
+}
