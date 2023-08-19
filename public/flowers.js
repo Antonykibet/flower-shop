@@ -8,10 +8,7 @@ async function displayFlowers(){
     await getFlowers()
     result.forEach(elemCreator )
 }
-// function addCart(){
-//     localStorage.setItem('name','anto')
-//     nameElem.innerText=localStorage.getItem('name')
-// }
+
 function elemCreator(item){
     let {name, price, image} = item
     let bigDiv = document.createElement('div')

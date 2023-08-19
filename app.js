@@ -16,8 +16,21 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static('./public'))
 
 app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'/flowers.html'))
+    res.sendFile(path.join(__dirname,'/index.html'))
 })
+app.get('/products/:product',async(req,res)=>{
+    let {product} =req.params
+    productCollects= await db.collection(product);
+    let result = await productCollects.find().toArray()
+    res.json(result)
+})
+
+
+
+
+
+
+
 app.get('/getFlowers',async (req,res)=>{
     flowersCollects= await db.collection('flowers');
     let result = await flowersCollects.find().toArray()

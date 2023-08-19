@@ -8,24 +8,146 @@
 </head>
 <body>
     <header id="mobileHeader">
-        <!-- <img id="logo" src="" alt=""> -->
-        <h1>Logo</h1>
-        <div style="margin-right: 50px;width: 20%;display: flex;justify-content: space-between;">
-            <img id="addToCart" src="./icons/icons8-buy-24.png" alt="">
+        <img id="logo" src="/images/Calyx logo.png" alt="">
+        <div style="margin-right: 50px;width: 30%;display: flex;justify-content: space-between;align-items: center;">
+            <img id="account" src="/images/accountIcon.png" alt="profile">
+            <a href="/cart"><img id="addToCart" src="./images/shoppingCartIcon.png" alt=""></a>
             <img id="hamburger" src="./icons/icons8-hamburger-menu-30.png" alt="">
         </div>
     </header>
-    <section id="home">
-        <div id="screen">
-            <h1 id="heading">Where Flowers Speak the Language of Love</h1>
-            <p id="miniHeading"> We specialize in crafting unforgettable moments through the language of flowers. From elegant bouquets to artistic arrangements, our creations speak volumes, turning emotions into botanical masterpieces.</p>
-            <button id="shopButton">Shop</button>
+    <div id="topHeader">✔ 7 Day Freshness Guarantee ✔ Order Before 9pm For Next Day Delivery ✔ Free Chocolates Available!</div>
+    <header id="desktopHeader">
+        <img id="logo" src="/images/Calyx logo.png" alt="">
+        <div style="width: 7%;display: flex; justify-content: space-around;">
+            <img id="account" src="/images/accountIcon.png" alt="profile">
+            <a href="/cart"><img id="addToCart" src="/images/shoppingCartIcon.png" alt="addToCart"></a>
         </div>
-    </section>
-    <section id="topPicks">
-        <img id="test" src="./images/pexels-teona-swift-6913829.jpg" alt="">
-    </section>
-    <section id="list"></section>
-    <footer></footer>
+    </header>
+    <nav id="desktopNav">
+        <div class="nav-item">
+            <button class="nav-button" id="byOccassion">By Occassion</button>
+            <div class="dropdown-menu" id="byOccassionMenu">
+                <a class="link" data-product="birthdays">Birthdays</a>
+                <a class="link" data-product="congratulation" >Congratulation</a>
+                <a class="link" data-product="love" >love and Romance</a>
+                <a class="link" data-product="thankYou" >Thank You</a>
+                <a class="link" data-product="forHim" >For Him</a>                
+                <a class="link" data-product="valentines" >Valentines</a>
+                <a class="link" data-product="mothersDay" >Mother's Day</a>
+                <a class="link" data-product="getWell" >Get well</a>
+                <a class="link" data-product="funeral" >Funeral</a>
+            </div>
+        </div>
+        <div class="nav-item">
+            <button class="nav-button" id="byEvents">Events</button>
+            <div class="dropdown-menu" id="byEventsMenu">
+                <a href="">Birthdays</a>
+                <a href="">Congratulation</a>
+                <a href="">love and Romance</a>
+                <a href="">Thank You</a>
+                <a href="">For Him</a>                
+                <a href="">Valentines</a>
+                <a href="">Mother's Day</a>
+                <a href="">Get well</a>
+                <a href="">Funeral</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <button class="nav-button" id="giftHampers">Gift Hampers</button>
+            <div class="dropdown-menu" id="giftHampersMenu">
+                <a href="">For Her</a>
+                <a href="">For Him</a>
+                <a href="">Bestie</a>
+                <a href="">Baby Shower</a>
+                <a href="">Bridal Shower</a>                
+            </div>
+        </div>
+        
+        <div class="nav-item">
+            <button class="nav-button" id="byPrice">By Price</button>
+            <div class="dropdown-menu" id="byPriceMenu">
+                <a href="">For Her</a>
+                <a href="">For Him</a>               
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <button class="nav-button" id="byType">By Type</button>
+            <div class="dropdown-menu" id="byTypeMenu">
+                <a href="">For Her</a>
+                <a href="">For Him</a>               
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <button class="nav-button" id="Subscriptions">Subscriptions</button>
+            <div class="dropdown-menu" id="subscriptionMenu">
+                <a href="">For Her</a>
+                <a href="">For Him</a>               
+            </div>
+        </div>
+    </nav>
+    <div id="content">
+        <!-- <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div>
+        <div class="productDiv"></div> -->
+        <!-- <img class="productImage" src="/images/pexels-teona-swift-6913055.jpg" alt="">
+        <img class="productImage" src="/images/pexels-teona-swift-6913055.jpg" alt=""> -->
+    </div>
+    <footer id="footer">
+      <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
+        <div id="footerLogo" ></div>
+        <div class="footerNavs">
+            By Occassion
+            <div class="footerDropdown">
+                <a class="footerLists" href="">Birthdays</a>
+                <a class="footerLists" href="">Congratulation</a>
+                <a class="footerLists" href="">love and Romance</a>
+                <a class="footerLists" href="">Thank You</a>
+                <a class="footerLists" href="">For Him</a>                
+                <a class="footerLists" href="">Valentines</a>
+                <a class="footerLists" href="">Mother's Day</a>
+                <a class="footerLists" href="">Get well</a>
+                <a class="footerLists" href="">Funeral</a>
+            </div>
+        </div>
+        <div class="footerNavs">
+            Events
+            <div class="footerDropdown">
+                <a class="footerLists" href="">Backdrop</a>
+                <a class="footerLists" href="">Flower arrangement</a>
+                <a class="footerLists" href="">Room decoration</a>
+            </div>
+        </div>
+        <div class="footerNavs">
+            Gift Hampers
+            <div class="footerDropdown">
+                <a class="footerLists" href="">For Her</a>
+                <a class="footerLists" href="">For Him</a>
+                <a class="footerLists" href="">Bestie</a>
+                <a class="footerLists" href="">Baby Shower</a>
+            </div>
+        </div>
+        <div class="footerNavs">By Price</div>
+        <div class="footerNavs">By Price</div>
+    </div>
+    <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
