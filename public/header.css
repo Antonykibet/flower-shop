@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+body{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: rgb(245, 245, 245);
+}
+.link{
+    padding-left: 8px;
+    padding-right: 8px;
+    text-decoration: none;
+    color: whitesmoke;
+}
+.link:hover{
+    background-color: #B7A28A;
+}
+#mobileHeader{
+    display: none;
+}
+#desktopNav{
+    background-color:#b7828a;
+    height: 7vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 15%;
+    padding-right: 15%;
+    position: fixed;
+    top: 12vh;
+}
+#topHeader{
+    font-family: 'Poppins';
+    font-size: 2.5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    background-color: rgba(223, 223, 223);
+    position: fixed;
+    top: 0vh;
+}
+#desktopHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding-left: 5%;
+    padding-right: 10%; */
+    font-family: 'Poppins';
+    color: whitesmoke;
+    width: 100%;
+    position: fixed;
+    top: 5vh;
+    background-color: whitesmoke;
+}
+#logo{
+    width: 10%;
+    height: 9vh;
+    object-fit: cover;
+}
+#account{
+    width: 24px;
+    height: 24px;
+}
+#addToCart{
+    width: 24px;
+    height: 24px;
+}
+.nav-item {
+    color: whitesmoke;
+    position: relative;
+    display: inline-block;
+    margin-right: 20px; /* Adjust the spacing between menu items */
+}
+
+.nav-button {
+    color: whitesmoke;
+    font-family: 'Poppins';
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* Position the menu below the button */
+    left: 0;
+    display: none;
+    flex-direction: column;
+    border: 1px solid #b7828a;
+    background-color: #b7828a;
+    color: whitesmoke;
+    font-family: 'Poppins';
+    font-size: 13px;
+}
+.nav-item:hover .dropdown-menu {
+    display: flex;
+}

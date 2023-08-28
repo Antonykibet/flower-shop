@@ -1,7 +1,7 @@
 const { urlencoded } = require('body-parser')
 const express = require('express')
 const { get } = require('http')
-const {MongoClient} = require('mongodb')
+const {MongoClient, ObjectId} = require('mongodb')
 const path =require('path')
 
 const app = express()
@@ -15,16 +15,30 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}));
 app.use(express.static('./public'))
 
-app.get('/',(req,res)=>{
+app.get('/',async(req,res)=>{
     res.sendFile(path.join(__dirname,'/index.html'))
 })
-app.get('/products/:product',async(req,res)=>{
-    let {product} =req.params
-    productCollects= await db.collection(product);
-    let result = await productCollects.find().toArray()
+app.get('/allFlowers',async(req,res)=>{
+    flowersCollects= await db.collection('flowers');
+    let result = await flowersCollects.find().toArray()
     res.json(result)
 })
 
+app.get('/flower',(req,res)=>{
+    res.sendFile(path.join(__dirname,'/product.html'))
+})
+app.get('/products/:product',async(req,res)=>{
+    let {product} =req.params
+    flowersCollects= await db.collection('flowers');
+    let result = await flowersCollects.find({catalogue:`${product}`}).toArray()
+    res.json(result)
+})
+app.get('/product/:productID',async(req,res)=>{
+    let {productID} =req.params
+    flowersCollects= await db.collection('flowers');
+    let result = await flowersCollects.find( new ObjectId(Number(productID))).toArray()
+    res.send('rada')
+})
 
 
 
