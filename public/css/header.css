@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 body{
+    /* margin-top: 20vh; */
     margin: 0px;
     display: flex;
     justify-content: center;
@@ -22,17 +25,19 @@ body{
 #mobileHeader{
     display: none;
 }
+#headerBody{
+    width: 100%;
+    position: fixed;
+    top: 0px;
+}
 #desktopNav{
-    background-color:#b7828a;
+    background-color:#B7A28A;
     height: 7vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding-left: 15%;
-    padding-right: 15%;
-    position: fixed;
-    top: 12vh;
+    position: relative;
 }
 #topHeader{
     font-family: 'Poppins';
@@ -43,8 +48,6 @@ body{
     align-items: center;
     height: 5vh;
     background-color: rgba(223, 223, 223);
-    position: fixed;
-    top: 0vh;
 }
 #desktopHeader{
     display: flex;
@@ -55,8 +58,6 @@ body{
     font-family: 'Poppins';
     color: whitesmoke;
     width: 100%;
-    position: fixed;
-    top: 5vh;
     background-color: whitesmoke;
 }
 #logo{
@@ -93,8 +94,8 @@ body{
     left: 0;
     display: none;
     flex-direction: column;
-    border: 1px solid #b7828a;
-    background-color: #b7828a;
+    border: 1px solid #B7A28A;
+    background-color: #B7A28A;
     color: whitesmoke;
     font-family: 'Poppins';
     font-size: 13px;

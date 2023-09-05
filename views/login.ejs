@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <section id="loginBody">
+        <img id="loginImage" src="/images/otherImage.jpg" alt="">
+        <div id="loginContents">
+            <h1 class="title" >Login</h1>
+            <div style="width: 100%;display: flex;justify-content: center;">
+                <form id="loginForm" action="" method="get">
+                    <input class="formInput" type="text" name="username" id="username" placeholder="Username" required><br>
+                    <input class="formInput" type="password" name="password" placeholder="Password" id="password"  required><br>
+                    <a id="forgot" href=""><p>Forgot Password?</p></a>
+                    <!-- <p class="errorMsg"><%= errMsg %></p> -->
+                    <button id="loginBtn" type="submit">Login</button>
+                </form>
+            </div>
+            <div id="altOptions">
+                <p>Or Sign in with</p>
+                <button class="altButton" type="submit">
+                    <img class="icon" src="/icons/google Icon.png" alt="">
+                    Google
+                </button>
+                <button class="altButton" type="submit">
+                    <img id="facebook" class="icon" src="/icons/facebook icon.png" alt="">
+                    Facebook
+                </button>
+                <p>Don't have an account? <strong style="color: #B7A28A;">Sign Up</strong></p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -4,7 +4,7 @@
 
 #footer{
     width: 100%;
-    background-color: #b7828a;
+    background-color: #B7A28A;
     display: flex;
     padding-top: 24px;
     flex-direction: column;
@@ -34,7 +34,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 24px;
-    background-color:#b7828a;
+    background-color: #817261;
     color: rgb(219, 219, 219);
     font-family: 'Poppins', sans-serif;
     font-size: 2vh;

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="header.css">
-    <link rel="stylesheet" href="product.css">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="/css/header.css" type="text/css">
+    <link rel="stylesheet" href="/css/product.css" type="text/css">
+    <link rel="stylesheet" href="/css/card.css" type="text/css">
+    <link rel="stylesheet" href="/css/footer.css" type="text/css">
     <title>Document</title>
 </head>
 <body>
@@ -17,33 +18,34 @@
             <img id="hamburger" src="./icons/icons8-hamburger-menu-30.png" alt="">
         </div>
     </header>
-    <div id="topHeader">✔ 7 Day Freshness Guarantee ✔ Order Before 9pm For Next Day Delivery ✔ Free Chocolates Available!</div>
-    <header id="desktopHeader">
+    <header id="headerBody">
+        <div id="topHeader">✔ 7 Day Freshness Guarantee ✔ Order Before 9pm For Next Day Delivery ✔ Free Chocolates Available!</div>
+    <div id="desktopHeader">
         <img id="logo" src="/images/Calyx logo.png" alt="">
         <div style="width: 7%;display: flex; justify-content: space-around;">
             <img id="account" src="/images/accountIcon.png" alt="profile">
             <a href="/cart"><img id="addToCart" src="/images/shoppingCartIcon.png" alt="addToCart"></a>
         </div>
-    </header>
+    </div>
     <nav id="desktopNav">
         <div class="nav-item">
             <button class="nav-button" id="byOccassion">By Occassion</button>
             <div class="dropdown-menu" id="byOccassionMenu">
-                <a class="link" data-product="birthday">Birthdays</a>
-                <a class="link" data-product="congratulation" >Congratulation</a>
-                <a class="link" data-product="love" >love and Romance</a>
-                <a class="link" data-product="thankYou" >Thank You</a>
-                <a class="link" data-product="forHim" >For Him</a>                
-                <a class="link" data-product="valentines" >Valentines</a>
-                <a class="link" data-product="mothersDay" >Mother's Day</a>
-                <a class="link" data-product="getWell" >Get well</a>
-                <a class="link" data-product="funeral" >Funeral</a>
+                <a href="/category/Birthday" class="link" data-product="birthday">Birthdays</a>
+                <a href="/category/Congratulation" class="link" data-product="congratulation" >Congratulation</a>
+                <a href="/category/Love and Romance" class="link" data-product="love" >love and Romance</a>
+                <a href="/category/Thank You" class="link" data-product="thankYou" >Thank You</a>
+                <a href="/category/For Him" class="link" data-product="forHim" >For Him</a>                
+                <a href="/category/Valentines" class="link" data-product="valentines" >Valentines</a>
+                <a href="/category/Mother's Day" class="link" data-product="mothersDay" >Mother's Day</a>
+                <a href="/category/Get Well" class="link" data-product="getWell" >Get well</a>
+                <a href="/category/Funeral" class="link" data-product="funeral" >Funeral</a>
             </div>
         </div>
         <div class="nav-item">
             <button class="nav-button" id="byEvents">Events</button>
             <div class="dropdown-menu" id="byEventsMenu">
-                <a href="">Birthdays</a>
+                <a href="/">Birthdays</a>
                 <a href="">Congratulation</a>
                 <a href="">love and Romance</a>
                 <a href="">Thank You</a>
@@ -90,16 +92,21 @@
             </div>
         </div>
     </nav>
+    </header>
     <h1 class="title">Product</h1>
     <section id="content">
-        <img class="productImage" src="/images/whiteRose.jpg" alt="">
+        <div id="imgSection">
+            <img class="productImageMain" src="<%= image %>"alt="">
+            <div id="imgCollection">
+                <div id="images" style="display: none;"><%= images %></div>    
+            </div>
+        </div>
         <div class="productInfo">
-            <h2 class="productName">Rose</h2>
-            <p class="productDesc">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit commodi nam dicta atque incidunt neque, eaque perferendis nemo quidem consectetur, illo sunt omnis iste consequatur repudiandae impedit perspiciatis nulla fuga?
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae aperiam eveniet, enim, aut at distinctio aliquid adipisci assumenda quibusdam quia debitis corrupti vero repellat beatae hic, facere similique non voluptatibus.
+            <h2 class="productNameMain"><%= name %></h2>
+            <p class="productDescMain">
+                <%= description %>
             </p>
-            <h2 class="productPrice">$1200</h2>
+            <h2 class="productPriceMain"><%= price %></h2>
             <div style="display: flex;align-items: center;" >
                 <div class="icons"></div>
                 lorem
@@ -121,15 +128,6 @@
     <div class="line"></div>
     <h1 class="title">Goes well with...</h1>
     <section id="addOns">
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
-        <div class="productDiv"></div>
     </section>
     <footer id="footer">
         <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
@@ -170,6 +168,36 @@
       </div>
       <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
       </footer>
-      
+      <script src="/js/script.js"></script>
+      <script>
+            let productImageMain = document.getElementsByClassName('productImageMain').item(0)
+            let imgCollection = document.getElementById('imgCollection')
+            let otherImgDiv = document.getElementById('otherImgDiv')
+            let images = document.getElementById('images').innerText
+            images=JSON.parse(images)
+            images.forEach((image)=>{
+                imgCollection.innerHTML+=`
+                <img class="otherImg" src="${image}" alt="">
+                `
+            })
+            let otherImg = document.querySelectorAll('.otherImg')
+            otherImg.forEach((image)=>{
+                image.addEventListener('click',()=>{
+                    let src =image.getAttribute('src')
+                    productImageMain.setAttribute('src',src)
+                    otherImg.forEach((otherImage) => {
+                    otherImage.style.borderColor = 'transparent';
+                    });
+                    image.style.borderColor = 'green'
+                })
+            })
+
+            async function getProducts(){
+            let response = await fetch(`/products/addOns`)
+            let result =await response.json()
+            productDisplay(result,'addOns')
+            }
+            getProducts()
+      </script>
 </body>
 </html>
