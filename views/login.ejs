@@ -13,14 +13,19 @@
         <img id="loginImage" src="/images/otherImage.jpg" alt="">
         <div id="loginContents">
             <h1 class="title" >Login</h1>
-            <div style="width: 100%;display: flex;justify-content: center;">
-                <form id="loginForm" action="" method="get">
-                    <input class="formInput" type="text" name="username" id="username" placeholder="Username" required><br>
+            <div id="formDiv" style="width: 100%;display: flex;justify-content: center;">
+
+                <form id="loginForm" action="/login" method="post">
+                    <input class="formInput" type="text" name="email" id="username" placeholder="Email" required><br>
+                    <p class="errorMsg"><%= wrongUser %></p>
                     <input class="formInput" type="password" name="password" placeholder="Password" id="password"  required><br>
-                    <a id="forgot" href=""><p>Forgot Password?</p></a>
-                    <!-- <p class="errorMsg"><%= errMsg %></p> -->
-                    <button id="loginBtn" type="submit">Login</button>
+                    <p class="errorMsg"><%= wrongPass %></p>
+                    <div style="width: 100%;text-align: center;">
+                        <a id="forgot" href=""><p>Forgot Password?</p></a>
+                    </div>
+                    <button class="submitBtn" id="loginBtn" type="submit">Login</button>
                 </form>
+
             </div>
             <div id="altOptions">
                 <p>Or Sign in with</p>
@@ -32,9 +37,10 @@
                     <img id="facebook" class="icon" src="/icons/facebook icon.png" alt="">
                     Facebook
                 </button>
-                <p>Don't have an account? <strong style="color: #B7A28A;">Sign Up</strong></p>
+                <p>Don't have an account? <strong onclick="renderSignup()" style="color: #B7A28A;">Sign Up</strong></p>
             </div>
         </div>
     </section>
+    <script src="/js/login.js"></script>
 </body>
 </html>

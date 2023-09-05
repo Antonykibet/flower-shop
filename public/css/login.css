@@ -11,7 +11,7 @@
     height: 100%;
 }
 .title{
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     color: rgb(46, 46, 46);
     font-family: 'Inter';
 }
@@ -28,16 +28,34 @@
     font-family: 'Montserrat';
     width: 40%;
     background-color: transparent;
-    text-align: center;
+    /* text-align: center; */
 }
 .formInput{
+    font-family: 'Poppins';
+    color: rgb(46, 46, 46);
     margin-top: 16px;
+    margin-bottom: 0px;
     width: 100%;
     border-radius: 20px;
     height: 40px;
     border: none;
+    outline: none;
     background-color: rgb(212, 212, 212);
     padding-left: 8px;
+}
+.errorMsg{
+    margin: 0px;
+    margin-left: 16px;
+    color: rgb(238, 5, 5);
+    font-size: 11px;
+    font-family: 'Inter';
+}
+#firstname{
+    width: 45%;
+}
+#lastname{
+    margin-left: 8px;
+    width: 45%;
 }
 #forgot{
     margin-top: 0px;
@@ -45,8 +63,8 @@
     color: rgb(46, 46, 46);
     font-size: 13px;
 }
-#loginBtn{
-    margin-top: 16px;
+.submitBtn{
+    margin-top: 8px;
     padding: 4px;
     border-radius: 20px;
     border: none;
@@ -56,6 +74,9 @@
     font-family: 'Poppins';
     font-size: 17px;
     height: 40px;   
+}
+#signBtn{
+    margin-top: 24px;
 }
 #altOptions{
     margin-top: 32px;
