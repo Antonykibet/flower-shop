@@ -1,4 +1,6 @@
-
+a{
+    text-decoration: none;
+}
 #loginBody{
     height: 100vh;
     width: 100%;
@@ -40,8 +42,14 @@
     height: 40px;
     border: none;
     outline: none;
-    background-color: rgb(212, 212, 212);
+    background-color: rgb(219, 219, 219);
     padding-left: 8px;
+}
+#eyeIcon{
+    z-index: 1;
+    position: absolute;
+    top: 45%;
+    right: 8px;
 }
 .errorMsg{
     margin: 0px;

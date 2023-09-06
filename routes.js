@@ -81,22 +81,24 @@ routes.post('/login',async (req,res)=>{
             res.render('login',{wrongUser:'Wrong Username',wrongPass:''})
             return
         }
-        console.log(user)
+
     }catch{
         res.render('login',{wrongUser:'Wrong Username' ,wrongPass:''})    
     }
     if(user.password !== password){
         res.render('login',{wrongUser:'',wrongPass:'Wrong Password'})
-    }else{
-        res.send('aloo')
+        return
     }
-    
-    
+    res.send('aloo') 
+})
+routes.get('/signUp',(req,res)=>{
+    res.render('sign',{error:''})
 })
 routes.post('/signUp',async(req,res)=>{
     const {firstname,lastname,email,password} = req.body
     if( await accountCollection.findOne({email:email})){
-        res.render('login',{wrongUser:'',wrongPass:''})
+        res.render('sign',{error:'Email already exists!'})
+        return
     }
     let user ={
         name:`${firstname} ${lastname}`,
