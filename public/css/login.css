@@ -45,7 +45,7 @@ a{
     background-color: rgb(219, 219, 219);
     padding-left: 8px;
 }
-#eyeIcon{
+.eyeIcon{
     z-index: 1;
     position: absolute;
     top: 45%;

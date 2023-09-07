@@ -19,8 +19,14 @@
                     <input class="formInput" type="text" name="lastname" placeholder="Lastname" id="lastname"  required>
                     <input class="formInput" type="text" name="email" placeholder="Email" id="email"  required><br>
                     <p class="errorMsg"><%= error %></p>
-                    <input class="formInput" type="text" name="password" placeholder="Password" id="password"  required><br>
-                    <input class="formInput" type="text" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword"  required><br>
+                    <div style="width: 100%;position: relative;">
+                        <input class="formInput" type="password" name="password" placeholder="Password" id="password"  required><br>
+                        <img class="eyeIcon" src="/icons/hide password icon.png" alt="">
+                    </div>
+                    <div style="width: 100%;position: relative;">
+                        <input class="formInput" type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword"  required><br>
+                        <img class="eyeIcon" src="/icons/hide password icon.png" alt="">
+                    </div>
                     <button class="submitBtn" id='signBtn' type="submit">Sign Up</button>
                 </form>`
             </div>
