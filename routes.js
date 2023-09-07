@@ -15,7 +15,27 @@ async function dbInit(){
     accountCollection = await db.collection('accounts')
 } 
 
+routes.post('/login',async (req,res)=>{
+    const {email,password} = req.body
+    console.log(email,password)
+    let user
+    try{
+        user = await accountCollection.findOne({email:email})
+        if(!user){
+            res.render('login',{wrongUser:'Wrong Username',wrongPass:''})
+            return
+        }
 
+    }catch{
+        res.render('login',{wrongUser:'Wrong Username' ,wrongPass:''})    
+    }
+    if(user.password !== password){
+        res.render('login',{wrongUser:'',wrongPass:'Wrong Password'})
+        return
+    }
+    req.session.user = {email,password}
+    res.send(JSON.stringify(req.session)) 
+})
 
 routes.get('/category/:page',async (req,res)=>{
     const {page} = req.params
@@ -71,26 +91,7 @@ routes.get('/cart',(req,res)=>{
 routes.get('/login',(req,res)=>{
     res.render('login',{wrongUser:'',wrongPass:''})
 })
-routes.post('/login',async (req,res)=>{
-    const {email,password} = req.body
-    console.log(email,password)
-    let user
-    try{
-        user = await accountCollection.findOne({email:email})
-        if(!user){
-            res.render('login',{wrongUser:'Wrong Username',wrongPass:''})
-            return
-        }
 
-    }catch{
-        res.render('login',{wrongUser:'Wrong Username' ,wrongPass:''})    
-    }
-    if(user.password !== password){
-        res.render('login',{wrongUser:'',wrongPass:'Wrong Password'})
-        return
-    }
-    res.send('aloo') 
-})
 routes.get('/signUp',(req,res)=>{
     res.render('sign',{error:''})
 })
