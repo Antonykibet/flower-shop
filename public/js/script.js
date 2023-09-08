@@ -1,9 +1,22 @@
 let cartArray = []
 let links =document.querySelectorAll('.link')
+let headerIcons =document.querySelectorAll('.headerIcons')
 let result=null
 let addcartBtn
 
-
+async function adminBtn(){
+    let response = await fetch('/role')
+    let role = await response.json()
+    //alert(role)
+    if(role=='Admin'){
+        headerIcons.forEach((header)=>{
+            header.innerHTML+=`
+                <a href='/admin/dashboard'><button>Admin</button></a>
+            `
+        })
+    }
+}
+adminBtn()
 // links.forEach((link)=>{
 //     link.addEventListener('click',async ()=>{
 //         contentDiv.innerHTML=''

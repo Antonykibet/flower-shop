@@ -22,9 +22,8 @@ function auth(req,res,next){
     }
 }
 admnRoute.use('/admin',auth)
-admnRoute.get('/admin',(req,res)=>{
-    //const {email,password}=req.session.user
-    res.send(`${JSON.stringify(req.session.user)}`)
+admnRoute.get('/admin/dashboard',(req,res)=>{
+    res.render('dashboard.ejs')
 })
 
 

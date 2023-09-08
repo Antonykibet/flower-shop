@@ -14,7 +14,10 @@ async function dbInit(){
     flowerCollection = await db.collection('flowers')
     accountCollection = await db.collection('accounts')
 } 
-
+routes.get('/role',(req,res)=>{
+    const {role} = req.session.user 
+    res.json(role)
+})
 routes.post('/login',async (req,res)=>{
     const {email,password} = req.body
     console.log(email,password)
@@ -33,8 +36,8 @@ routes.post('/login',async (req,res)=>{
         res.render('login',{wrongUser:'',wrongPass:'Wrong Password'})
         return
     }
-    req.session.user = {email,password}
-    res.send(JSON.stringify(req.session)) 
+    if(email=='antonykibet059@gmail.com' && password=='123@Anto')req.session.user = {email,role:'Admin'}  
+    res.redirect('/')
 })
 
 routes.get('/category/:page',async (req,res)=>{

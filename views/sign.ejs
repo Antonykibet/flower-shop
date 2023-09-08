@@ -14,7 +14,7 @@
         <div id="loginContents">
             <h1 class="title" >Sign up</h1>
             <div id="formDiv" style="width: 100%;display: flex;justify-content: center;">
-                <form id="loginForm" action="/signUp" method="post">
+                <form id="Form" action="/signUp" method="post">
                     <input class="formInput" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
                     <input class="formInput" type="text" name="lastname" placeholder="Lastname" id="lastname"  required>
                     <input class="formInput" type="text" name="email" placeholder="Email" id="email"  required><br>
@@ -45,5 +45,20 @@
         </div>
     </section>
     <script src="/js/login.js"></script>
+    <script>
+         function validateForm(event) {
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            
+            if (password.value !== confirmPassword.value) {
+                alert('Passwords do not match. Please enter matching passwords.');
+                password.style.border='1px solid rgb(238, 5, 5)'
+                confirmPassword.style.border='1px solid rgb(238, 5, 5)'
+                event.preventDefault(); // Prevent the form from being submitted
+            }
+        }
+        const signupForm = document.getElementById('Form');
+        signupForm.addEventListener('submit', validateForm);
+    </script>
 </body>
 </html>
