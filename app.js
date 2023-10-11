@@ -6,7 +6,7 @@ const {routes,dbClient, dbInit} = require('./routes.js')
 const {admnRoute} = require('./adminRoutes.js')
 const sessions = require('express-session')
 const app = express()
-const PORT=3500
+const PORT=5500
 
 app.use(sessions({
         secret:'sayMyName',

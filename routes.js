@@ -15,8 +15,12 @@ async function dbInit(){
     accountCollection = await db.collection('accounts')
 } 
 routes.get('/role',(req,res)=>{
-    const {role} = req.session.user 
-    res.json(role)
+    if(req.session.user){
+        const {role} = req.session.user 
+        res.json(role)
+        return
+    }
+    res.redirect('/')
 })
 routes.post('/login',async (req,res)=>{
     const {email,password} = req.body

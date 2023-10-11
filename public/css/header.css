@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 body{
     /* margin-top: 20vh; */
     margin: 0px;
@@ -58,12 +59,13 @@ body{
     font-family: 'Poppins';
     color: whitesmoke;
     width: 100%;
-    background-color: whitesmoke;
+    background-color: white;
 }
 #logo{
     width: 10%;
     height: 9vh;
     object-fit: cover;
+    border: solid;
 }
 #account{
     width: 24px;
@@ -73,7 +75,7 @@ body{
     width: 24px;
     height: 24px;
 }
-.nav-item {
+.navItem {
     color: whitesmoke;
     position: relative;
     display: inline-block;
@@ -100,6 +102,68 @@ body{
     font-family: 'Poppins';
     font-size: 13px;
 }
-.nav-item:hover .dropdown-menu {
+.navItem:hover .dropdown-menu {
     display: flex;
+}
+
+@media screen and (max-width:1000px) {
+    #logo{
+        width: 100px;
+        height: 56px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        object-fit: cover;
+    }
+    #topHeader{
+        font-size: 10px;
+        display: none;
+    }
+    #desktopNav{
+        flex-direction: column;
+        height: auto;
+        display: none;
+    }
+    .navItem{
+       
+        height: auto;
+        width: 100%;
+        margin-right: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    #desktopHeader{
+        box-shadow: 0 2px 8px 0 rgba(112, 112, 112, 0.3);
+    }
+    .dropdown-menu {
+        position: static;
+        justify-content: center;
+        align-items: center;
+        background-color: #8f7e6c;
+        width: 100%;
+    }
+    .bi-list{
+        font-size: 32px;
+    }
+    .bi-person-circle{
+        font-size: 24px;
+        color: #2e2e2e;
+    }
+    #cartIcon{
+        font-size: 24px;
+        color: #2e2e2e;
+
+    }
+    .headerIcons{
+        margin-right: 16px;
+        color: #2e2e2e;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .headerIcons i{
+        margin-left: 16px;
+    }
 }

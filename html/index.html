@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Flower shop</title>
 </head>
 <body>
-    <header id="mobileHeader">
+    <!--<header id="mobileHeader">
         <img id="logo" src="/images/Calyx logo.png" alt="">
-        <div style="margin-right: 50px;width: 30%;display: flex;justify-content: space-between;align-items: center;">
+        <div style="margin-right: 50px;width: 30%;display: flex;justify-content: space-between;alignItems: center;">
             <img id="account" src="/images/accountIcon.png" alt="profile">
             <a href="/cart"><img id="addToCart" src="./images/shoppingCartIcon.png" alt=""></a>
             <img id="hamburger" src="./icons/icons8-hamburger-menu-30.png" alt="">
         </div>
-    </header>
+    </header>-->
     <header id="headerBody">
         <div id="topHeader">✔ 7 Day Freshness Guarantee ✔ Order Before 9pm For Next Day Delivery ✔ Free Chocolates Available!</div>
         <div id="desktopHeader">
             <img id="logo" src="/images/Calyx logo.png" alt="">
-            <div class="headerIcons" id="deskHeaderIcon" style="width: 9%;display: flex; justify-content: space-around;">
-                <a href="/login"><img id="account" src="/images/accountIcon.png" alt="profile"></a>
-                <a href="/cart"><img id="addToCart" src="/images/shoppingCartIcon.png" alt="addToCart"></a>
+
+            <div class="headerIcons" id="deskHeaderIcon">
+                <a href="/login"><i class="bi bi-person-circle"></i></a>
+                <a href="/cart"><i id="cartIcon" class="bi bi-cart4"></i></a>
+                <i class="bi bi-list"></i>
             </div>
         </div>
         <nav id="desktopNav">
-            <div class="nav-item">
+            <div class="navItem">
                 <button class="nav-button" id="byOccassion">By Occassion</button>
                 <div class="dropdown-menu" id="byOccassionMenu">
                     <a href="/category/Birthday" class="link" data-product="birthday">Birthdays</a>
@@ -41,7 +44,7 @@
                     <a href="/category/Funeral" class="link" data-product="funeral" >Funeral</a>
                 </div>
             </div>
-            <div class="nav-item">
+            <div class="navItem">
                 <button class="nav-button" id="byEvents">Events</button>
                 <div class="dropdown-menu" id="byEventsMenu">
                     <a href="">Birthdays</a>
@@ -56,7 +59,7 @@
                 </div>
             </div>
     
-            <div class="nav-item">
+            <div class="navItem">
                 <button class="nav-button" id="giftHampers">Gift Hampers</button>
                 <div class="dropdown-menu" id="giftHampersMenu">
                     <a href="">For Her</a>
@@ -67,7 +70,7 @@
                 </div>
             </div>
             
-            <div class="nav-item">
+            <div class="navItem">
                 <button class="nav-button" id="byPrice">By Price</button>
                 <div class="dropdown-menu" id="byPriceMenu">
                     <a href="">For Her</a>
@@ -75,7 +78,7 @@
                 </div>
             </div>
     
-            <div class="nav-item">
+            <div class="navItem">
                 <button class="nav-button" id="byType">By Type</button>
                 <div class="dropdown-menu" id="byTypeMenu">
                     <a href="">For Her</a>
@@ -83,7 +86,7 @@
                 </div>
             </div>
     
-            <div class="nav-item">
+            <div class="navItem">
                 <button class="nav-button" id="Subscriptions">Subscriptions</button>
                 <div class="dropdown-menu" id="subscriptionMenu">
                     <a href="">For Her</a>

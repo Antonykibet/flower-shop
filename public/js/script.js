@@ -1,9 +1,21 @@
 let cartArray = []
 let links =document.querySelectorAll('.link')
 let headerIcons =document.querySelectorAll('.headerIcons')
+let menu = document.querySelector('.bi-list')
+let navDropdown = document.querySelector('#desktopNav')
 let result=null
 let addcartBtn
 
+
+
+menu.addEventListener('click',()=>{
+    
+    if(navDropdown.style.display=='none'){
+        navDropdown.style.display='flex'
+        return
+    }
+    navDropdown.style.display='none'
+})
 async function adminBtn(){
     let response = await fetch('/role')
     let role = await response.json()
@@ -16,7 +28,7 @@ async function adminBtn(){
         })
     }
 }
-adminBtn()
+//adminBtn()
 // links.forEach((link)=>{
 //     link.addEventListener('click',async ()=>{
 //         contentDiv.innerHTML=''
