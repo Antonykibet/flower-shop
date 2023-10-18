@@ -21,7 +21,6 @@ body{
     background-size: cover;
     background-position:right 20%;
     display: flex;
-    margin-top: 25vh;
 }
 #landingScreen{
     padding-left: 48px;
@@ -53,6 +52,7 @@ body{
     justify-content: space-around;
     align-items: top; 
     margin-bottom: 24px;
+    min-height: 100vh;
 }
 .productDiv{
     width: 20%;
@@ -126,11 +126,10 @@ body{
 
 @media screen and (max-width: 1000px) {
     body{
-        padding-top: 3vh;
+        padding-top: 9vh;
         background-color:  rgb(255, 255, 255);
     }
     #landing{
-        margin-top: 7vh;
         width: 95%;
         height: 25vh;
     }
@@ -198,28 +197,5 @@ body{
         object-fit: cover;
         object-position: center 35%;
     }
-    #footer{
-        display: flex;
-        flex-direction: column;
-        height: auto;
-    }
-    #mainFooter{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .footerNavs{
-        /* position: relative; */
-    }
-    .footerDropdown{
-        /* position: absolute; */
-        /* top: 100%; 
-        left: 0; */
-        display: none;
-        flex-direction: column;
-    }
-    .footerNavs:active .footerDropdown {
-        display: flex;
-    }
+    
 }

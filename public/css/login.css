@@ -45,6 +45,9 @@ a{
     background-color: rgb(219, 219, 219);
     padding-left: 8px;
 }
+.formInput:focus {
+    background-color: rgb(219, 219, 219);
+  }
 .eyeIcon{
     z-index: 1;
     position: absolute;
@@ -120,4 +123,38 @@ a{
     font-weight: 500;
     font-size: 17px;
     height: 40px
+}
+@media screen and (max-width:1000px) {
+   
+    #loginImage{
+        display: none;
+    }
+    #loginBody{
+     
+    }
+    #loginContents{
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        height: 60%;
+    }
+    #Form{
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .formInput{
+        width: 97%;
+        margin-top: 16px;
+    }
+    #firstname{
+        width: 97%;
+    }
+    #lastname{
+        width: 97%;
+    }
+    #altOptions{
+        width: 90%;
+    }
 }

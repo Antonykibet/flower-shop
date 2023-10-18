@@ -1,43 +1,16 @@
-let cartArray = []
 let links =document.querySelectorAll('.link')
 let headerIcons =document.querySelectorAll('.headerIcons')
-let menu = document.querySelector('.bi-list')
-let navDropdown = document.querySelector('#desktopNav')
+let cartItems = []
 let result=null
 let addcartBtn
 
-
-
-menu.addEventListener('click',()=>{
-    
-    if(navDropdown.style.display=='none'){
-        navDropdown.style.display='flex'
-        return
-    }
-    navDropdown.style.display='none'
-})
-async function adminBtn(){
-    let response = await fetch('/role')
-    let role = await response.json()
-    //alert(role)
-    if(role=='Admin'){
-        headerIcons.forEach((header)=>{
-            header.innerHTML+=`
-                <a href='/admin/dashboard'><button>Admin</button></a>
-            `
-        })
-    }
+async function getCartItems(){
+    let response = await fetch('/addCart')
+    cartItems = await response.json()
 }
-//adminBtn()
-// links.forEach((link)=>{
-//     link.addEventListener('click',async ()=>{
-//         contentDiv.innerHTML=''
-//         let product = link.getAttribute('data-product')
-//         let response = await fetch(`/products/${product}`)
-//         result = await response.json()
-//         productDisplay(result)
-//     })
-// })
+getCartItems()
+
+
 
 
 
@@ -60,19 +33,28 @@ function productDisplay(result,section = 'content'){
             </div>
             <button class='cartButton' index='${index}'>Order Now</button>    
         `
+        addCartFunc(productDiv,item)
         contentDiv.appendChild(productDiv)
     })
-    addCartFunc()
 }
 
-function addCartFunc(){
-    addcartBtn = document.querySelectorAll('.cartButton')
-    addcartBtn.forEach((cartBtns)=>{
-        cartBtns.addEventListener('click',()=>{
-            let index = cartBtns.getAttribute('index')
-            cartArray.push(result[ Number(index)])
-            localStorage.setItem('cartItems',JSON.stringify(cartArray))
-        })
+function addCartFunc(elem,item){
+    addcartBtn = elem.querySelector('.cartButton')
+    addcartBtn.addEventListener('click', async()=>{
+        try {
+            //await getCartItems()
+            if(cartItems.some(cartItem=>cartItem._id===item._id)) return
+            cartItems.push(item)
+            await fetch('/addCart',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({cartItems:cartItems}),
+            })   
+        } catch (error) {
+            alert(`Error:Did not add to cart.`)
+        }
     })
 }
 

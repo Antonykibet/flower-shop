@@ -11,5 +11,42 @@ body{
 #content{
     width: 90%;
     padding-top: 0px;
-    min-height: 90vh;
+    display: flex;
+    
+}
+@media screen and (max-width:1000px) {
+    #title{
+        margin-top: 10vh;
+        margin-bottom: 16px;
+    }
+    .productDiv{
+        width: 40%;
+        margin: 8px;
+        margin-left: 8px;
+        margin-right: 8px;
+        padding-top: 8px;
+        box-shadow: 0 8px 16px 0 rgba(54, 53, 53, 0.3);
+    }
+    #content{
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        padding-bottom: 24px;
+    }
+    .productImage{
+        height: 20vh;
+    }
+    .descDiv{
+        display: none;
+    }
+    .productName{
+        font-size: 15px;
+    }
+    .productPrice{
+        font-size: 14px;
+    }
+    .nameDiv{
+        margin-top: 0px;
+    }
 }

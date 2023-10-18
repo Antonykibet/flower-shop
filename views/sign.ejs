@@ -15,9 +15,9 @@
             <h1 class="title" >Sign up</h1>
             <div id="formDiv" style="width: 100%;display: flex;justify-content: center;">
                 <form id="Form" action="/signUp" method="post">
-                    <input class="formInput" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
-                    <input class="formInput" type="text" name="lastname" placeholder="Lastname" id="lastname"  required>
-                    <input class="formInput" type="text" name="email" placeholder="Email" id="email"  required><br>
+                    <input class="formInput" type="text" name="firstname" id="firstname" placeholder="Firstname" required autocomplete="off">
+                    <input class="formInput" type="text" name="lastname" placeholder="Lastname" id="lastname"  required autocomplete="off">
+                    <input class="formInput" type="text" name="email" placeholder="Email" id="email"  required ><br>
                     <p class="errorMsg"><%= error %></p>
                     <div style="width: 100%;position: relative;">
                         <input class="formInput" type="password" name="password" placeholder="Password" id="password"  required><br>

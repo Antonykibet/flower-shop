@@ -12,7 +12,11 @@ body{
     align-items: center;
     flex-direction: column;
     overflow-x: hidden;
-    background-color: rgb(245, 245, 245);
+    background-color: white;
+    padding-top: 25vh;
+}
+a{
+    text-decoration: none;
 }
 .link{
     padding-left: 8px;
@@ -30,8 +34,9 @@ body{
     width: 100%;
     position: fixed;
     top: 0px;
+    z-index: 100;
 }
-#desktopNav{
+.desktopNav{
     background-color:#B7A28A;
     height: 7vh;
     width: 100%;
@@ -105,6 +110,45 @@ body{
 .navItem:hover .dropdown-menu {
     display: flex;
 }
+.loginDropdown{
+    display: none;
+    position: absolute;
+    font-family:'Montserrat' ;
+    top: 24vh;
+    right: 0px;
+    padding: 8px;
+    padding-top: 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 2px 8px 0 rgba(112, 112, 112, 0.3);
+    border-radius: 8px;
+}
+.show{
+    display: block;
+}
+.bi-list{
+    font-size: 32px;
+    display: none;
+}
+.bi-person-circle{
+    font-size: 24px;
+    cursor: pointer;
+    color: #2e2e2e;
+}
+#cartIcon{
+    font-size: 24px;
+    color: #2e2e2e;
+
+}
+.loginDropdown a{
+    margin: 0px;
+    margin-top: 8px;
+    color: #2e2e2e;
+}
+
+
 
 @media screen and (max-width:1000px) {
     #logo{
@@ -118,13 +162,12 @@ body{
         font-size: 10px;
         display: none;
     }
-    #desktopNav{
+    .desktopNav{
+        display: none;
         flex-direction: column;
         height: auto;
-        display: none;
     }
     .navItem{
-       
         height: auto;
         width: 100%;
         margin-right: 0px;
@@ -135,6 +178,7 @@ body{
     }
     #desktopHeader{
         box-shadow: 0 2px 8px 0 rgba(112, 112, 112, 0.3);
+        z-index: 100;
     }
     .dropdown-menu {
         position: static;
@@ -143,19 +187,8 @@ body{
         background-color: #8f7e6c;
         width: 100%;
     }
-    .bi-list{
-        font-size: 32px;
-    }
-    .bi-person-circle{
-        font-size: 24px;
-        color: #2e2e2e;
-    }
-    #cartIcon{
-        font-size: 24px;
-        color: #2e2e2e;
-
-    }
     .headerIcons{
+        position: relative;
         margin-right: 16px;
         color: #2e2e2e;
         font-size: 24px;
@@ -166,4 +199,18 @@ body{
     .headerIcons i{
         margin-left: 16px;
     }
+    .loginDropdown{
+        padding: 8px;
+        top: 8vh;
+        font-size: 17px;
+    }
+    .loginDropdown a {
+        margin: 0px;
+        margin-top: 8px;
+        margin-bottom: 16px;
+    }
+    .bi-list{
+        display: block;
+    }
+    
 }
