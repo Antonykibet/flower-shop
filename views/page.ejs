@@ -16,12 +16,17 @@
             <img id="logo" src="/images/Calyx logo.png" alt="">
 
             <div class="headerIcons" id="deskHeaderIcon">
-                <!--<a href="/login"><i class="bi bi-person-circle"></i></a>-->
+                <i class="bi bi-person-circle"></i>
                 <a href="/cart"><i id="cartIcon" class="bi bi-cart4"></i></a>
                 <i class="bi bi-list"></i>
+                <div class="loginDropdown">
+                    <a href="/login">Login</a>
+                    <a href="">Subscriptions</a>
+                    <a href="/admin/dashboard">Admin Dashboard</a>
+                </div>
             </div>
         </div>
-        <nav id="desktopNav">
+        <nav class="desktopNav">
             <div class="navItem">
                 <button class="nav-button" id="byOccassion">By Occassion</button>
                 <div class="dropdown-menu" id="byOccassionMenu">
@@ -87,8 +92,9 @@
             </div>
         </nav>
     </header>
-
-    <h1 id="title"><%= title%></h1>
+    <h1 class="mainTitle"></h1>
+    <h1  id="catalogueTitle" ><%= title%></h1>
+    <nav id="catalogueNav"></nav>
     <section id="content">
     </section>
     <footer id="footer">

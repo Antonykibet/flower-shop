@@ -13,6 +13,9 @@ body{
     overflow-x: hidden;
     background-color: white;
 }
+a{
+    color: whitesmoke;
+}
 #landing{
     width: 97%;
     height: 40vh;
@@ -53,6 +56,9 @@ body{
     align-items: top; 
     margin-bottom: 24px;
     min-height: 100vh;
+}
+.secondaryContent{
+    height: 40vh;
 }
 .productDiv{
     width: 20%;
@@ -120,6 +126,45 @@ body{
     width: 100%;
     margin-bottom: 8px;
     border-radius: 2px;
+}
+#productCatalogue{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(218, 218, 218);
+    margin-top: 24px;
+}
+.catalogue{
+    position: relative;
+    width: 25%;
+    height: 50vh;
+    margin: 40px;
+    border-radius: 8px;
+    overflow: auto;
+    overflow-y: hidden;
+}
+.catalogueImage{
+    width: 100%;
+    height: 100%;
+
+}
+.catalogueScreen{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.503);
+    color: white;
+    font-family: 'Poppins',sans-serif;
+    font-size: 30px;
+}
+.carouselScreen:hover{
+    cursor: pointer;
 }
 
 
@@ -196,6 +241,17 @@ body{
         height: 20vh;
         object-fit: cover;
         object-position: center 35%;
+    }
+    #productCatalogue{
+        flex-direction: column;
+    }
+    .catalogue{
+        width: 90%;
+        height: 30vh;
+    }
+    .catalogueImage{
+        object-fit: cover;
+        object-position: center;
     }
     
 }

@@ -36,6 +36,9 @@ a{
     top: 0px;
     z-index: 100;
 }
+.headerIcons{
+    margin-right: 24px;
+}
 .desktopNav{
     background-color:#B7A28A;
     height: 7vh;
@@ -114,19 +117,20 @@ a{
     display: none;
     position: absolute;
     font-family:'Montserrat' ;
-    top: 24vh;
-    right: 0px;
+    top: 17vh;
+    z-index: 100;
+    right: 16px;
     padding: 8px;
     padding-top: 0px;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     background-color: white;
     box-shadow: 0 2px 8px 0 rgba(112, 112, 112, 0.3);
     border-radius: 8px;
 }
 .show{
-    display: block;
+    display: flex;
 }
 .bi-list{
     font-size: 32px;
@@ -136,6 +140,7 @@ a{
     font-size: 24px;
     cursor: pointer;
     color: #2e2e2e;
+    margin-right: 8px;
 }
 #cartIcon{
     font-size: 24px;

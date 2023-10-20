@@ -11,7 +11,7 @@ const {dbInit,accounts,products,orders,dashboard,ObjectId} = require('./mongoCon
 routes.post('/addCart',async(req,res)=>{
     const {cartItems} = req.body
     req.session.cartItems=cartItems
-    await dashboard.updateOne({ _id: new ObjectId('6517ac53474a5ac96b8de971')},{ $inc: {cartItems: 1 }})
+    await dashboard.updateOne({ _id: new ObjectId('652f3ad8c237523c7b489530')},{ $inc: {cartItems: 1 }})
     res.redirect('/')
 })
 routes.get('/addCart',(req,res)=>{
@@ -70,16 +70,6 @@ routes.get('/allFlowers',async(req,res)=>{
     res.json(result)
 })
 
-routes.get('/flower',(req,res)=>{
-    // res.sendFile(path.join(__dirname,'/product.html'))
-    readFile('product.html','utf-8',(err,html)=>{
-        if(err){
-            res.status(404).sendFile(path.join(__dirname,'/fail.html'))
-            return
-        }
-        res.send(html)
-    })
-})
 routes.get('/products/:product',async(req,res)=>{
     let {product} =req.params
     let result = await products.find({catalogue:`${product}`}).toArray()
@@ -95,17 +85,17 @@ routes.get('/product/:productID',async(req,res)=>{
         description:description,
         price:price
     }
+    
     await res.render('product',details)
 })
-routes.get('/getFlowers',async (req,res)=>{
+routes.get('/getProducts',async (req,res)=>{
     let result = await products.find().toArray()
-    console.log(result)
     res.json(result)
 })
 routes.get('/',async(req,res)=>{
     try {
         if(!req.session.visited){
-            await dashboard.updateOne({ _id: new ObjectId('6517ac53474a5ac96b8de971')},{ $inc: { visits: 1 }})
+            await dashboard.updateOne({ _id: new ObjectId('652f3ad8c237523c7b489530')},{ $inc: { visits: 1 }})
             req.session.visited=true
         }   
     } catch (error) {
@@ -137,5 +127,25 @@ routes.post('/signUp',async(req,res)=>{
     await accounts.insertOne(user)
     console.log(`Account creation succesful:${user.name}`)
     res.render('login',{wrongUser:'',wrongPass:''})
+})
+routes.post('/checkout',async(req,res)=>{
+    
+    try {
+        const {fname,lname,phoneNo,email,totalPrice} = req.body
+        const cart = req.session.cartItems
+        let order ={
+            name:`${fname} ${lname}`,
+            phoneNo,
+            email,
+            totalPrice,
+            cart,
+        }
+        await orders.insertOne(order)
+        req.session.cartItems=[]
+        res.redirect('/')
+    } catch (error) {
+        console.log(`Failed CheckOut ${fname} ${lname}`)
+        console.log(error)
+    }
 })
 module.exports = {routes,dbInit}

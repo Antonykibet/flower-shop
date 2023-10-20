@@ -3,10 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/dash.css">
+    <title>Dashboard</title>
 </head>
 <body>
-    <h1>Mkurugenzi</h1>
-    <script src="dash.js"></script>
+    <header id="dashHeader">
+        <h2 id="adminHeaderTitle" style="margin-right: 56px;" >Admin Dashboard</h2>
+    </header>
+    <section class="column" id="firstColumn">
+        <div id="productLab">
+            <h2 class="title">Product Lab</h2>
+            <ul>
+                <li id="create" class="CRUD">Create</li>
+                <li id="update" class="CRUD">Update</li>
+                <li id="delete" class="CRUD">Delete</li>
+            </ul>
+        </div>
+    </section>
+    <section class="column" id="secondColumn">
+        <div id="indicators">
+            <div class="indicator" id="siteVisits">
+                <h1>Site Visits</h1>
+                <h2 class="indicatorValue"><%= siteVisits %></h2>
+            </div>
+            <div class="indicator" id="carts">
+                <h1>Carts</h1>
+                <h2 class="indicatorValue"><%= carts %></h2>
+            </div>
+            <div class="indicator" id="checkouts">
+                <h1>Checkouts</h1>
+                <h2 class="indicatorValue"><%= checkouts %></h2>
+            </div>
+        </div>
+        <div id="orderTrack">
+            <h1 class="title">Track Orders</h1>
+        </div>
+    </section>
+
+    <script src="/js/dash.js"></script>
 </body>
 </html>
