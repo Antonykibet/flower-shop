@@ -153,6 +153,41 @@ body{
     background-color: rgb(155, 155, 155);
     border-radius: 4px; 
 }
+.bi-x-circle{
+    font-size: 24px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.modalBackground{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0px;
+    bottom: 0px;
+    width: 100vw;
+    background-color: rgba(26, 26, 26, 0.61);
+    backdrop-filter: blur(1px);
+}
+.modal{
+    width: auto;
+    height: 50%;
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: 'Inter';
+    color: #2e2e2e;
+    margin-top: 17vh;
+    padding-bottom: 24px;
+    padding-top: 24px;
+}
 @media screen  and (max-width:1000px) {
     body{
         padding-top: 10vh;

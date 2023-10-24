@@ -77,13 +77,15 @@ routes.get('/products/:product',async(req,res)=>{
 })
 routes.get('/product/:productID',async(req,res)=>{
     let {productID} =req.params
-    let {image,name,description,price,images} = await products.findOne(new ObjectId(productID))
+    let item  = await products.findOne(new ObjectId(productID))
+    let {image,name,description,price,images,catalogue} =item
     let details={
         image:image,
         images:JSON.stringify(images),
         name:name,
         description:description,
-        price:price
+        price:price,
+        item:JSON.stringify(item)
     }
     
     await res.render('product',details)

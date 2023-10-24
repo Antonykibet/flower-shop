@@ -133,8 +133,8 @@ function orderList(index,name,email,phoneNo){
 function updateForm(){
     return  `
     <div class='modal'>
-    <i class="bi bi-x-circle"></i>
-    <h1>Update Product</h1>
+        <i class="bi bi-x-circle"></i>
+        <h1>Update Product</h1>
         <form action="/admin/update" method="post" enctype='multipart/form-data'>
             <label for='productsDropdown'>Product name</label>
             <select class='input' id="productsDropdown" name='prodName'></select>

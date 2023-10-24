@@ -122,7 +122,7 @@
             </div>
             <div class="btnDiv">
                 <button class="CTOs" id="continueBtn">Continue shopping</button>
-                <button class="CTOs" id="cartBtn"><i class="bi bi-cart-plus"></i> Add to cart</button>
+                <button class="CTOs" id="cartBtn" value="<%=item %>"><i class="bi bi-cart-plus"></i> Add to cart</button>
             </div>
         </div>
     </section>
@@ -171,6 +171,7 @@
       </footer>
       <script src="/js/script.js"></script>
       <script src="/js/header.js"></script>
+      <script src="/js/product.js"></script>
       <script>
             let productImageMain = document.getElementsByClassName('productImageMain').item(0)
             let imgCollection = document.getElementById('imgCollection')

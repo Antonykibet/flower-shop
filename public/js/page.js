@@ -4,13 +4,28 @@ let content = document.getElementById('content')
 let MainTitle = document.querySelector('.mainTitle')
 let byOccassion = ['Congratulation', 'Birthday','Love and romance','Thank you','Valentines','Mothers day','Get well','Funeral']
 let giftHampers = ['For him','For Her','Bestie','Baby shower','Bridal shower']
+let subscription=['Monthly','Quartely','Yearly']
 
 if(byOccassion.includes(catalogueTitle.innerText)){
-    MainTitle.innerHTML='By Occassion'
+    renderNavbarAndTitle('By Occassion',byOccassion)
+    catalogBtnToggle()
+}
+if(giftHampers.includes(catalogueTitle.innerText)){
+    renderNavbarAndTitle('Gift Hampers',giftHampers)
+    catalogBtnToggle()
+}
+if(subscription.includes(catalogueTitle.innerText)){
+    renderNavbarAndTitle('Subscription',subscription)
+    catalogBtnToggle()
+}
+function renderNavbarAndTitle(title,catalogue){
+    MainTitle.innerHTML= title 
     catalogueNav.innerHTML=''
-    byOccassion.forEach(item=>{
-        catalogueNav.innerHTML+=`<div class='catalogBtn'>${item}</div>`
+    catalogue.forEach(item=>{
+        catalogueNav.innerHTML+=`<h2 class='catalogBtn'>${item}</h2>`
     })
+}
+function catalogBtnToggle(){
     let catalogBtn =catalogueNav.querySelectorAll('.catalogBtn')
     catalogBtn.forEach(btn=>{
         btn.addEventListener('click',()=>{
@@ -23,13 +38,6 @@ if(byOccassion.includes(catalogueTitle.innerText)){
         if(btn.innerText==catalogueTitle.innerText){
             btn.style.color='brown'
         }
-    })
-}
-
-if(giftHampers.includes(catalogueTitle.innerText)){
-    MainTitle.innerHTML='Gift Hampers'
-    giftHampers.forEach(item=>{
-        catalogueNav.innerHTML+=`<div>${item}</div>`
     })
 }
 async function getProducts(catTitle){
