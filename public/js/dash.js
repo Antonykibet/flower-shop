@@ -1,7 +1,7 @@
 let lists = document.querySelectorAll('.CRUD')
 let orderTrack=document.getElementById('orderTrack')
 let items = []
-let orderItems = []
+let subscibedItems = []
 
 async function getItems(){
     let response = await fetch('/getProducts')
@@ -27,7 +27,6 @@ function updateSelectFunc(div){
     productsDropdown.addEventListener('change',()=>{  
         const product_id = productsDropdown.value
         const product = items.find((item)=>item._id==product_id)
-
         const {description,top,_id,price,name} = product 
         div.querySelector('#identifier').value=_id
         div.querySelector('#type').value=name
@@ -53,7 +52,7 @@ lists.forEach((list)=>{
             updateSelectFunc(modalBackground)
         }
         if(list.getAttribute('id')=='delete'){
-            modalBackground.innerHTM.nameL=deleteFo.namerm()
+            modalBackground.innerHTML=deleteForm()
             productDropdownFunc(modalBackground)
         }
         
@@ -67,63 +66,92 @@ lists.forEach((list)=>{
 })
 
 async function getOrderdItems(){
-    let response=await fetch('/admin/orderdItems')
-    orderItems=await response.json()
-    orderItems.forEach((item,index)=>{
-        const {_id,name,phoneNo,email,cart,} = item
+    let response=await fetch('/admin/subscribedItems')
+    subscibedItems=await response.json()
+    displaySubscribedItems()
+}
+
+function deliveryDate(interval) {
+    let today = new Date()
+    let nextDate
+    if(interval=='Weekly'){
+        nextDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    }
+    if(interval=='fortnight'){
+        nextDate = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+    }
+    const day = String(nextDate.getDate()).padStart(2, '0');
+    const month = String(nextDate.getMonth() + 1).padStart(2, '0');
+    const year = nextDate.getFullYear();
+  
+    return `${day}/${month}/${year}`;
+  }
+
+function displaySubscribedItems(){
+    subscibedItems.forEach((item,index)=>{
+        let {_id,name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery} = item
         let list = document.createElement('div')
         list.classList.add('orderRecord')
-        list.innerHTML=orderList(index,name,email,phoneNo)
-        orderTrack.appendChild(list)
-
-        let productItems = list.querySelector('.productItems')
-        cart.forEach((item)=>{
-            productItems.innerHTML+=`
-            <div>
-                <p>${item.catalogue}:${item.type}</p>
-                <p>Unit:${item.unit}</p>
-            </div>
-            `
+        list.innerHTML=orderList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery)
+        let deliverBtn = list.querySelector('#deliverBtn')
+        deliverBtn.addEventListener('click', async()=>{
+            waitProcessDisplay()
+            lastDelivery=list.querySelector('#nextDelivery').dataset.value
+            nextDelivery=deliveryDate(intervals)
+            await updateDelivery(deliveries,totalDeliveries,_id,list,lastDelivery,nextDelivery)
+            location.reload(true)
         })
-        let status =list.querySelector('#statusElem')
-        status.value=item.status
-        status.addEventListener('change',async()=>{
-            try {
-                const data = {name,status:status.value}
-                await fetch('/admin/statusUpdate',{
-                    method:'POST',
-                    headers:{
-                        'Content-Type': 'application/json'
-                    },
-                    body:JSON.stringify(data)
-                })    
-                alert('Success')
-            } catch (error) {
-                alert('Error: Status not updated')
-            }
+        orderTrack.appendChild(list)
+    })
+}  
+
+function waitProcessDisplay(){
+    let modalBackground = document.createElement('div')
+    modalBackground.classList.add('modalBackground')
+    modalBackground.innerHTML=` 
+        <div id='pleaseWaitModal' class='modal'>
+            <h1 id='pleaseWait'>Please wait ...</h1>
+        </div>
+    `
+    document.body.appendChild(modalBackground)
+}
+
+async function updateDelivery(deliveries,totalDeliveries,_id,element,lastDelivery,nextDelivery){
+    if(deliveries>=totalDeliveries)return
+    await fetch('/admin/updateDeliverRecords', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id:_id,
+            lastDelivery,
+            nextDelivery,
         })
     })
 }
-
-function orderList(index,name,email,phoneNo){
+function orderList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery){
     return `
-    <div class='index'><h1>${index}</h1></div>
     <div class="credentials">
         <p id="name">${name}</p>
-        <p>${email}</p>
         <p>${phoneNo}</p>
     </div>
     <div class="productItems">
 
     </div>
-
-    <div class="status">
-        <select name="" id="statusElem">
-            <option value="processing">Processing</option>
-            <option value="complete">Complete</option>
-            <option value="shipping">Shipping</option>
-            <option value="delivered">Delivered</option>
-        </select>
+    <div id='deliveryRecordDiv'>
+        <p>${deliveries}/${JSON.stringify(totalDeliveries)}</p>
+    </div>
+    <div>
+        <p>${subscription}</p>
+        <p>${intervals}</p>
+    </div>
+    <div>
+        <p id='nextDelivery' data-value='${nextDelivery}''>Next Delivery: ${nextDelivery}</p>
+        <p id='lastDelivery' data-value='${lastDelivery}'>Last Delivery: ${lastDelivery}</p>
+    </div>
+    <div>
+        <button id='deliverBtn'>Deliver</button>
     </div>
     `
 }

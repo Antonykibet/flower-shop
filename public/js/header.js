@@ -15,16 +15,15 @@ menu.addEventListener('click',()=>{
     navDropdown.style.display='none'
 })
 
-async function adminBtn(){
+async function hiddenBtns(){
     let response = await fetch('/role')
     let result = await response.json()
-    //alert(role)
-    if(role=='Admin'){
-        headerIcons.forEach((header)=>{
-            header.innerHTML+=`
-                <a href='/admin/dashboard'><button>Admin</button></a>
-            `
-        })
+    const {isAdmin,isUser}=result
+    if(isUser){
+        loginDropdown.innerHTML+=`<a href="/subscribe">Subscriptions</a>`
+    }
+    if(isAdmin){
+        loginDropdown.innerHTML+=`<a href="/admin/dashboard">Admin Dashboard</a>`
     }
 }
-adminBtn()
+hiddenBtns()

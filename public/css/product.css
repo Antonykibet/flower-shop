@@ -172,11 +172,11 @@ body{
 }
 .modal{
     width: auto;
-    height: 50%;
+    height: auto;
     width: 35%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: top;
+    align-items: start;
     flex-direction: column;
     position: relative;
     background-color: white;
@@ -187,6 +187,46 @@ body{
     margin-top: 17vh;
     padding-bottom: 24px;
     padding-top: 24px;
+}
+#totalDiv{
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px; 
+}
+#subscriptionForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.subInput{
+    border: solid #B7A28A 2px;
+    padding: 4px;
+    border-radius:  4px;
+    font-family:'Montserrat' ;
+    color: #2e2e2e;
+    outline: none;
+    margin-bottom: 8px;
+}
+#subBtn{
+    width: 49%;
+    height: 5vh;
+    background-color:  #B7A28A;
+    color: white;
+    border: none;
+    position: relative;
+}
+#subscribeBtn{
+    width: 35%;
+    background-color: #B7A28A;
+    color: white;
+    border: none;
+    height: 4vh;
+    cursor: pointer;
+}
+#subTitle{
+    margin-top: 8px;
+    margin-bottom: 16px;
 }
 @media screen  and (max-width:1000px) {
     body{

@@ -230,6 +230,9 @@ form input{
 }
 .credentials h4{
 }
+#pleaseWaitModal{
+    width: auto;
+}
 @media screen and (max-width:1000px) {
     body{
         flex-direction: column;

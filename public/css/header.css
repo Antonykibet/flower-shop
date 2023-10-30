@@ -118,6 +118,7 @@ a{
     position: absolute;
     font-family:'Montserrat' ;
     top: 17vh;
+    min-width: 10vw;
     z-index: 100;
     right: 16px;
     padding: 8px;
@@ -208,6 +209,7 @@ a{
         padding: 8px;
         top: 8vh;
         font-size: 17px;
+        max-width: 50vw;
     }
     .loginDropdown a {
         margin: 0px;

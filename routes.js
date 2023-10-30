@@ -1,13 +1,54 @@
 const express = require('express')
 const routes = express.Router()
 const path =require('path')
-const {dbInit,accounts,products,orders,dashboard,ObjectId} = require('./mongoConfig')
+const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
+const { log } = require('console');
 
  
 
 
 
-
+function totalDeliveries(subscription,interval){
+    if(subscription=='Monthly'&&interval=='weekly'){
+        return 4;
+    }
+    if(subscription=='Monthly'&&interval=='fortnight'){
+        return 2;
+    }
+    if(subscription=='Quartely'&&interval=='weekly'){
+        return 16;
+    }
+    if(subscription=='Quartely'&&interval=='fortnight'){
+        return 8;
+    }
+}
+routes.get('/getSubItems',async (req,res)=>{
+    let items = await subscription.find({email:req.session.email}).toArray()
+    console.log(items)
+    res.json(items)
+})
+routes.get('/subscribe',async(req,res)=>{
+    res.sendFile(path.join(__dirname,'html','subscribe.html'))
+})
+routes.post('/subscribe',async(req,res)=>{
+    let {name,phoneNo,note,intervals,product} = req.body
+    product = JSON.parse(product)
+    let subscribedItem={
+        name,
+        product:product.name,
+        email:req.session.email,
+        phoneNo,
+        note,
+        intervals,
+        subscription:product.catalogue,
+        deliveries:0,
+        lastDelivery:null,
+        nextDelivery:null,
+        totalDeliveries:totalDeliveries(product.catalogue,intervals),
+    }
+    await subscription.insertOne(subscribedItem)
+    res.redirect('back')
+})
 routes.post('/addCart',async(req,res)=>{
     const {cartItems} = req.body
     req.session.cartItems=cartItems
@@ -28,11 +69,18 @@ routes.post('/updCart',(req,res)=>{
     res.redirect('/cart')
 })
 routes.get('/role',(req,res)=>{
-    if(req.session.user){
-        const {role} = req.session.user 
-        res.json(role)
+    const permision={
+        isAdmin:req.session.isAdmin ?? false,
+        isUser:req.session.isUser ?? false
+    } 
+    res.json(permision)
+})
+routes.get('/isLogged',(req,res)=>{
+    if(req.session.isUser){
+        res.json(req.session.isUser)
         return
     }
+    res.json(false)
 })
 routes.post('/login',async (req,res)=>{
     const {email,password} = req.body
@@ -52,11 +100,10 @@ routes.post('/login',async (req,res)=>{
         return
     }
     if(email=='antonykibet059@gmail.com' && password=='123@Anto'){
-        req.session.user = {email,role:'Admin'}
-        res.redirect('/')
-        return    
+        req.session.isAdmin=true   
     }
-    req.session.user = {email,role:'user'}  
+    req.session.email=email
+    req.session.isUser=true
     res.redirect('/')
 })
 

@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/card.css">
-    <title>Flower shop</title>
+    <link rel="stylesheet" href="css/subscribe.css">
+    <title>Subscribed</title>
 </head>
 <body>
     <header id="headerBody">
@@ -93,42 +91,8 @@
             </div>
         </nav>
     </header>
-
-    <section id="landing">
-        <div id="landingScreen">
-            <h1 id="catchPhrase">Shop <br> and Buy Love</h1>
-        </div>
-    </section>
-    <h1 class="title" >Top Sellers</h1>
-    <section id="content">
-
-    </section>
-    <section id="productCatalogue">
-        <div class="catalogue">
-            <img class="catalogueImage" src="/images/boobTapePic.jpg" alt="">
-            <div class="catalogueScreen">
-                <a href=""><h1 >Events</h1></a>
-            </div>
-        </div>
-        <div class="catalogue">
-            <img class="catalogueImage" src="/images/black bunnyEar.jpg" alt="">
-            <div class="catalogueScreen"> 
-                <a href=""><h1>Occasions</h1></a>
-            </div>
-        </div>
-        <div class="catalogue">
-            <img class="catalogueImage" src="/images/cuffs.jpg" alt="">
-            <div class="catalogueScreen">
-                <a href=""><h1>Gifts</h1></a>
-            </div> 
-        </div>
-    </section>
-    <h1 class="title" >Congratulation</h1>
-    <section class="secondaryContent"></section>
-    <h1 class="title" >Thank You</h1>
-    <section class="secondaryContent"></section>
-    <h1 class="title" >For Her</h1>
-    <section class="secondaryContent"></section>
+    <h1 class="title">Track Orders</h1>
+    <section id="content"></section>
     <footer id="footer">
         <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
             <div id="footerLogo" ></div>
@@ -168,15 +132,6 @@
         </div>
         <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
     </footer>
-    <script src="js/script.js"></script>
-    <script src="js/header.js"></script>
-    <script>
-        let init = async ()=>{
-            let response = await fetch(`/allFlowers`)
-            result = await response.json()
-            productDisplay(result)
-        }
-        init()
-    </script>
+    <script src="js/subscribe.js"></script>
 </body>
 </html>

@@ -1,0 +1,28 @@
+.title{
+   
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    color: #2e2e2e;
+    font-family: 'Montserrat';
+}
+#content{
+    width: 95%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid;
+}
+.orderRecord{
+    margin-top: 8px;
+    display: flex;
+    border-bottom: solid 1px;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Roboto';
+    width: 90%;
+    border: solid;
+}
