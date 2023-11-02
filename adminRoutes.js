@@ -1,5 +1,5 @@
 const express = require('express')
-const admnRoute = express.Router()
+const router = express.Router()
 const path =require('path')
 const multer = require('multer');
 const {dbInit,products,accountCollection,subscription, orders, dashboard,ObjectId} = require('./mongoConfig');
@@ -24,17 +24,17 @@ function auth(req,res,next){
         res.send('intruder')
     }
 }
-//admnRoute.use('/admin',auth)
-admnRoute.get('/admin/dashboard', async (req,res)=>{
+//router.use('/admin',auth)
+router.get('/admin/dashboard', async (req,res)=>{
     const orderdItems = await orders.countDocuments()
     const {visits, cartItems} = await dashboard.findOne({_id:new ObjectId(`652f3ad8c237523c7b489530`)})
     res.render('dashboard.ejs',{siteVisits:visits,carts:cartItems,checkouts:orderdItems})
 })
-admnRoute.get('/admin/subscribedItems',async (req,res)=>{
+router.get('/admin/subscribedItems',async (req,res)=>{
     let subscribedItems = await subscription.find().toArray()
     res.json(subscribedItems)
 })
-admnRoute.post('/admin/updateDeliverRecords',async(req,res)=>{
+router.post('/admin/updateDeliverRecords',async(req,res)=>{
     const {id,nextDelivery,lastDelivery}=req.body
     console.log(nextDelivery,lastDelivery)
     await subscription.updateOne(
@@ -50,4 +50,4 @@ admnRoute.post('/admin/updateDeliverRecords',async(req,res)=>{
 
 
 
-module.exports = {admnRoute,dbInit}
+module.exports = router
