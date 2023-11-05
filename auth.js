@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
-const GoogleStrategy = require('passport-google-oidc');
+const GoogleStrategy = require('passport-google-oidc')
+const FacebookStrategy= require('passport-facebook')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
 
 passport.use(new GoogleStrategy({
@@ -41,6 +42,7 @@ passport.use(new GoogleStrategy({
     }
   }));
 
+  
   passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
       cb(null, { id: user.id, username: user.username, name: user.name });

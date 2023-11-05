@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const axios = require('axios');
 const path =require('path')
 const authRoute = require('./auth.js')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
@@ -141,10 +142,34 @@ router.get('/signUp',(req,res)=>{
     res.render('sign',{error:''})
 })
 
-router.post('/checkout',async(req,res)=>{
-    
+function generateTimestamp() {
+    const now = new Date();
+    const timestamp = now.getFullYear() + "" + (now.getMonth() + 1) + "" + now.getDate() + "" + now.getHours() + "" + now.getMinutes() + "" + now.getSeconds();
+    return timestamp;
+  }
+
+ async function accessToken(req,res,next){ 
+    const secret = process.env.MPESA_CONSUMER_SECRET
+    const key = process.env.MPESA_CONSUMER_KEY
+    //const timestamp = generateTimestamp();
+    //console.log(timestamp);
+    const auth = new Buffer.from(`${key}:${secret}`).toString('base64')
+    const url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+    const headers = {
+        'Authorization': "Basic" + " " + auth,
+        'Content-Type': 'application/json'
+      };
+
+    const response = await axios.get(url, { headers });
+    console.log(response);
+    next()
+}
+
+router.post('/checkout',accessToken,async(req,res)=>{
+    //console.log(token)
     try {
-        const {fname,lname,phoneNo,email,totalPrice} = req.body
+        const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
+        console.log(payment_method)
         const cart = req.session.cartItems
         let order ={
             name:`${fname} ${lname}`,
