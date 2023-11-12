@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
     <title>Cart</title>
 </head>
 <body>
@@ -153,5 +154,21 @@
         <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
       </footer>
     <script src="js/cart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+    <script>
+    const phoneInput = document.querySelector("#phoneNo");
+    window.intlTelInput(phoneInput, {
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+        autoInsertDialCode: true,
+        nationalMode:false,
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+            fetch("https://ipapi.co/json")
+            .then(function(res) { return res.json(); })
+            .then(function(data) { callback(data.country_code); })
+            .catch(function() { callback("us"); });
+        }
+    });
+    </script>
 </body>
 </html>

@@ -142,17 +142,21 @@ router.get('/signUp',(req,res)=>{
     res.render('sign',{error:''})
 })
 
-function generateTimestamp() {
-    const now = new Date();
-    const timestamp = now.getFullYear() + "" + (now.getMonth() + 1) + "" + now.getDate() + "" + now.getHours() + "" + now.getMinutes() + "" + now.getSeconds();
+function generateTimestamp(){
+    const date = new Date();
+    const timestamp = date.getFullYear() +
+    ("0" + (date.getMonth() + 1)).slice(-2) +
+    ("0" + date.getDate()).slice(-2) +
+    ("0" + date.getHours()).slice(-2) +
+    ("0" + date.getMinutes()).slice(-2) +
+    ("0" + date.getSeconds()).slice(-2);
     return timestamp;
   }
 
- async function accessToken(req,res,next){ 
+ async function accessToken(){ 
     const secret = process.env.MPESA_CONSUMER_SECRET
     const key = process.env.MPESA_CONSUMER_KEY
-    //const timestamp = generateTimestamp();
-    //console.log(timestamp);
+
     const auth = new Buffer.from(`${key}:${secret}`).toString('base64')
     const url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
     const headers = {
@@ -161,15 +165,47 @@ function generateTimestamp() {
       };
 
     const response = await axios.get(url, { headers });
-    console.log(response);
-    next()
+    return response.data.access_token
 }
-
-router.post('/checkout',accessToken,async(req,res)=>{
-    //console.log(token)
+async function processMpesa(){
+    const accessTkn = await accessToken()
+    const shortCode = process.env.SHORTCODE
+    const timestamp = generateTimestamp()
+    const passKey = process.env.PASS_KEY
+    const pass = new Buffer.from(shortCode + passKey + timestamp).toString('base64')
+    let url = `https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest`
+    const headers = {
+        'Authorization': `Bearer ${accessTkn}`,
+        'Content-Type': 'application/json'
+      };
+      const body = {    
+        "BusinessShortCode": `${shortCode}`,    
+        "Password": `${pass}` ,    
+        "Timestamp":timestamp,    
+        "TransactionType": "CustomerPayBillOnline",    
+        "Amount": 1,    
+        "PartyA":254769819306,    
+        "PartyB":`${shortCode}`,    
+        "PhoneNumber":254769819306,    
+        "CallBackURL": "https://eighty-lizards-learn.tunnelapp.dev/paycallback",    
+        "AccountReference":254769819306,    
+        "TransactionDesc":"Test"
+     }
+    let response = await axios.post(url,body,{headers})
+    //console.log(response)
+}
+router.post('/paycallback', (req, res) => {
+  console.log('...............callbackurl............')
+  console.log(req.body);
+  res.send('ok');
+})
+router.post('/checkout',async(req,res)=>{
     try {
         const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
-        console.log(payment_method)
+        console.log(phoneNo)
+        if(payment_method=='mpesa'){
+            await processMpesa()
+        }
         const cart = req.session.cartItems
         let order ={
             name:`${fname} ${lname}`,
@@ -182,7 +218,7 @@ router.post('/checkout',accessToken,async(req,res)=>{
         req.session.cartItems=[]
         res.redirect('/')
     } catch (error) {
-        console.log(`Failed CheckOut ${fname} ${lname}`)
+        
         console.log(error)
     }
 })
