@@ -17,8 +17,29 @@ async function getCartItems(){
 getCartItems()
 getAddOns()
 
+let init = async ()=>{
+    let response = await fetch(`/topProducts`)
+    let result = await response.json()
+    productDisplay(result)
+    let secondarySections = document.querySelectorAll('.secondaryContent')
+    secondarySections.forEach(async(section)=>{
+        await renderSecondarySectCards(section.getAttribute('id'))
+    })
+}
+init()
 
-
+async function renderSecondarySectCards(sectionId){
+    let header={
+        method:'GET',
+        headers:{
+            fromLandingPage:true,
+        },
+    }
+    let response = await fetch(`/products/${sectionId}`,header)
+    let result = await response.json()
+    alert(result)
+    productDisplay(result,sectionId)
+}
 
 function productDisplay(result,section = 'content'){
     let contentDiv = document.getElementById(section)
@@ -26,20 +47,7 @@ function productDisplay(result,section = 'content'){
         let {_id,name,description,price,image} = item
         let productDiv = document.createElement('div')
         productDiv.classList.add('productDiv')
-        productDiv.innerHTML=`
-            <a class='imageHyperlink' href='/product/${_id}'>
-                <img class='productImage' src='${image}'>
-            </a>
-            <div class='nameDiv'>
-                <h3 class='productName'>${name}</h3>
-                <h4 class='productPrice'>${price}</h4>
-            </div>
-            <div class='descDiv'>
-                <p class='description'>${description}</p>
-            </div>
-            <button  id='orderBtn' index='${index}'>Order now</button>
-            <button class='cartButton' index='${index}'>Add to Cart</button>    
-        `
+        productDiv.innerHTML=productCardRender(_id,name,description,price,image)
         let cartBtn = productDiv.querySelector('.cartButton')
         let orderBtn = productDiv.querySelector('#orderBtn')
         cartBtn.addEventListener('click',()=>{
@@ -97,6 +105,23 @@ function productDisplay(result,section = 'content'){
         //addCartFunc(productDiv,item)
         contentDiv.appendChild(productDiv)
     })
+}
+
+function productCardRender(_id,name,description,price,image){
+    return `
+        <a class='imageHyperlink' href='/product/${_id}'>
+            <img class='productImage' src='${image}'>
+        </a>
+        <div class='nameDiv'>
+            <h3 class='productName'>${name}</h3>
+            <h4 class='productPrice'>${price}</h4>
+        </div>
+        <div class='descDiv'>
+            <p class='description'>${description}</p>
+        </div>
+        <button  id='orderBtn' index='${index}'>Order now</button>
+        <button class='cartButton' index='${index}'>Add to Cart</button>    
+    `
 }
 
 function checkoutForm(){

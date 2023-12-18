@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const axios = require('axios');
 const path =require('path')
 const authRoute = require('./auth.js')
+const processMpesa  = require('./payment.js')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
 
 
@@ -91,13 +91,20 @@ router.get('/category/:page',async (req,res)=>{
      await res.render('page',{title:page})
 })
 
-router.get('/allFlowers',async(req,res)=>{
-    let result = await products.find().toArray()
+router.get('/topProducts',async(req,res)=>{
+    let result = await products.find({top:true}).toArray()
     res.json(result)
 })
 
 router.get('/products/:product',async(req,res)=>{
     let {product} =req.params
+    console.log(product)
+    let isLandingpage = req.headers.fromlandingpage
+    if(isLandingpage){
+        let result = await products.find({catalogue: `${product}`}).limit(5).toArray(); //get a limmited  number of document
+        res.json(result) 
+        return
+    }
     let result = await products.find({catalogue:`${product}`}).toArray()
     res.json(result)
 })
@@ -142,58 +149,6 @@ router.get('/signUp',(req,res)=>{
     res.render('sign',{error:''})
 })
 
-function generateTimestamp(){
-    const date = new Date();
-    const timestamp = date.getFullYear() +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    ("0" + date.getDate()).slice(-2) +
-    ("0" + date.getHours()).slice(-2) +
-    ("0" + date.getMinutes()).slice(-2) +
-    ("0" + date.getSeconds()).slice(-2);
-    return timestamp;
-  }
-
- async function accessToken(){ 
-    const secret = process.env.MPESA_CONSUMER_SECRET
-    const key = process.env.MPESA_CONSUMER_KEY
-
-    const auth = new Buffer.from(`${key}:${secret}`).toString('base64')
-    const url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-    const headers = {
-        'Authorization': "Basic" + " " + auth,
-        'Content-Type': 'application/json'
-      };
-
-    const response = await axios.get(url, { headers });
-    return response.data.access_token
-}
-async function processMpesa(){
-    const accessTkn = await accessToken()
-    const shortCode = process.env.SHORTCODE
-    const timestamp = generateTimestamp()
-    const passKey = process.env.PASS_KEY
-    const pass = new Buffer.from(shortCode + passKey + timestamp).toString('base64')
-    let url = `https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest`
-    const headers = {
-        'Authorization': `Bearer ${accessTkn}`,
-        'Content-Type': 'application/json'
-      };
-      const body = {    
-        "BusinessShortCode": `${shortCode}`,    
-        "Password": `${pass}` ,    
-        "Timestamp":timestamp,    
-        "TransactionType": "CustomerPayBillOnline",    
-        "Amount": 1,    
-        "PartyA":254769819306,    
-        "PartyB":`${shortCode}`,    
-        "PhoneNumber":254769819306,    
-        "CallBackURL": "https://eighty-lizards-learn.tunnelapp.dev/paycallback",    
-        "AccountReference":254769819306,    
-        "TransactionDesc":"Test"
-     }
-    let response = await axios.post(url,body,{headers})
-    //console.log(response)
-}
 router.post('/paycallback', (req, res) => {
   console.log('...............callbackurl............')
   console.log(req.body);
@@ -202,9 +157,8 @@ router.post('/paycallback', (req, res) => {
 router.post('/checkout',async(req,res)=>{
     try {
         const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
-        console.log(phoneNo)
-        if(payment_method=='mpesa'){
-            await processMpesa()
+        if(payment_method == 'mpesa'){
+            await processMpesa(phoneNo)
         }
         const cart = req.session.cartItems
         let order ={

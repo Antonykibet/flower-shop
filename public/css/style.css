@@ -51,16 +51,30 @@ a{
 #content{
     display: flex;
     width: 85%;
+    height: auto;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: top; 
     margin-bottom: 24px;
-    min-height: 100vh;
 }
 .secondaryContent{
-    height: 40vh;
+    display: flex;
+    width: 85%;
+    height: auto;
+    overflow-x: scroll;
+    justify-content: space-around;
+    align-items: top; 
+    margin-bottom: 24px;
 }
-
+.secondaryContent::-webkit-scrollbar {
+    background-color:transparent ;
+    height: 8px;
+    width: 70%;
+}
+.secondaryContent::-webkit-scrollbar-thumb{
+    background-color: rgb(155, 155, 155);
+    border-radius: 4px; 
+}
 #productCatalogue{
     width: 100%;
     display: flex;

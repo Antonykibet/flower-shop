@@ -1,10 +1,34 @@
 let contentDiv = document.getElementById('content')
 let totalPrice =document.getElementById('totalPrice')
 let mobileCheckoutBtn=document.getElementById('checkoutDisplay')
+let creditBtn = document.querySelector('.intaSendPayButton')
+const form = document.getElementById('billingForm');
 let billingDiv=document.getElementById('billingDiv')
 let removeBtn=document.querySelector('.bi-x-circle')
 let cartItems = null
 
+creditBtn.addEventListener('click',(event)=>{
+    event.preventDefault();
+  // Trigger IntaSend popup
+  IntaSend({
+    publicAPIKey: "ISPubKey_test_87bb04e5-be8e-49d2-a4e2-a749b532a0f3",
+    live: false //set to true when going live
+  })
+    .on("COMPLETE", (results) => {
+      // Handle successful payment
+      alert("Payment successful!");
+      // Submit the form after successful payment
+      form.submit();
+    })
+    .on("FAILED", (results) => {
+      // Handle failed payment
+      alert("Payment failed!");
+    })
+    .on("IN-PROGRESS", (results) => {
+      // Handle payment in progress status
+      alert("Payment in progress...");
+    });
+})
 async function getCartItems(){
     let response = await fetch('/addCart')
     cartItems = await response.json()
@@ -26,12 +50,16 @@ removeBtn.addEventListener('click',()=>{
 
 
 
-
+//Calculates total price of cart Items
 function calcTotal(){
     let total = 0
     cartItems.forEach((item)=>{
         total+= Number(item.price*item.unit) 
     })
+    if(total==0){
+        creditBtn.disabled = true
+    }
+    creditBtn.setAttribute('data-amount',total) 
     totalPrice.innerText=total
     document.getElementById('total').value=total
 }

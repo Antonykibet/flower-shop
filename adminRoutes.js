@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const path =require('path')
 const multer = require('multer');
+const bodyParser = require('body-parser');
 const {dbInit,products,accountCollection,subscription, orders, dashboard,ObjectId} = require('./mongoConfig');
+
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage(
     {
@@ -45,6 +48,25 @@ router.post('/admin/updateDeliverRecords',async(req,res)=>{
                 nextDelivery:nextDelivery
             }
          })
+    res.redirect('back')
+})
+router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
+    let {catalogue,name,price,description,topProduct,colorData}=req.body
+    console.log(catalogue)
+    let mainFile = req.files.mainImage ? req.files.mainImage[0].filename : null
+    let otherImages = req.files.otherImages ? req.files.otherImages.map(file=>file.filename) : null
+    let product ={
+        catalogue,
+        name,
+        price,
+        description,
+        top:Boolean(topProduct),
+        image: mainFile,
+        images:otherImages,
+        unit:1,
+    }
+    console.log(product)
+    await products.insertOne(product)
     res.redirect('back')
 })
 

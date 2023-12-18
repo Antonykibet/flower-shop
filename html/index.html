@@ -124,11 +124,11 @@
         </div>
     </section>
     <h1 class="title" >Congratulation</h1>
-    <section class="secondaryContent"></section>
-    <h1 class="title" >Thank You</h1>
-    <section class="secondaryContent"></section>
+    <section class="secondaryContent" id="Congratulation"></section>
+    <h1 class="title" >Birthday</h1>
+    <section class="secondaryContent" id="Birthday"></section>
     <h1 class="title" >For Her</h1>
-    <section class="secondaryContent"></section>
+    <section class="secondaryContent" id="ForHer"></section>
     <footer id="footer">
         <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
             <div id="footerLogo" ></div>
@@ -170,13 +170,5 @@
     </footer>
     <script src="js/script.js"></script>
     <script src="js/header.js"></script>
-    <script>
-        let init = async ()=>{
-            let response = await fetch(`/allFlowers`)
-            result = await response.json()
-            productDisplay(result)
-        }
-        init()
-    </script>
 </body>
 </html>

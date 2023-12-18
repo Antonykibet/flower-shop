@@ -197,8 +197,9 @@ function createForm(){
         <i class="bi bi-x-circle"></i>
         <h1 style='padding-top:0px;'>Create Product</h1>
         <form action="/admin/create" method="post" enctype="multipart/form-data">
-            <input class='input' type="text" name='type' placeholder="Product name">
+            <input class='input' type="text" name='name' placeholder="Product name">
             <input class='input' type="text" name='price' placeholder="Price">
+            <input class='input' type="text" name='catalogue' placeholder="Catalogue">
             <input class='input' type="text" name='description' placeholder="Description">
             <input class='input' type="file" name='mainImage' accept='.jpeg, .jpg, .png' placeholder="MainImage">
             <input class='input' type="file" name='otherImages' multiple accept='.jpeg, .jpg, .png'  placeholder="Other Images">

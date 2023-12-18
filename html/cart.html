@@ -107,7 +107,8 @@
                     <h3 class="totalElem" id="totalPrice">0</h3>
                 </div>
                 <button class="billingBtns" type="submit" name="payment_method" value="mpesa">Pay with Mpesa</button>
-                <button class="billingBtns" type="submit" name="payment_method" value="credit_card">Pay with Credit Card</button>
+                <button class="billingBtns" type="submit"  name="payment_method" value="credit_card"></button>
+                <button class="intaSendPayButton" data-amount="10" data-currency="KES">Pay with Credit Card</button>
                 <button class="billingBtns" id="checkoutBtn" type="submit">Check Out</button>
                 <a style="width: 100%;" href="/"><button type="button" class="billingBtns" id="continueBtn">Continue shopping</button></a>
             </form>
@@ -153,9 +154,19 @@
         </div>
         <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
       </footer>
+    
+    <script src="https://unpkg.com/intasend-inlinejs-sdk@3.0.4/build/intasend-inline.js"></script>
     <script src="js/cart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
     <script>
+        // new window.IntaSend({
+        //publicAPIKey: "ISPubKey_test_87bb04e5-be8e-49d2-a4e2-a749b532a0f3",
+        //live: false //set to true when going live
+        //})
+        //.on("COMPLETE", (results) => alert("Do something on success", results))
+        //.on("FAILED", (results) => alert("Do something on failure", results))
+        //.on("IN-PROGRESS", (results) => alert("Payment in progress status", results))
+
     const phoneInput = document.querySelector("#phoneNo");
     window.intlTelInput(phoneInput, {
         utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
