@@ -21,7 +21,7 @@ let init = async ()=>{
     let response = await fetch(`/topProducts`)
     let result = await response.json()
     productDisplay(result)
-    let secondarySections = document.querySelectorAll('.secondaryContent')
+    let secondarySections = document.querySelectorAll('.horizontalScroll')
     secondarySections.forEach(async(section)=>{
         await renderSecondarySectCards(section.getAttribute('id'))
     })
@@ -47,67 +47,23 @@ function productDisplay(result,section = 'content'){
         let {_id,name,description,price,image} = item
         let productDiv = document.createElement('div')
         productDiv.classList.add('productDiv')
-        productDiv.innerHTML=productCardRender(_id,name,description,price,image)
+        productDiv.innerHTML=productCardRender(_id,name,description,price,image,index)
         let cartBtn = productDiv.querySelector('.cartButton')
         let orderBtn = productDiv.querySelector('#orderBtn')
-        cartBtn.addEventListener('click',()=>{
-            document.body.style.overflowY='hidden'
-            let modalBackground = document.createElement('div')
-            modalBackground.classList.add('modalBackground')
-            modalBackground.innerHTML= cartModalRender()
-            addOns.forEach((item)=>{
-                modalBackground.querySelector('#addOns').innerHTML+=`
-                <div class='addOnsItem'>
-                    <p class='addOnName'>${item.name}</p>
-                    <i class="bi bi-plus-circle-fill"></i>
-                </div>`
-                modalBackground.querySelector('.bi-plus-circle-fill').addEventListener('click',()=>{
-                    addCartFunc(item)
-                })
-            }) 
-            let submitBtn=modalBackground.querySelector('#proceedAddCart')
-            submitBtn.addEventListener('click',addCartFunc(item))
-            let closeBtn = modalBackground.querySelector('.bi-x-circle')
-            closeBtn.addEventListener('click',()=>{
-                document.body.style.overflowY='scroll'
-                modalBackground.remove()
-            })
-            document.body.appendChild(modalBackground)
+        cartBtn.addEventListener('click',(event) =>{
+            let btn = event.target.getAttribute('class')
+            modalRender(btn,item)
         })
-
-        orderBtn.addEventListener('click',()=>{
-            document.body.style.overflowY='hidden'
-            let modalBackground = document.createElement('div')
-            modalBackground.classList.add('modalBackground')
-            modalBackground.innerHTML= orderModalRender()
-            addOns.forEach((item)=>{
-                modalBackground.querySelector('#addOns').innerHTML+=`
-                <div class='addOnsItem'>
-                    <p class='addOnName'>${item.name}</p>
-                    <i class="bi bi-plus-circle-fill"></i>
-                </div>`
-            }) 
-            let submitBtn=modalBackground.querySelector('#proceedCheckout')
-            submitBtn.addEventListener('click',()=>{
-                modalBackground.innerHTML=checkoutForm()
-                //modalBackground.querySelector('')
-                modalBackground.querySelector('.bi-x-circle').addEventListener('click',()=>{
-                    modalBackground.remove()                    
-                })
-            })
-            let closeBtn = modalBackground.querySelector('.bi-x-circle')
-            closeBtn.addEventListener('click',()=>{
-                document.body.style.overflowY='scroll'
-                modalBackground.remove()
-            })
-            document.body.appendChild(modalBackground)
-        } )
+        orderBtn.addEventListener('click',(event)=>{
+            let btn = event.target.getAttribute('id')
+            modalRender(btn,item)
+        })
         //addCartFunc(productDiv,item)
         contentDiv.appendChild(productDiv)
     })
 }
 
-function productCardRender(_id,name,description,price,image){
+function productCardRender(_id,name,description,price,image,index){
     return `
         <a class='imageHyperlink' href='/product/${_id}'>
             <img class='productImage' src='${image}'>
@@ -123,6 +79,58 @@ function productCardRender(_id,name,description,price,image){
         <button class='cartButton' index='${index}'>Add to Cart</button>    
     `
 }
+
+function renderModalBackground(){
+    document.body.style.overflowY='hidden'
+    let modalBackground = document.createElement('div')
+    modalBackground.classList.add('modalBackground')
+    return modalBackground
+}
+function modalBackgroundDeletion(div){
+    document.body.style.overflowY='scroll'
+    div.remove()
+} 
+function addOnsRender(div){
+    addOns.forEach((item)=>{
+        div.querySelector('#addOns').innerHTML+=`
+        <div class='addOnsItem'>
+            <p class='addOnName'>${item.name}</p>
+            <i class="bi bi-plus-circle-fill"></i>
+        </div>`
+        div.querySelector('.bi-plus-circle-fill').addEventListener('click',()=>{
+            addCartFunc(item)
+        })
+    }) 
+}
+
+function modalRender(btn,item){
+    let modalBackground = renderModalBackground()
+    if(btn=='orderBtn'){
+        modalBackground.innerHTML= orderModalRender()
+        let checkoutBtn=modalBackground.querySelector('#proceedCheckout')
+        checkoutBtn.addEventListener('click',()=>{
+            modalBackground.innerHTML=checkoutForm()
+            modalBackground.querySelector('.bi-x-circle').addEventListener('click',()=>{
+                modalBackground.remove()        
+            })
+        })
+    }
+    if(btn=='cartButton'){
+        modalBackground.innerHTML= cartModalRender()
+        let addCartBtn=modalBackground.querySelector('#proceedAddCart')
+        addCartBtn.addEventListener('click',()=>{addCartFunc(item)})
+    }
+    
+    addOnsRender(modalBackground)
+    let closeBtn = modalBackground.querySelector('.bi-x-circle')
+    closeBtn.addEventListener('click',()=>{
+        modalBackgroundDeletion(modalBackground)
+    })
+    document.body.appendChild(modalBackground)
+}
+
+
+
 
 function checkoutForm(){
     return `
