@@ -41,6 +41,29 @@ a{
     color: whitesmoke;
     margin: 0px;
 }
+#banner{
+    width: 97%;
+    height: 40vh;
+    border: solid;
+    border-radius: 8px;
+}
+#eventHero{
+    position: relative;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    width: 97%;
+    height: 90vh;
+    border: solid;
+    border-radius: 8px;
+}
+#eventInfo{
+    position: absolute;
+    background-image: linear-gradient(to top, rgba(51, 51, 51, 0.6) 25%, rgba(51, 51, 51, 0.5) 50%, rgba(49, 49, 49, 0) 100%);
+    bottom: 0px;
+    right: 0;
+    width: 100%;
+    height: auto;
+}
 .title{
     margin-bottom: 0px;
     display: flex;
@@ -168,13 +191,13 @@ a{
     padding-bottom: 24px;
     padding-top: 24px;
 }
-#addOns{
+/*#addOns{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     overflow-y: scroll;
-}
+}*/
 .addOnsItem{
     display: flex;
     padding: 8px;
