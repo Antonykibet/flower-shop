@@ -1,14 +1,27 @@
+import { productDisplay,addCartFunc,} from "/js/script.js"
+
+
 let cartBtn=document.getElementById('cartBtn')
 let btnDiv=document.querySelector('.btnDiv')
+
 let item=JSON.parse(cartBtn.value)
 
 
-//alert(item.catalogue)
+
 async function isLogged(){
     let response= await fetch('/isLogged')
     let result = await response.json() 
     return result
 }
+
+
+async function getAddOnsProducts(){
+    let response = await fetch(`/products/addOns`)
+    let result =await response.json()
+    productDisplay(result,'addOns')
+}
+getAddOnsProducts()
+
 
 if(item.catalogue=='Monthly'||'Quartely'||'Yearly'){
     cartBtn.style.display='none'
@@ -69,7 +82,7 @@ function subscriptionForm(){
 cartBtn.addEventListener('click',()=>{
     addCartFunc(JSON.parse(cartBtn.value))
 })
-async function addCartFunc(item){
+/*async function addCartFunc(item){
     try {
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
         cartItems.push(item)
@@ -83,4 +96,4 @@ async function addCartFunc(item){
     } catch (error) {
         alert(`Error:Did not add to cart.`)
     }
-}
+}*/

@@ -95,7 +95,7 @@
     </header>
 
     <h1 class="title" >Product</h1>
-    <section id="content">
+    <section id="productContent">
         <div id="imgSection">
             <img class="productImageMain" src="<%= image %>"alt="">
             <div id="imgCollection">
@@ -169,9 +169,9 @@
       </div>
       <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
       </footer>
-      <script src="/js/script.js"></script>
-      <script src="/js/header.js"></script>
-      <script src="/js/product.js"></script>
+      <script type="module" src="/js/script.js" ></script>
+      <script  src="/js/header.js"></script>
+      <script type="module" src="/js/product.js"></script>
       <script>
             let productImageMain = document.getElementsByClassName('productImageMain').item(0)
             let imgCollection = document.getElementById('imgCollection')
@@ -194,13 +194,6 @@
                     image.style.borderColor = 'green'
                 })
             })
-
-            async function getProducts(){
-            let response = await fetch(`/products/addOns`)
-            let result =await response.json()
-            productDisplay(result,'addOns')
-            }
-            getProducts()
       </script>
 </body>
 </html>

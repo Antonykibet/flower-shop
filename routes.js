@@ -98,7 +98,6 @@ router.get('/topProducts',async(req,res)=>{
 
 router.get('/products/:product',async(req,res)=>{
     let {product} =req.params
-    console.log(product)
     let isLandingpage = req.headers.fromlandingpage
     if(isLandingpage){
         let result = await products.find({catalogue: `${product}`}).limit(7).toArray(); //get a limmited  number of document
@@ -110,7 +109,7 @@ router.get('/products/:product',async(req,res)=>{
 })
 router.get('/product/:productID',async(req,res)=>{
     let {productID} =req.params
-    console.log(productID)
+    //console.log(req.params)
     let item  = await products.findOne(new ObjectId(productID))
     let {image,name,description,price,images,catalogue} =item
     let details={

@@ -1,21 +1,16 @@
-let links =document.querySelectorAll('.link')
-let headerIcons =document.querySelectorAll('.headerIcons')
 let cartItems = []
-let addOns = null
 let result=null
-let addcartBtn
 
 async function getAddOns(){
     let response = await fetch(`/products/addOns`)
-    let result =await response.json()
-    addOns=result
+    return result =await response.json()
 }
 async function getCartItems(){
     let response = await fetch('/addCart')
     cartItems = await response.json()
 }
 getCartItems()
-getAddOns()
+
 
 let init = async ()=>{
     let response = await fetch(`/topProducts`)
@@ -37,11 +32,18 @@ async function renderSecondarySectCards(sectionId){
     }
     let response = await fetch(`/products/${sectionId}`,header)
     let result = await response.json()
-    alert(result)
     productDisplay(result,sectionId)
 }
 
-function productDisplay(result,section = 'content'){
+function disableButton(event){
+    event.target.disabled = true;
+    // Re-enable the button after a delay:
+    setTimeout(() => {
+        event.target.disabled = false;
+    }, 1000)
+}
+
+export function productDisplay(result,section = 'content'){
     let contentDiv = document.getElementById(section)
     result.forEach((item, index)=>{
         let {_id,name,description,price,image} = item
@@ -51,10 +53,12 @@ function productDisplay(result,section = 'content'){
         let cartBtn = productDiv.querySelector('.cartButton')
         let orderBtn = productDiv.querySelector('#orderBtn')
         cartBtn.addEventListener('click',(event) =>{
+            disableButton(event)
             let btn = event.target.getAttribute('class')
             modalRender(btn,item)
         })
         orderBtn.addEventListener('click',(event)=>{
+            disableButton(event)
             let btn = event.target.getAttribute('id')
             modalRender(btn,item)
         })
@@ -90,38 +94,54 @@ function modalBackgroundDeletion(div){
     document.body.style.overflowY='scroll'
     div.remove()
 } 
-function addOnsRender(div){
+async function addOnsRender(div){
+    let addOns = await getAddOns()
     addOns.forEach((item)=>{
-        div.querySelector('#addOns').innerHTML+=`
+        let addItem = document.createElement('div')
+        addItem.innerHTML=`
         <div class='addOnsItem'>
-            <p class='addOnName'>${item.name}</p>
-            <i class="bi bi-plus-circle-fill"></i>
+            <p  class='addOnName'>${item.name}</p>
+            <i id='${item.name.split(' ').join('') }' class="bi bi-plus-circle-fill"></i>
         </div>`
-        div.querySelector('.bi-plus-circle-fill').addEventListener('click',()=>{
+        div.querySelector('#addOns').appendChild(addItem)
+    })
+    addOns.forEach((item)=>{
+        div.querySelector(`#${item.name.split(' ').join('')}`).addEventListener('click',()=>{
             addCartFunc(item)
         })
-    }) 
+    })
+    /*let elements = div.querySelectorAll('.addOnName')
+    elements.forEach((elem)=>{
+        alert(elem.getAttribute('id'))
+    })*/
+    
+   /* addOns.forEach((item)=>{
+        document.querySelector(`#${item.name}`).addEventListener('click',()=>{
+            alert('Hello')
+            //addCartFunc(item)
+        })
+    })*/ 
 }
 
-function modalRender(btn,item){
+export async function modalRender(btn,item){
     let modalBackground = renderModalBackground()
     if(btn=='orderBtn'){
         modalBackground.innerHTML= orderModalRender()
         let checkoutBtn=modalBackground.querySelector('#proceedCheckout')
-        checkoutBtn.addEventListener('click',()=>{
-            modalBackground.innerHTML=checkoutForm()
-            modalBackground.querySelector('.bi-x-circle').addEventListener('click',()=>{
-                modalBackground.remove()        
-            })
+        checkoutBtn.addEventListener('click',async()=>{
+            await addCartFunc(item)
+            //window.location.href = '/cart';
         })
     }
     if(btn=='cartButton'){
         modalBackground.innerHTML= cartModalRender()
         let addCartBtn=modalBackground.querySelector('#proceedAddCart')
-        addCartBtn.addEventListener('click',()=>{addCartFunc(item)})
+        addCartBtn.addEventListener('click',async()=>{
+            await addCartFunc(item)
+        })
     }
     
-    addOnsRender(modalBackground)
+    await addOnsRender(modalBackground)
     let closeBtn = modalBackground.querySelector('.bi-x-circle')
     closeBtn.addEventListener('click',()=>{
         modalBackgroundDeletion(modalBackground)
@@ -175,8 +195,9 @@ function orderModalRender(){
     `
 }
 
-async function addCartFunc(item){
+export async function addCartFunc(item){
     try {
+        alert('adding to cart...')
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
         cartItems.push(item)
         await fetch('/addCart',{
@@ -186,6 +207,7 @@ async function addCartFunc(item){
             },
             body:JSON.stringify({cartItems:cartItems}),
         })   
+        alert('Added to cart')
     } catch (error) {
         alert(`Error:Did not add to cart.`)
     }
