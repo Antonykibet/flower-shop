@@ -72,10 +72,14 @@ router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ 
 router.post('/admin/update',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
     //console.log(JSON.parse(JSON.stringify(req.body)))
     let update = JSON.parse(JSON.stringify(req.body))
-    const id = update.prodName
-    let {prodName,...filteredUpdate} =update
-    console.log(filteredUpdate)
+    const id = update.prodId
+    let {prodId,...filteredUpdate} =update
     await products.updateOne({_id:new ObjectId(id)},{$set:filteredUpdate})
+    res.redirect('back')
+})
+router.post('/admin/delete',async(req,res)=>{
+    let {prodId} = JSON.parse(JSON.stringify(req.body))
+    await products.deleteOne({_id:new ObjectId(prodId)})
     res.redirect('back')
 })
 
