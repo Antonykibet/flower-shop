@@ -27,7 +27,7 @@ function updateSelectFunc(div){
     productsDropdown.addEventListener('change',()=>{  
         const product_id = productsDropdown.value
         const product = items.find((item)=>item._id==product_id)
-        const {description,top,_id,price,name} = product 
+        const {description,top,_id,price,name,catalogue} = product
         div.querySelector('#identifier').value=_id
         div.querySelector('#type').value=name
         div.querySelector('#topProduct').checked=top
@@ -173,13 +173,14 @@ function updateForm(){
                     <option value="Birthday">Birthday</option>
                     <option value="Love and Romance">Love and Romance</option>
                     <option value="Thank You">Thank You</option>
+                    <option value="addOns">Add Ons</option>
                 </select>
             </div>
             <input type='text' id='identifier' style='display:none;'>
-            <input class='input' id='type' type="text" placeholder="Name">
-            <input class='input' id='price' type="text" placeholder="price">
-            <input class='input' id='description' type="text" placeholder="description">
-            <input class='input' id='mainImage' type="file" name='mainImage' accept='.jpeg, .jpg, .png' placeholder="MainImage">
+            <input name='name' class='input' id='type' type="text" placeholder="Name">
+            <input name='price' class='input' id='price' type="text" placeholder="price">
+            <input name='description' class='input' id='description' type="text" placeholder="description">
+            <input  class='input' id='mainImage' type="file" name='mainImage' accept='.jpeg, .jpg, .png' placeholder="MainImage">
             <input class='input' id='otherImages' type="file" name='otherImages' multiple accept='.jpeg, .jpg, .png'  placeholder="Other Images">
             
             <div>

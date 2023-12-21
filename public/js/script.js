@@ -98,6 +98,7 @@ async function addOnsRender(div){
     let addOns = await getAddOns()
     addOns.forEach((item)=>{
         let addItem = document.createElement('div')
+        addItem.classList.add('addOnsItemDiv')
         addItem.innerHTML=`
         <div class='addOnsItem'>
             <p  class='addOnName'>${item.name}</p>

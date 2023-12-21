@@ -18,7 +18,7 @@ async function isLogged(){
 async function getAddOnsProducts(){
     let response = await fetch(`/products/addOns`)
     let result =await response.json()
-    productDisplay(result,'addOns')
+    productDisplay(result,'addOnsSection')
 }
 getAddOnsProducts()
 

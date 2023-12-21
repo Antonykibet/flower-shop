@@ -51,7 +51,7 @@ router.post('/admin/updateDeliverRecords',async(req,res)=>{
     res.redirect('back')
 })
 router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
-    let {catalogue,name,price,description,topProduct,colorData}=req.body
+    let {catalogue,name,price,description,topProduct,}=req.body
     console.log(catalogue)
     let mainFile = req.files.mainImage ? req.files.mainImage[0].filename : null
     let otherImages = req.files.otherImages ? req.files.otherImages.map(file=>file.filename) : null
@@ -67,6 +67,15 @@ router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ 
     }
     console.log(product)
     await products.insertOne(product)
+    res.redirect('back')
+})
+router.post('/admin/update',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
+    //console.log(JSON.parse(JSON.stringify(req.body)))
+    let update = JSON.parse(JSON.stringify(req.body))
+    const id = update.prodName
+    let {prodName,...filteredUpdate} =update
+    console.log(filteredUpdate)
+    await products.updateOne({_id:new ObjectId(id)},{$set:filteredUpdate})
     res.redirect('back')
 })
 
