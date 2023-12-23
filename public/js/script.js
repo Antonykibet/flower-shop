@@ -1,6 +1,8 @@
 let cartItems = []
 let result=null
 
+getCartItems()
+init()
 async function getAddOns(){
     let response = await fetch(`/products/addOns`)
     return result =await response.json()
@@ -9,10 +11,20 @@ async function getCartItems(){
     let response = await fetch('/addCart')
     cartItems = await response.json()
 }
-getCartItems()
+
+function skeleton(){
+    const cardTemplate = document.getElementById('card-template')
+    let contentContainer = document.querySelectorAll('.contentContainer')
+    contentContainer.forEach((container)=>{
+        for (let i = 0; i < 6; i++) {
+            container.append(cardTemplate.content.cloneNode(true))
+          }
+    })
+}
 
 
-let init = async ()=>{
+async function init(){
+    skeleton()
     let response = await fetch(`/topProducts`)
     let result = await response.json()
     productDisplay(result)
@@ -21,7 +33,7 @@ let init = async ()=>{
         await renderSecondarySectCards(section.getAttribute('id'))
     })
 }
-init()
+
 
 async function renderSecondarySectCards(sectionId){
     let header={
@@ -45,6 +57,7 @@ function disableButton(event){
 
 export function productDisplay(result,section = 'content'){
     let contentDiv = document.getElementById(section)
+    contentDiv.innerHTML=''
     result.forEach((item, index)=>{
         let {_id,name,description,price,image} = item
         let productDiv = document.createElement('div')

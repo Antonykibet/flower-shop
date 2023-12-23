@@ -100,21 +100,21 @@
         </div>
     </section>
     <h1 class="title" >Top Sellers</h1>
-    <section id="content">
-
+    <section class="contentContainer" id="content">
+        
     </section>
     <section id="banner">
 
     </section>
     <h1 class="title" >Congratulation</h1>
     <section class="secondaryContent" >
-        <div class="horizontalScroll" id="Congratulation">
+        <div class="horizontalScroll contentContainer" id="Congratulation">
             <a href="/category/Birthday"><i title="More" class="bi bi-arrow-right"></i></a>
         </div>
     </section>
     <h1 class="title" >Birthday</h1>
     <section class="secondaryContent" >
-        <div class="horizontalScroll" id="Birthday">
+        <div class="horizontalScroll contentContainer" id="Birthday">
             <a href="/category/Birthday"><i title="More" class="bi bi-arrow-right"></i></a>
         </div>
     </section>
@@ -133,10 +133,30 @@
 
     <h1 class="title" >Add Ons</h1>
     <section class="secondaryContent">
-        <div class="horizontalScroll" id="addOns">
+        <div class="horizontalScroll contentContainer" id="addOns">
             <a href="/category/Birthday"><i title="More" class="bi bi-arrow-right"></i></a>
         </div>
     </section>
+    <template id="card-template">
+        <div class="productDiv">
+            <a class="imageHyperlink" href="/product/64e55e64cd650b928255bced">
+                <div class="productImage skeleton" src=""></div>
+            </a>
+            <div class="nameDiv">
+                <div style="width:40%;height: .7rem;" class="skeleton skeleton-text"></div>
+                <div style="width:20%;" class="skeleton skeleton-text"></div>
+            </div>
+            <div style="flex-direction: column;" class="descDiv">
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
+            <button style="width: 100%; height:3vh;" class='cartButton skeleton'  index="0"></button>
+            <button style="width: 100%; height:3vh;" class="cartButton skeleton" index="0"></button>    
+        </div>
+    </template>
     <footer id="footer">
         <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
             <div id="footerLogo" ></div>
