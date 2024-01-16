@@ -12,7 +12,8 @@
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
-    "passport-google-oidc": "^0.1.0"
+    "passport-google-oidc": "^0.1.0",
+    "unirest": "^0.6.0"
   },
   "name": "flower-shop",
   "version": "1.0.0",

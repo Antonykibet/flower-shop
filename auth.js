@@ -3,7 +3,6 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oidc')
-const FacebookStrategy= require('passport-facebook')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
 
 passport.use(new GoogleStrategy({

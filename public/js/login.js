@@ -15,10 +15,10 @@ if(confirmPassInput){
 function hidePass(input,unhideIcon,hideIcon,index){
     if(input.type=='password'){
         input.type='text'
-        eyeIcon.item(index).src=unhideIcon
+        eyeIcon.item(index).innerHTML='<i class="bi bi-eye-slash-fill eyeIcon"></i>'
     }else{
         input.type='password'
-        eyeIcon.item(index).src=hideIcon
+        eyeIcon.item(index).innerHTML='<i class="bi bi-eye-fill eyeIcon"></i>'
     }
 }
 

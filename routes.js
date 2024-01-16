@@ -158,7 +158,7 @@ router.post('/checkout',async(req,res)=>{
     try {
         const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
         if(payment_method == 'mpesa'){
-            await processMpesa(phoneNo)
+            await processMpesa('254769819306')
         }
         const cart = req.session.cartItems
         let order ={

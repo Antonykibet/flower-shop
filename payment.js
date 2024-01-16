@@ -1,4 +1,5 @@
 const axios = require('axios');
+let unirest = require('unirest');
 
 function generateTimestamp(){
     const date = new Date();
@@ -14,20 +15,39 @@ function generateTimestamp(){
  async function accessToken(){ 
     const secret = process.env.MPESA_CONSUMER_SECRET
     const key = process.env.MPESA_CONSUMER_KEY
-
-    const auth = new Buffer.from(`${key}:${secret}`).toString('base64')
-    const url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-    const headers = {
-        'Authorization': "Basic" + " " + auth,
-        'Content-Type': 'application/json'
-      };
-
-    const response = await axios.get(url, { headers });
-    return response.data.access_token
+    let req = unirest('GET', 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials')
+    .headers({ 'Authorization': 'Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==' })
+    .send()
+  .end(res => {
+    if (res.error) throw new Error(res.error);
+    console.log(res.raw_body);
+  });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function processMpesa(phone){
-    phone=phone.slice(1)
-    const accessTkn = await accessToken()
+    //phone=phone.slice(1)
+    let req = unirest('GET', 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials')
+.headers({ 'Authorization': 'Basic cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==' })
+.send()
+.end(res => {
+	if (res.error) throw new Error(res.error);
+	console.log(res.raw_body);
+});
+    const accessTkn = 'T27wM2vUwSI1CMksPMRPHfD0mhO3'
     const shortCode = process.env.SHORTCODE
     const timestamp = generateTimestamp()
     const passKey = process.env.PASS_KEY
@@ -46,7 +66,7 @@ async function processMpesa(phone){
         "PartyA":phone,    
         "PartyB":`${shortCode}`,    
         "PhoneNumber":phone,    
-        "CallBackURL": "https://eighty-lizards-learn.tunnelapp.dev/paycallback",    
+        "CallBackURL": "https://n3vj0vz2-5500.uks1.devtunnels.ms/paycallback",    
         "AccountReference":254769819306,    
         "TransactionDesc":"Test"
      }

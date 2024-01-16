@@ -1,5 +1,6 @@
+require('dotenv').config();
 const {MongoClient, ObjectId} = require('mongodb')
-const uri = "mongodb+srv://antonykibet059:123Acosta@cluster0.eoos6vz.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URL;
 const dbClient = new MongoClient(uri)
 
 let db = dbClient.db('flowerShop');
