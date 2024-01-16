@@ -3,7 +3,11 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oidc')
-const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
+const {accounts,} = require('./mongoConfig');
+const {resetPassword} = require('./mailer')
+const bcrypt = require('bcrypt')
+const crypto = require('crypto');
+const saltRounds = 10;
 
 passport.use(new GoogleStrategy({
     clientID: process.env['GOOGLE_CLIENT_ID'],
@@ -63,7 +67,6 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
 
 router.post('/login',async (req,res)=>{
     const {email,password} = req.body
-    console.log('hello')
     let user
     try{
         user = await accounts.findOne({email:email})
@@ -71,19 +74,15 @@ router.post('/login',async (req,res)=>{
             res.render('login',{wrongUser:'Wrong Username,',wrongPass:''})
             return
         }
+        if(!await bcrypt.compare(password, user.password)){
+          res.render('login',{wrongUser:'',wrongPass:'Wrong Password'})
+          return
+        }
+        req.session.user = {role:user.role} 
 
     }catch{
         res.render('login',{wrongUser:'Wrong Username' ,wrongPass:''})    
     }
-    if(user.password !== password){
-        res.render('login',{wrongUser:'',wrongPass:'Wrong Password'})
-        return
-    }
-    if(email=='antonykibet059@gmail.com' && password=='123@Anto'){
-        req.session.isAdmin=true   
-    }
-    req.session.email=email
-    req.session.isUser=true
     res.redirect('/')
 })
 
@@ -93,14 +92,59 @@ router.post('/signUp',async(req,res)=>{
         res.render('sign',{error:'Email already exists!'})
         return
     }
-    let user ={
-        name:`${firstname} ${lastname}`,
-        email:email,
-        password:password,
-    }
-    await accounts.insertOne(user)
-    console.log(`Account creation succesful:${user.name}`)
-    res.render('login',{wrongUser:'',wrongPass:''})
+    try {
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      let user ={
+          name:`${firstname} ${lastname}`,
+          email:email,
+          password:hashedPassword,
+          role:'user',
+      }
+      await accounts.insertOne(user)
+  } catch(err) {
+      res.status(500).send(`Sign in error ${err}`);
+  }
+  res.render('login',{wrongUser:'',wrongPass:''})
 })
+router.post('/forgotPassword',async(req,res)=>{
+  let {email} = req.body
+  const resetToken = crypto.randomBytes(20).toString('hex');
+  const hashedToken = await bcrypt.hash(resetToken, 10);
+  try {
+      await accounts.updateOne({email},{$set:{
+          resetPasswordToken : hashedToken,
+          resetPasswordExpires : Date.now() + 3600000, // 1 hour
+      }})
+      resetPassword(resetToken,email)
+      res.json('Check your email!')    
+  } catch (error) {
+      console.log(error)
+  }
+  
+})
+router.get('/reset-password/:token',(req,res)=>{
+  let token = req.params.token
+  res.render('resetPassword',{tokenplaceholder:token})
+})
+router.post('/reset-password/:token', async (req, res) => {
+  const user = await accounts.findOne({email:req.body.email});
+  const tokenMatches = await bcrypt.compare(req.params.token, user.resetPasswordToken);
+  if (!tokenMatches || Date.now() > user.resetPasswordExpires) {
+      res.status(400).send('Password reset token is invalid or has expired.');
+      return;
+  }
 
+  // Update Password
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  try {
+      await accounts.updateOne({email:req.body.email},{$set:{
+          password:hashedPassword,
+          resetPasswordToken : undefined,
+          resetPasswordExpires : undefined,
+      }})   
+      res.send('Password update succesfull')
+  } catch (error) {
+      console.log(error)
+  }
+});
 module.exports=router

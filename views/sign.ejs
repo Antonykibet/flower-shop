@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
@@ -21,11 +20,15 @@
                     <p class="errorMsg"><%= error %></p>
                     <div style="width: 100%;position: relative;">
                         <input class="formInput" type="password" name="password" placeholder="Password" id="password"  required><br>
-                        <img class="eyeIcon" src="/icons/hide password icon.png" alt="">
+                        <div class="eyeIcon">
+                            <i class="bi bi-eye-fill "></i>
+                        </div>
                     </div>
                     <div style="width: 100%;position: relative;">
                         <input class="formInput" type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword"  required><br>
-                        <img class="eyeIcon" src="/icons/hide password icon.png" alt="">
+                        <div class="eyeIcon">
+                            <i class="bi bi-eye-fill "></i>
+                        </div>
                     </div>
                     <button class="submitBtn" id='signBtn' type="submit">Sign Up</button>
                 </form>`
@@ -36,11 +39,6 @@
                     <img class="icon" src="/icons/google Icon.png" alt="">
                     Google
                 </button>
-                <button class="altButton" type="submit">
-                    <img id="facebook" class="icon" src="/icons/facebook icon.png" alt="">
-                    Facebook
-                </button>
-                <p></p>
             </div>
         </div>
     </section>
