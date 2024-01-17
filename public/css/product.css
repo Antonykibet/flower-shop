@@ -172,7 +172,7 @@ body{
 }
 .modal{
     width: auto;
-    height: 50%;
+    height: auto;
     width: 35%;
     display: flex;
     justify-content: space-between;
@@ -283,6 +283,9 @@ body{
     #continueBtn{
         width: 100%;
     }
+    #subBtn{
+        width: 100%;
+    }
     #cartBtn{
         width: 100%;
     }
@@ -291,10 +294,13 @@ body{
         overflow-x: auto; /* Enable horizontal scrolling */
         white-space: nowrap; /* Prevent wrapping to the next line */
       }
-      .productDiv {
-        width: 65%; /* Adjust the width as needed */
-        margin-right: 16px; /* Add margin between cards */
-        white-space: normal; /* Allow text to wrap */
-        flex: 0 0 auto;
-      }
+    .productDiv {
+    width: 65%; /* Adjust the width as needed */
+    margin-right: 16px; /* Add margin between cards */
+    white-space: normal; /* Allow text to wrap */
+    flex: 0 0 auto;
+    }
+    .modal{
+        width: 80%;
+    }
 }

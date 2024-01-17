@@ -32,7 +32,6 @@ creditBtn.addEventListener('click',(event)=>{
 async function getCartItems(){
     let response = await fetch('/addCart')
     cartItems = await response.json()
-    alert(JSON.stringify(cartItems))
     //displays the checkout btn mobile
     if(cartItems.length==0){
         mobileCheckoutBtn.style.display='none'

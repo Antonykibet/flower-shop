@@ -83,7 +83,8 @@ router.post('/login',async (req,res)=>{
     }catch{
         res.render('login',{wrongUser:'Wrong Username' ,wrongPass:''})    
     }
-    res.redirect('/')
+    let url = req.session.productUrl || '/'
+    res.redirect(url)
 })
 
 router.post('/signUp',async(req,res)=>{

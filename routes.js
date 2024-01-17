@@ -72,17 +72,20 @@ router.post('/updCart',(req,res)=>{
     res.redirect('/cart')
 })
 router.get('/role',(req,res)=>{
-    const permision={
-        isAdmin:req.session.isAdmin ?? false,
-        isUser:req.session.isUser ?? false
-    } 
-    res.json(permision)
-})
-router.get('/isLogged',(req,res)=>{
-    if(req.session.isUser){
-        res.json(req.session.isUser)
+    if(req.session.user){
+        const user = req.session.user 
+        res.json(user)
         return
     }
+    res.redirect('back')
+})
+router.get('/isLogged',(req,res)=>{
+    let url = req.headers.referer
+    if(req.session.user){
+        res.json(true)
+        return
+    }
+    req.session.productUrl = url;
     res.json(false)
 })
 
@@ -109,7 +112,7 @@ router.get('/products/:product',async(req,res)=>{
 })
 router.get('/product/:productID',async(req,res)=>{
     let {productID} =req.params
-    //console.log(req.params)
+    console.log(productID)
     let item  = await products.findOne(new ObjectId(productID))
     let {image,name,description,price,images,catalogue} =item
     let details={

@@ -124,17 +124,6 @@ async function addOnsRender(div){
             addCartFunc(item)
         })
     })
-    /*let elements = div.querySelectorAll('.addOnName')
-    elements.forEach((elem)=>{
-        alert(elem.getAttribute('id'))
-    })*/
-    
-   /* addOns.forEach((item)=>{
-        document.querySelector(`#${item.name}`).addEventListener('click',()=>{
-            alert('Hello')
-            //addCartFunc(item)
-        })
-    })*/ 
 }
 
 export async function modalRender(btn,item){
@@ -144,7 +133,7 @@ export async function modalRender(btn,item){
         let checkoutBtn=modalBackground.querySelector('#proceedCheckout')
         checkoutBtn.addEventListener('click',async()=>{
             await addCartFunc(item)
-            //window.location.href = '/cart';
+            window.location.href = '/cart';
         })
     }
     if(btn=='cartButton'){
@@ -152,6 +141,7 @@ export async function modalRender(btn,item){
         let addCartBtn=modalBackground.querySelector('#proceedAddCart')
         addCartBtn.addEventListener('click',async()=>{
             await addCartFunc(item)
+            modalBackgroundDeletion(modalBackground)
         })
     }
     

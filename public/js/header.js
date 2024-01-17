@@ -18,11 +18,11 @@ menu.addEventListener('click',()=>{
 async function hiddenBtns(){
     let response = await fetch('/role')
     let result = await response.json()
-    const {isAdmin,isUser}=result
-    if(isUser){
+    const {role}=result
+    if(role=='user'){
         loginDropdown.innerHTML+=`<a href="/subscribe">Subscriptions</a>`
     }
-    if(isAdmin){
+    if(role=='admin'){
         loginDropdown.innerHTML+=`<a href="/admin/dashboard">Admin Dashboard</a>`
     }
 }

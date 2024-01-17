@@ -5,8 +5,6 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 const {dbInit,products,accountCollection,subscription, orders, dashboard,ObjectId} = require('./mongoConfig');
 
-router.use(bodyParser.urlencoded({ extended: true }));
-
 const storage = multer.diskStorage(
     {
         destination:function(req,file,cb){
@@ -19,10 +17,16 @@ const storage = multer.diskStorage(
     }
 )
 const upload = multer({storage})
+
+
+router.use(bodyParser.urlencoded({ extended: true }));
+
+
 function auth(req,res,next){
-    //if not authenticated, redirect to login page
-    if(req.session.user){
+    let {role} = req.session.user || false
+    if(role=='admin'){
         next()
+        return
     }else{
         res.send('intruder')
     }

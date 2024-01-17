@@ -13,15 +13,19 @@
     <header id="headerBody">
         <div id="topHeader">✔ 7 Day Freshness Guarantee ✔ Order Before 9pm For Next Day Delivery ✔ Free Chocolates Available!</div>
         <div id="desktopHeader">
-            <img id="logo" src="/images/Calyx logo.png" alt="">
+            <img id="logo" src="/images/Calyx Flowers Logo.png" alt="">
 
             <div class="headerIcons" id="deskHeaderIcon">
-                <a href="/login"><i class="bi bi-person-circle"></i></a>
+                <i class="bi bi-person-circle"></i>
                 <a href="/cart"><i id="cartIcon" class="bi bi-cart4"></i></a>
                 <i class="bi bi-list"></i>
+
+                <div class="loginDropdown">
+                    <a href="/login">Login</a>
+                </div>
             </div>
         </div>
-        <nav id="desktopNav">
+        <nav class="desktopNav">
             <div class="navItem">
                 <button class="nav-button" id="byOccassion">By Occassion</button>
                 <div class="dropdown-menu" id="byOccassionMenu">
@@ -81,13 +85,13 @@
             <div class="navItem">
                 <button class="nav-button" id="Subscriptions">Subscriptions</button>
                 <div class="dropdown-menu" id="subscriptionMenu">
-                    <a href="">For Her</a>
-                    <a href="">For Him</a>               
+                    <a href="/category/Monthly">Monthly</a>
+                    <a href="/category/Monthly">Quartely</a>
+                    <a href="/category/Monthly">Yearly</a>               
                 </div>
             </div>
         </nav>
     </header>
-
     <h1 class="title" id="cartTitle">Cart</h1>
     <section id="content">
         <div id="billingDiv">
@@ -98,7 +102,7 @@
             <form id="billingForm" action="/checkout" method="post">
                 <input class="billingInput" placeholder="First Name" type="text" id="fname" name="fname" required>
                 <input class="billingInput" placeholder="Last Name" type="text" id="lname" name="lname" required>
-                <input class="billingInput" placeholder="Phone Number" type="text" name="phoneNo" id="phoneNo" required>
+                <input style="width: 100%;" class="billingInput"  type="text" name="phoneNo" id="phoneNo" required>
                 <input class="billingInput" placeholder="Email Address" type="text" name="email" id="email" required>
                 <textarea name="note" id="addNote" placeholder="Add a note ..."></textarea>
                 <input type="hidden" name="totalPrice" id="total">
@@ -106,11 +110,9 @@
                     <h3 class="totalElem">Total</h3>
                     <h3 class="totalElem" id="totalPrice">0</h3>
                 </div>
-                <button class="billingBtns" type="submit" name="payment_method" value="mpesa">Pay with Mpesa</button>
-                <button class="billingBtns" type="submit"  name="payment_method" value="credit_card"></button>
-                <button class="intaSendPayButton" data-amount="10" data-currency="KES">Pay with Credit Card</button>
-                <button class="billingBtns" id="checkoutBtn" type="submit">Check Out</button>
-                <a style="width: 100%;" href="/"><button type="button" class="billingBtns" id="continueBtn">Continue shopping</button></a>
+                <button class="billingBtns" id="checkoutBtn" type="submit" name="payment_method" value="mpesa">Pay with Mpesa</button>
+                <button class="billingBtns intaSendPayButton" data-amount="10" data-currency="KES" type="submit"  name="payment_method" value="credit_card">Pay with Credit Card</button>
+        
             </form>
         </div>
         <button id="checkoutDisplay">Checkout</button>
@@ -157,6 +159,7 @@
     
     <script src="https://unpkg.com/intasend-inlinejs-sdk@3.0.4/build/intasend-inline.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/header.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
     <script>
         // new window.IntaSend({

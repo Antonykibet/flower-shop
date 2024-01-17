@@ -73,7 +73,6 @@ a{
     width: 10%;
     height: 9vh;
     object-fit: cover;
-    border: solid;
 }
 #account{
     width: 24px;
@@ -101,6 +100,8 @@ a{
 .dropdown-menu {
     position: absolute;
     top: 100%; /* Position the menu below the button */
+    padding-top: 8px;
+    padding-bottom: 8px;
     left: 0;
     display: none;
     flex-direction: column;
@@ -157,6 +158,9 @@ a{
 
 
 @media screen and (max-width:1000px) {
+    body{
+        padding-top: 10vh;
+    }
     #logo{
         width: 100px;
         height: 56px;

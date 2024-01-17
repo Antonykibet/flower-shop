@@ -200,7 +200,24 @@ function createForm(){
         <form action="/admin/create" method="post" enctype="multipart/form-data">
             <input class='input' type="text" name='name' placeholder="Product name">
             <input class='input' type="text" name='price' placeholder="Price">
-            <input class='input' type="text" name='catalogue' placeholder="Catalogue">
+            <div>
+                <label for="catalogue">Catalogue :</label> 
+                <select class='input' name="catalogue" id="catalogue">
+                    <option value="Birthday">Birthday</option>
+                    <option value="Congratulation">Congratulation</option>
+                    <option value="Love and Romance">Love and Romance</option>
+                    <option value="Thank You">Thank You</option>
+                    <option value="For Him">For Him</option>
+                    <option value="Valentines">Valentines</option>
+                    <option value="Mother's Day">Mother's Day</option>
+                    <option value="Get Well">Get Well</option>
+                    <option value="Funeral">Funeral</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Birthday">Birthday</option>
+                </select>
+            </div>
             <input class='input' type="text" name='description' placeholder="Description">
             <input class='input' type="file" name='mainImage' accept='.jpeg, .jpg, .png' placeholder="MainImage">
             <input class='input' type="file" name='otherImages' multiple accept='.jpeg, .jpg, .png'  placeholder="Other Images">

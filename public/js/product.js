@@ -9,7 +9,7 @@ let item=JSON.parse(cartBtn.value)
 
 
 async function isLogged(){
-    let response= await fetch('/isLogged')
+    let response= await fetch(`/isLogged`)
     let result = await response.json() 
     return result
 }
@@ -23,7 +23,7 @@ async function getAddOnsProducts(){
 getAddOnsProducts()
 
 
-if(item.catalogue=='Monthly'||'Quartely'||'Yearly'){
+if(item.catalogue=='Monthly'||item.catalogue=='Quartely'||item.catalogue=='Yearly'){
     cartBtn.style.display='none'
     btnDiv.innerHTML+=`
         <button class="CTOs" id="subBtn" >Subscribe</button>
@@ -34,6 +34,7 @@ if(item.catalogue=='Monthly'||'Quartely'||'Yearly'){
         if(!loggedIn){
             alert('Login to continue with subscription')
             window.location.href = '/login';
+            return
         }
         subscriptionPopup()
     })
@@ -72,7 +73,7 @@ function subscriptionForm(){
                         <h3 class="totalElem">${item.price}</h3>
                     </div>
                     <div style='width:100%;display:flex;justify-content:center;'>
-                        <button class='CTOs' id='subscribeBtn'>Submit</button>
+                        <button class='CTOs' id='subscribeBtn'>Subscribe</button>
                     </div>
                 </form>
         </div>

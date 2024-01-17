@@ -156,6 +156,13 @@
     color: #2e2e2e;
     outline: none;
 }
+.iti--allow-dropdown{
+    margin-bottom: 8px;
+    width: 100%;
+}
+.intaSendPayButton{
+    background-color: white;
+}
 #checkoutBtn{
     background-color: #B7A28A;
     color: white;
@@ -182,9 +189,6 @@
     display: none;
 }
 @media screen and (max-width: 1000px) {
-    body{
-
-    }
     #mobileHeader{
         height: 7vh;
         width: 100%;
