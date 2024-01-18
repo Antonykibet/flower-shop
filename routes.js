@@ -77,7 +77,6 @@ router.get('/role',(req,res)=>{
         res.json(user)
         return
     }
-    res.redirect('back')
 })
 router.get('/isLogged',(req,res)=>{
     let url = req.headers.referer
@@ -112,7 +111,6 @@ router.get('/products/:product',async(req,res)=>{
 })
 router.get('/product/:productID',async(req,res)=>{
     let {productID} =req.params
-    console.log(productID)
     let item  = await products.findOne(new ObjectId(productID))
     let {image,name,description,price,images,catalogue} =item
     let details={

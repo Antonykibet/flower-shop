@@ -97,7 +97,7 @@
     <h1 class="title" >Product</h1>
     <section id="productContent">
         <div id="imgSection">
-            <img class="productImageMain" src="<%= image %>"alt="">
+            <img class="productImageMain" src="/images/<%= image %>"alt="">
             <div id="imgCollection">
                 <div id="images" style="display: none;"><%= images %></div>    
             </div>
@@ -180,7 +180,7 @@
             images=JSON.parse(images)
             images.forEach((image)=>{
                 imgCollection.innerHTML+=`
-                <img class="otherImg" src="${image}" alt="">
+                <img class="otherImg" src="/images/${image}" alt="">
                 `
             })
             let otherImg = document.querySelectorAll('.otherImg')

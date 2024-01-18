@@ -83,7 +83,7 @@ export function productDisplay(result,section = 'content'){
 function productCardRender(_id,name,description,price,image,index){
     return `
         <a class='imageHyperlink' href='/product/${_id}'>
-            <img class='productImage' src='${image}'>
+            <img class='productImage' src='/images/${image}'>
         </a>
         <div class='nameDiv'>
             <h3 class='productName'>${name}</h3>
