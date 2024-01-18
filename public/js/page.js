@@ -1,3 +1,5 @@
+import { addCartFunc} from "/js/script.js"
+
 let catalogueTitle = document.getElementById('catalogueTitle')
 let catalogueNav = document.getElementById('catalogueNav')
 let content = document.getElementById('content')
@@ -65,11 +67,11 @@ function productDisplay(result){
             <div class='descDiv'>
                 <p class='description'>${description}</p>
             </div>
-            <button class='cartButton' index='${index}'>Order Now</button>    
+            <button class='cartButton' index='${index}'>Add to Cart</button>    
         `
         let cartButton=productDiv.querySelector('.cartButton')
         cartButton.addEventListener('click',()=>{
-            alert('Hello')
+            addCartFunc(item)
         })
         contentDiv.appendChild(productDiv)
     })

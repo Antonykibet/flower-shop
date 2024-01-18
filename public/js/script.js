@@ -1,15 +1,13 @@
-let cartItems = []
 let result=null
 
-getCartItems()
 init()
 async function getAddOns(){
     let response = await fetch(`/products/addOns`)
     return result =await response.json()
 }
-async function getCartItems(){
+export async function getCartItems(){
     let response = await fetch('/addCart')
-    cartItems = await response.json()
+    return await response.json()
 }
 
 function skeleton(){
@@ -202,6 +200,7 @@ function orderModalRender(){
 export async function addCartFunc(item){
     try {
         alert('adding to cart...')
+        let cartItems=await getCartItems()
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
         cartItems.push(item)
         await fetch('/addCart',{
