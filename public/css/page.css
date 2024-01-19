@@ -7,7 +7,7 @@ body{
     font-family: 'Inter';
     color: rgb(46, 46, 46);
 }
-#content{
+#pageContent{
     width: 90%;
     min-height: 100vh;
     padding-top: 0px;
@@ -27,11 +27,13 @@ body{
     width: 95%;
     align-items:center;
     justify-content: flex-start ;
+    font-family: 'Roboto';
 }
 .catalogBtn{
     margin-right: 8px;
     margin-top: 0px;
     margin-bottom: 0px;
+    color: grey;
 }
 @media screen and (max-width:1000px) {
     #title{
@@ -46,7 +48,7 @@ body{
         padding-top: 8px;
         box-shadow: 0 8px 16px 0 rgba(54, 53, 53, 0.3);
     }
-    #content{
+    #pageContent{
         width: 100%;
         flex-wrap: wrap;
         justify-content: center;
@@ -67,5 +69,8 @@ body{
     }
     .nameDiv{
         margin-top: 0px;
+    }
+    #catalogueNav{
+        display: none;
     }
 }

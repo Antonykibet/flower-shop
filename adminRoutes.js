@@ -41,6 +41,10 @@ router.get('/admin/subscribedItems',async (req,res)=>{
     let subscribedItems = await subscription.find().toArray()
     res.json(subscribedItems)
 })
+router.get('/admin/orderdItems',async(req,res)=>{
+    let items = await orders.find().toArray()
+    res.json(items)
+})
 router.post('/admin/updateDeliverRecords',async(req,res)=>{
     const {id,nextDelivery,lastDelivery}=req.body
     console.log(nextDelivery,lastDelivery)

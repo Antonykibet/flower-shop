@@ -1,3 +1,4 @@
+import { skeletonRender } from "./skeletonRender.js"
 let result=null
 
 init()
@@ -10,25 +11,24 @@ export async function getCartItems(){
     return await response.json()
 }
 
-function skeleton(){
-    const cardTemplate = document.getElementById('card-template')
-    let contentContainer = document.querySelectorAll('.contentContainer')
-    contentContainer.forEach((container)=>{
-        for (let i = 0; i < 6; i++) {
-            container.append(cardTemplate.content.cloneNode(true))
-          }
-    })
-}
+
 
 
 async function init(){
-    skeleton()
+    skeletonRender()
     let response = await fetch(`/topProducts`)
     let result = await response.json()
     productDisplay(result)
     let secondarySections = document.querySelectorAll('.horizontalScroll')
     secondarySections.forEach(async(section)=>{
-        await renderSecondarySectCards(section.getAttribute('id'))
+        let sectionId = section.getAttribute('id')
+        await renderSecondarySectCards(sectionId)
+        document.getElementById(sectionId).innerHTML+=`
+        <div style='height:auto;display:flex;align-items:center;'>
+            <a href="/category/${sectionId}">
+                <i title="More" class="bi bi-arrow-right"></i>
+            </a>
+        </div>`
     })
 }
 
@@ -118,8 +118,8 @@ async function addOnsRender(div){
         div.querySelector('#addOns').appendChild(addItem)
     })
     addOns.forEach((item)=>{
-        div.querySelector(`#${item.name.split(' ').join('')}`).addEventListener('click',()=>{
-            addCartFunc(item)
+        div.querySelector(`#${item.name.split(' ').join('')}`).addEventListener('click',async()=>{
+            await addCartFunc(item)
         })
     })
 }
@@ -180,7 +180,7 @@ function cartModalRender(){
                 <h2 class='title'>You can add:</h2>
                 <div id='addOns'></div>
             </div>
-            <button id='proceedAddCart'>Proceed to Add to Cart</button>
+            <button class='modalSubmitBtn' id='proceedAddCart'>Proceed to Add to Cart</button>
         </div>
     `
 }
@@ -192,7 +192,7 @@ function orderModalRender(){
                 <h2 class='title'>You can add:</h2>
                 <div id='addOns'></div>
             </div>
-            <button id='proceedCheckout'>Proceed to Checkout</button>
+            <button class='modalSubmitBtn' id='proceedCheckout'>Proceed to Checkout</button>
         </div>
     `
 }

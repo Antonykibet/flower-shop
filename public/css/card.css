@@ -24,7 +24,12 @@
       background-color: hsl(200, 20%, 95%);
     }
   }
-
+button:active{
+    cursor: pointer;
+}
+button:hover{
+    cursor: pointer;
+}
 
 
 
@@ -85,6 +90,13 @@
     margin-top: 0px;
     font-family: 'Inter';
     font-size: 13px;
+}
+.modalSubmitBtn{
+    background-color:  #B7A28A;
+    border: none;
+    color: whitesmoke;
+    font-family: 'Poppins',sans-serif;
+    border-radius: 2px;
 }
 .cartButton{
     background-color:  #B7A28A;

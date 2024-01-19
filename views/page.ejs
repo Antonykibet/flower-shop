@@ -95,7 +95,7 @@
     <h1 class="mainTitle"></h1>
     <h1  id="catalogueTitle" ><%= title%></h1>
     <nav id="catalogueNav"></nav>
-    <section id="content">
+    <section class="contentContainer" id="pageContent">
     </section>
     <footer id="footer">
         <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
@@ -136,6 +136,27 @@
         </div>
         <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
     </footer>
+    <template id="card-template">
+        <div class="productDiv">
+            <a class="imageHyperlink" >
+                <div class="productImage skeleton" src=""></div>
+            </a>
+            <div class="nameDiv">
+                <div style="width:40%;height: .7rem;" class="skeleton skeleton-text"></div>
+                <div style="width:20%;" class="skeleton skeleton-text"></div>
+            </div>
+            <div style="flex-direction: column;" class="descDiv">
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
+            <button style="width: 100%; height:3vh;" class='cartButton skeleton'  index="0"></button>
+            <button style="width: 100%; height:3vh;" class="cartButton skeleton" index="0"></button>    
+        </div>
+    </template>
+    <script type="module" src="/js/skeletonRender.js"></script>
     <script type="module" src="/js/script.js" ></script>
     <script src="/js/header.js"></script>
     <script type="module" src="/js/page.js"></script>

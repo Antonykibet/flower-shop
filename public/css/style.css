@@ -81,27 +81,24 @@ a{
     margin-bottom: 24px;
 }
 .secondaryContent{
+    position: relative;
     width: 85vw;
     height: auto;
     justify-content: center;
     align-items: center;
     overflow-x: auto;
-    
 }
 .bi-arrow-right{
-    position: absolute;
-    right: 0;
-    top: 50%;
+    border: solid;
     border-radius: 50%;
     padding:8px;
     font-size: 20px;
     color: white;
     background-color: rgba(26, 26, 26, 0.51);
-    backdrop-filter: blur(1px);;
-
+    backdrop-filter: blur(1px);
+    z-index: 10;
 }
 .horizontalScroll{
-    position: relative;
     padding-right: 32px;
     display: flex;
     flex-direction: row;

@@ -1,4 +1,5 @@
 let lists = document.querySelectorAll('.CRUD')
+let subscribersTrack=document.getElementById('subscribersTrack')
 let orderTrack=document.getElementById('orderTrack')
 let items = []
 let subscibedItems = []
@@ -11,6 +12,7 @@ async function getItems(){
     })
 }
 getItems()
+getSubscribedItems()
 getOrderdItems()
 
 
@@ -65,10 +67,46 @@ lists.forEach((list)=>{
     })
 })
 
-async function getOrderdItems(){
+async function getSubscribedItems(){
     let response=await fetch('/admin/subscribedItems')
     subscibedItems=await response.json()
     displaySubscribedItems()
+}
+async function getOrderdItems(){
+    let response=await fetch('/admin/orderdItems')
+    orderItems=await response.json()
+    orderItems.forEach((item,index)=>{
+        const {_id,name,phoneNo,email,cart,} = item
+        let list = document.createElement('div')
+        list.classList.add('orderRecord')
+        list.innerHTML=orderList(index,name,email,phoneNo)
+        orderTrack.appendChild(list)
+
+        let productItems = list.querySelector('.productItems')
+        cart.forEach((item)=>{
+            productItems.innerHTML+=`
+            <div>
+                <p>${item.catalogue}</p>
+                <p>Unit:${item.unit}</p>
+            </div>
+            `
+        })
+    })
+}
+
+function orderList(index,name,email,phoneNo){
+    return `
+    <div class='index'><h1>${index}</h1></div>
+    <div class="credentials">
+        <p id="name">${name}</p>
+        <p>${email}</p>
+        <p>${phoneNo}</p>
+    </div>
+    <div class="productItems">
+
+    </div>
+
+    `
 }
 
 function deliveryDate(interval) {
@@ -92,7 +130,7 @@ function displaySubscribedItems(){
         let {_id,name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery} = item
         let list = document.createElement('div')
         list.classList.add('orderRecord')
-        list.innerHTML=orderList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery)
+        list.innerHTML=subscriberList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery)
         let deliverBtn = list.querySelector('#deliverBtn')
         deliverBtn.addEventListener('click', async()=>{
             waitProcessDisplay()
@@ -101,7 +139,7 @@ function displaySubscribedItems(){
             await updateDelivery(deliveries,totalDeliveries,_id,list,lastDelivery,nextDelivery)
             location.reload(true)
         })
-        orderTrack.appendChild(list)
+        subscribersTrack.appendChild(list)
     })
 }  
 
@@ -130,7 +168,7 @@ async function updateDelivery(deliveries,totalDeliveries,_id,element,lastDeliver
         })
     })
 }
-function orderList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery){
+function subscriberList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery){
     return `
     <div class="credentials">
         <p id="name">${name}</p>
