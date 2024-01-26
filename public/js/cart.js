@@ -7,27 +7,55 @@ let billingDiv=document.getElementById('billingDiv')
 let removeBtn=document.querySelector('.bi-x-circle')
 let cartItems = null
 
+
+function isCheckoutFormValid(){
+    let phoneNo = document.querySelector('#phoneNo')
+    let formInputs =document.querySelectorAll('.billingInput')
+    totalPrice = parseFloat(totalPrice.textContent);
+    if (totalPrice === 0) {
+        alert("Cart is Empty, continue shopping.");
+        return true
+    }
+    if(phoneNo.value.length < 10){
+        alert('Incomplete phone number')
+        return true
+    }
+    for(let i=0;i<formInputs.length;i++){
+        if(formInputs[i].value.trim()===''){
+            alert(`${formInputs[i].placeholder} input is empty!`)
+            return true
+        }
+    }
+    return false;
+}
+
+function intSendPayment(form){
+    IntaSend({
+        publicAPIKey: "ISPubKey_test_87bb04e5-be8e-49d2-a4e2-a749b532a0f3",
+        live: false //set to true when going live
+      })
+        .on("COMPLETE", (results) => {
+          // Handle successful payment
+          alert("Payment successful!");
+          // Submit the form after successful payment
+          form.submit();
+        })
+        .on("FAILED", (results) => {
+          // Handle failed payment
+          alert("Payment failed!");
+        })
+        .on("IN-PROGRESS", (results) => {
+          // Handle payment in progress status
+          alert("Payment in progress...");
+        });
+}
+
 creditBtn.addEventListener('click',(event)=>{
     event.preventDefault();
-  // Trigger IntaSend popup
-  IntaSend({
-    publicAPIKey: "ISPubKey_test_87bb04e5-be8e-49d2-a4e2-a749b532a0f3",
-    live: false //set to true when going live
-  })
-    .on("COMPLETE", (results) => {
-      // Handle successful payment
-      alert("Payment successful!");
-      // Submit the form after successful payment
-      form.submit();
-    })
-    .on("FAILED", (results) => {
-      // Handle failed payment
-      alert("Payment failed!");
-    })
-    .on("IN-PROGRESS", (results) => {
-      // Handle payment in progress status
-      alert("Payment in progress...");
-    });
+    if(isCheckoutFormValid()) return
+    // Trigger IntaSend popup
+    intSendPayment(event.target.form)
+    event.target.click()
 })
 async function getCartItems(){
     let response = await fetch('/addCart')

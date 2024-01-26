@@ -211,7 +211,7 @@ form input{
     margin-top: 8px;
     display: flex;
     border-bottom: solid 1px;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: top;
     font-family: 'Roboto';
 }
@@ -228,10 +228,25 @@ form input{
 #statusElem{
     height: 56px;
 }
-.credentials h4{
+.credentials{
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    border: solid;
+}
+.productItems{
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    width: 30%;
 }
 #pleaseWaitModal{
     width: auto;
+}
+.trackingContainers{
+    max-height:80vh;
+    overflow-y: auto;
+    margin-bottom: 10vh;
 }
 @media screen and (max-width:1000px) {
     body{
@@ -299,7 +314,12 @@ form input{
     .credentials{
         width: 100%;
     }
+    .subscriberCredentials{
+        width: 50%;
+    }
     .productItems{
+        display: flex;
+        border: solid;
         width:100%;
     }
     .status{

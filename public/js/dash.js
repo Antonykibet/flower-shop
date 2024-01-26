@@ -76,17 +76,18 @@ async function getOrderdItems(){
     let response=await fetch('/admin/orderdItems')
     orderItems=await response.json()
     orderItems.forEach((item,index)=>{
-        const {_id,name,phoneNo,email,cart,} = item
+        const {name,phoneNo,email} = item
+        let cart=item.cart || []
         let list = document.createElement('div')
         list.classList.add('orderRecord')
-        list.innerHTML=orderList(index,name,email,phoneNo)
+        list.innerHTML=orderList(name,email,phoneNo)
         orderTrack.appendChild(list)
 
         let productItems = list.querySelector('.productItems')
         cart.forEach((item)=>{
             productItems.innerHTML+=`
-            <div>
-                <p>${item.catalogue}</p>
+            <div style='display: flex;width:50%;justify-content:space-evenly;'>
+                <p>${item.name}</p>
                 <p>Unit:${item.unit}</p>
             </div>
             `
@@ -94,15 +95,14 @@ async function getOrderdItems(){
     })
 }
 
-function orderList(index,name,email,phoneNo){
+function orderList(name,email,phoneNo){
     return `
-    <div class='index'><h1>${index}</h1></div>
     <div class="credentials">
         <p id="name">${name}</p>
         <p>${email}</p>
         <p>${phoneNo}</p>
     </div>
-    <div class="productItems">
+    <div  class="productItems">
 
     </div>
 
@@ -112,7 +112,7 @@ function orderList(index,name,email,phoneNo){
 function deliveryDate(interval) {
     let today = new Date()
     let nextDate
-    if(interval=='Weekly'){
+    if(interval=='weekly'){
         nextDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
     }
     if(interval=='fortnight'){
@@ -122,7 +122,7 @@ function deliveryDate(interval) {
     const month = String(nextDate.getMonth() + 1).padStart(2, '0');
     const year = nextDate.getFullYear();
   
-    return `${day}/${month}/${year}`;
+    return `${year}-${month}-${day}`;
   }
 
 function displaySubscribedItems(){
@@ -135,6 +135,7 @@ function displaySubscribedItems(){
         deliverBtn.addEventListener('click', async()=>{
             waitProcessDisplay()
             lastDelivery=list.querySelector('#nextDelivery').dataset.value
+            
             nextDelivery=deliveryDate(intervals)
             await updateDelivery(deliveries,totalDeliveries,_id,list,lastDelivery,nextDelivery)
             location.reload(true)
@@ -142,7 +143,12 @@ function displaySubscribedItems(){
         subscribersTrack.appendChild(list)
     })
 }  
-
+//compare delivery dates
+function isDeliveryDateValid(last,next){
+    let lastDate = new Date(last)
+    let nextDate = new Date(next)
+    if
+}
 function waitProcessDisplay(){
     let modalBackground = document.createElement('div')
     modalBackground.classList.add('modalBackground')
@@ -170,12 +176,9 @@ async function updateDelivery(deliveries,totalDeliveries,_id,element,lastDeliver
 }
 function subscriberList(name,phoneNo,intervals,subscription,deliveries,totalDeliveries,lastDelivery,nextDelivery){
     return `
-    <div class="credentials">
+    <div class="subscriberCredentials">
         <p id="name">${name}</p>
         <p>${phoneNo}</p>
-    </div>
-    <div class="productItems">
-
     </div>
     <div id='deliveryRecordDiv'>
         <p>${deliveries}/${JSON.stringify(totalDeliveries)}</p>
