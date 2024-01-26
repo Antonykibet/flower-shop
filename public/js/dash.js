@@ -147,7 +147,7 @@ function displaySubscribedItems(){
 function isDeliveryDateValid(last,next){
     let lastDate = new Date(last)
     let nextDate = new Date(next)
-    if
+    
 }
 function waitProcessDisplay(){
     let modalBackground = document.createElement('div')

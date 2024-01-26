@@ -2,6 +2,7 @@ let contentDiv = document.getElementById('content')
 let totalPrice =document.getElementById('totalPrice')
 let mobileCheckoutBtn=document.getElementById('checkoutDisplay')
 let creditBtn = document.querySelector('.intaSendPayButton')
+let mpesacheckoutBtn = document.querySelector('#mpesacheckoutBtn')
 const form = document.getElementById('billingForm');
 let billingDiv=document.getElementById('billingDiv')
 let removeBtn=document.querySelector('.bi-x-circle')
@@ -49,12 +50,25 @@ function intSendPayment(form){
           alert("Payment in progress...");
         });
 }
-
+function paymentMethodAttribute(form,method){
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payment_method';
+    input.value = method;  
+    form.appendChild(input);
+}
+mpesacheckoutBtn.addEventListener('click',(event)=>{
+    event.preventDefault();
+    if(isCheckoutFormValid()) return
+    paymentMethodAttribute(event.target.form,'mpesa')
+    event.target.form.submit()
+})
 creditBtn.addEventListener('click',(event)=>{
     event.preventDefault();
     if(isCheckoutFormValid()) return
     // Trigger IntaSend popup
     intSendPayment(event.target.form)
+    paymentMethodAttribute(event.target.form,'creditCard')
     event.target.click()
 })
 async function getCartItems(){
@@ -176,17 +190,4 @@ async function updFunc(){
         body:JSON.stringify({cartItems:cartItems}),
     })
 }
-document.addEventListener("DOMContentLoaded", function() {
-    let form = document.getElementById("billingForm");
 
-    form.addEventListener("submit", function(event) {
-        let totalPrice = parseFloat(document.getElementById("totalPrice").textContent);
-        // Check the condition (totalPrice is 0)
-        if (totalPrice === 0) {
-            // Prevent the form from submitting
-            event.preventDefault();
-            // Display an error message or take other actions
-            alert("Cart is Empty, continue shopping.");
-        }
-    });
-});

@@ -99,6 +99,7 @@
                 <i class="bi bi-x-circle"></i>
             </div>
             <h1 class="title" id="checkoutTitle">Checkout</h1>
+            
             <form id="billingForm" action="/checkout" method="post">
                 <input class="billingInput" placeholder="First Name" type="text" id="fname" name="fname" required>
                 <input class="billingInput" placeholder="Last Name" type="text" id="lname" name="lname" required>
@@ -110,9 +111,8 @@
                     <h3 class="totalElem">Total</h3>
                     <h3 class="totalElem" id="totalPrice">0</h3>
                 </div>
-                <button class="billingBtns" id="checkoutBtn" type="submit" name="payment_method" value="mpesa">Pay with Mpesa</button>
+                <button class="billingBtns" id="mpesacheckoutBtn" type="submit" name="payment_method" value="mpesa">Pay with Mpesa</button>
                 <button class="billingBtns intaSendPayButton" data-method="CARD-PAYMENT" data-amount="10" data-currency="KES" type="submit"  name="payment_method" value="credit_card">Pay with Credit Card</button>
-        
             </form>
         </div>
         <button id="checkoutDisplay">Checkout</button>

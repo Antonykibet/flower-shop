@@ -1,7 +1,9 @@
 import { skeletonRender } from "./skeletonRender.js"
 let result=null
 
-init()
+document.addEventListener("DOMContentLoaded", async function() {
+    await init()
+})
 async function getAddOns(){
     let response = await fetch(`/products/addOns`)
     return result =await response.json()
@@ -61,9 +63,11 @@ export function productDisplay(result,section = 'content'){
         let productDiv = document.createElement('div')
         productDiv.classList.add('productDiv')
         productDiv.innerHTML=productCardRender(_id,name,description,price,image,index)
+        contentDiv.appendChild(productDiv)
         let cartBtn = productDiv.querySelector('.cartButton')
         let orderBtn = productDiv.querySelector('#orderBtn')
         cartBtn.addEventListener('click',(event) =>{
+            alert('Aloo')
             disableButton(event)
             let btn = event.target.getAttribute('class')
             modalRender(btn,item)
@@ -74,7 +78,7 @@ export function productDisplay(result,section = 'content'){
             modalRender(btn,item)
         })
         //addCartFunc(productDiv,item)
-        contentDiv.appendChild(productDiv)
+        
     })
 }
 
@@ -126,7 +130,7 @@ async function addOnsRender(div){
 
 export async function modalRender(btn,item){
     let modalBackground = renderModalBackground()
-    if(btn=='orderBtn'){
+    if(btn==='orderBtn'){
         modalBackground.innerHTML= orderModalRender()
         let checkoutBtn=modalBackground.querySelector('#proceedCheckout')
         checkoutBtn.addEventListener('click',async()=>{
@@ -134,7 +138,7 @@ export async function modalRender(btn,item){
             window.location.href = '/cart';
         })
     }
-    if(btn=='cartButton'){
+    if(btn==='cartButton'){
         modalBackground.innerHTML= cartModalRender()
         let addCartBtn=modalBackground.querySelector('#proceedAddCart')
         addCartBtn.addEventListener('click',async()=>{
