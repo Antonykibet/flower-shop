@@ -299,4 +299,7 @@ a{
         padding-top: 0px;
         width: 80%;
     }
+    #content .productDiv{
+        width: 75vw;
+    }
 }
