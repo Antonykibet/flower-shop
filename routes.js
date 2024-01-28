@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const path =require('path')
 const authRoute = require('./auth.js')
+const axios = require("axios");
+
 const processMpesa  = require('./payment.js')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
 
@@ -25,6 +27,13 @@ function totalDeliveries(subscription,interval){
         return 8;
     }
 }
+router.get('/paybillCallback',(req,res)=>{
+    console.log('Aloooooooooooooooooooooooooo!!')
+    console.log(req.body)
+})
+router.get('/safaricomAPI',async(req,res)=>{
+    await  processMpesa(res,totalPrice,phoneNo)
+})
 router.get('/getSubItems',async (req,res)=>{
     let items = await subscription.find({email:req.session.email}).toArray()
     console.log(items)
@@ -159,7 +168,7 @@ router.post('/checkout',async(req,res)=>{
     try {
         const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
         if(payment_method == 'mpesa'){
-            await processMpesa('254769819306')
+            await  processMpesa(res,totalPrice,phoneNo)
         }
         const cart = req.session.cartItems
         let order ={

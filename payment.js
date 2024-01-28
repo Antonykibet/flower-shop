@@ -1,77 +1,64 @@
-const axios = require('axios');
-let unirest = require('unirest');
+const moment = require("moment");
+const axios =require('axios')
+require('dotenv').config()
 
-function generateTimestamp(){
-    const date = new Date();
-    const timestamp = date.getFullYear() +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    ("0" + date.getDate()).slice(-2) +
-    ("0" + date.getHours()).slice(-2) +
-    ("0" + date.getMinutes()).slice(-2) +
-    ("0" + date.getSeconds()).slice(-2);
-    return timestamp;
-  }
-
- async function accessToken(){ 
-    const secret = process.env.MPESA_CONSUMER_SECRET
-    const key = process.env.MPESA_CONSUMER_KEY
-    let req = unirest('GET', 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials')
-    .headers({ 'Authorization': 'Bearer cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==' })
-    .send()
-  .end(res => {
-    if (res.error) throw new Error(res.error);
-    console.log(res.raw_body);
-  });
+async function generateToken(){
+  let headers = new Headers();
+  headers.append("Authorization", "Basic Sk04bkJXYXFuUEU4OE5wak5JOFhKUjIzdFE5NUptTGk6Zjd1TUdZYThuVUNudEx1bw==");
+  let response= await fetch("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", { headers })
+  let {access_token} = await response.json()
+  return access_token
 }
 
 
+async function processMpesa(res,amount,phoneNumber){
+  const url ="https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+const auth = `Bearer ${await generateToken()}`;
+const timestamp = moment().format("YYYYMMDDHHmmss");
+const password = new Buffer.from(
+  process.env.SHORTCODE +
+  "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" +
+  timestamp
+).toString("base64");
 
+axios.post(url,{
+      BusinessShortCode: process.env.SHORTCODE,
+      Password: password,
+      Timestamp: timestamp,
+      TransactionType: "CustomerBuyGoodsOnline",
+      Amount: amount,
+      PartyA: phoneNumber,
+      PartyB: process.env.SHORTCODE,
+      PhoneNumber: phoneNumber,
+      CallBackURL: "https://n3vj0vz2-5500.uks1.devtunnels.ms/paybillCallback",
+      AccountReference: 'calYX34',
+      TransactionDesc: "Mpesa Daraja API stk push test",
+    },
+    {
+      headers: {
+        Authorization: auth,
+      },
+    }
+  )
+  .then((response) => {
+    // res.send("😀 Request is successful done ✔✔. Please enter mpesa pin to complete the transaction");
+    //SEND BACK A JSON RESPONSE TO THE CLIENT
+    console.log(response.data);
+    res.status(200).json({
+      msg: "Request is successful done ✔✔. Please enter mpesa pin to complete the transaction",
+      status: true,
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-async function processMpesa(phone){
-    //phone=phone.slice(1)
-    let req = unirest('GET', 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials')
-.headers({ 'Authorization': 'Basic cFJZcjZ6anEwaThMMXp6d1FETUxwWkIzeVBDa2hNc2M6UmYyMkJmWm9nMHFRR2xWOQ==' })
-.send()
-.end(res => {
-	if (res.error) throw new Error(res.error);
-	console.log(res.raw_body);
-});
-    const accessTkn = 'T27wM2vUwSI1CMksPMRPHfD0mhO3'
-    const shortCode = process.env.SHORTCODE
-    const timestamp = generateTimestamp()
-    const passKey = process.env.PASS_KEY
-    const pass = new Buffer.from(shortCode + passKey + timestamp).toString('base64')
-    let url = `https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest`
-    const headers = {
-        'Authorization': `Bearer ${accessTkn}`,
-        'Content-Type': 'application/json'
-      };
-      const body = {    
-        "BusinessShortCode": `${shortCode}`,    
-        "Password": `${pass}` ,    
-        "Timestamp":timestamp,    
-        "TransactionType": "CustomerPayBillOnline",    
-        "Amount": 1,    
-        "PartyA":phone,    
-        "PartyB":`${shortCode}`,    
-        "PhoneNumber":phone,    
-        "CallBackURL": "https://n3vj0vz2-5500.uks1.devtunnels.ms/paycallback",    
-        "AccountReference":254769819306,    
-        "TransactionDesc":"Test"
-     }
-    let response = await axios.post(url,body,{headers})
-    //console.log(response)
+  })
+  .catch((error) => {
+    console.log(error);
+    //res.status(500).send("❌ Request failed");
+    console.log(error);
+    res.status(500).json({
+      msg: "Request failed",
+      status: false,
+    });
+  });
 }
 
 module.exports = processMpesa
