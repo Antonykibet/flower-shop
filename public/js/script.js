@@ -1,4 +1,5 @@
 import { skeletonRender } from "./skeletonRender.js"
+import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let result=null
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -8,12 +9,6 @@ async function getAddOns(){
     let response = await fetch(`/products/addOns`)
     return result =await response.json()
 }
-export async function getCartItems(){
-    let response = await fetch('/addCart')
-    return await response.json()
-}
-
-
 
 
 async function init(){
@@ -25,12 +20,13 @@ async function init(){
     secondarySections.forEach(async(section)=>{
         let sectionId = section.getAttribute('id')
         await renderSecondarySectCards(sectionId)
-        document.getElementById(sectionId).innerHTML+=`
-        <div style='height:auto;display:flex;align-items:center;'>
+        let moreIconDiv = document.createElement('div')
+        moreIconDiv.style.cssText='height:auto;display:flex;align-items:center;'
+        moreIconDiv.innerHTML=`
             <a href="/category/${sectionId}">
                 <i title="More" class="bi bi-arrow-right"></i>
-            </a>
-        </div>`
+            </a>`
+        document.getElementById(sectionId).appendChild(moreIconDiv)
     })
 }
 
@@ -207,14 +203,7 @@ export async function addCartFunc(item){
         let cartItems=await getCartItems()
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
         cartItems.push(item)
-        await fetch('/addCart',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            body:JSON.stringify({cartItems:cartItems}),
-        })   
-        alert('Added to cart')
+        await storeCartItems(cartItems)
     } catch (error) {
         alert(`Error:Did not add to cart.`)
     }

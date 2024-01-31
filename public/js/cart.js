@@ -1,3 +1,4 @@
+import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let contentDiv = document.getElementById('content')
 let totalPrice =document.getElementById('totalPrice')
 let mobileCheckoutBtn=document.getElementById('checkoutDisplay')
@@ -40,6 +41,7 @@ function intSendPayment(form){
           alert("Payment successful!");
           // Submit the form after successful payment
           form.submit();
+          localStorage.removeItem('calyxCartItems')
         })
         .on("FAILED", (results) => {
           // Handle failed payment
@@ -71,9 +73,8 @@ creditBtn.addEventListener('click',(event)=>{
     paymentMethodAttribute(event.target.form,'creditCard')
     event.target.click()
 })
-async function getCartItems(){
-    let response = await fetch('/addCart')
-    cartItems = await response.json()
+async function renderCartItems(){
+    cartItems = await getCartItems()
     //displays the checkout btn mobile
     if(cartItems.length==0){
         mobileCheckoutBtn.style.display='none'
@@ -81,7 +82,7 @@ async function getCartItems(){
     displayCartItems()
     calcTotal()
 }
-getCartItems()
+renderCartItems()
 
 mobileCheckoutBtn.addEventListener('click',(req,res)=>{
     billingDiv.style.display='flex'
@@ -182,12 +183,7 @@ function removeFunc(div,item){
 
 
 async function updFunc(){
-    await fetch('/updCart',{
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json',
-        },
-        body:JSON.stringify({cartItems:cartItems}),
-    })
+    //totalPrice.innerText= calcTotal()
+    await storeCartItems(cartItems)
 }
 

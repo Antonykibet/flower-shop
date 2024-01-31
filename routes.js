@@ -167,9 +167,9 @@ router.post('/paycallback', (req, res) => {
 router.post('/checkout',async(req,res)=>{
     try {
         const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
-        if(payment_method == 'mpesa'){
+        /*if(payment_method == 'mpesa'){
             await  processMpesa(res,totalPrice,phoneNo)
-        }
+        }*/
         const cart = req.session.cartItems
         let order ={
             name:`${fname} ${lname}`,
