@@ -199,7 +199,6 @@ function orderModalRender(){
 
 export async function addCartFunc(item){
     try {
-        alert('adding to cart...')
         let cartItems=await getCartItems()
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
         cartItems.push(item)
