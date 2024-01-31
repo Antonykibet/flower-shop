@@ -63,7 +63,6 @@ export function productDisplay(result,section = 'content'){
         let cartBtn = productDiv.querySelector('.cartButton')
         let orderBtn = productDiv.querySelector('#orderBtn')
         cartBtn.addEventListener('click',(event) =>{
-            alert('Aloo')
             disableButton(event)
             let btn = event.target.getAttribute('class')
             modalRender(btn,item)
@@ -81,7 +80,7 @@ export function productDisplay(result,section = 'content'){
 function productCardRender(_id,name,description,price,image,index){
     return `
         <a class='imageHyperlink' href='/product/${_id}'>
-            <img class='productImage' src='/images/${image}'>
+            <img class='productImage' src='${image}'>
         </a>
         <div class='nameDiv'>
             <h3 class='productName'>${name}</h3>

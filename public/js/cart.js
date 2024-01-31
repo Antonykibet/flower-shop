@@ -115,7 +115,7 @@ function displayCartItems(){
         let bigDiv = document.createElement('div')
         bigDiv.classList.add('cartProductDiv')
         bigDiv.innerHTML=`
-            <img class='cartProductImage' src='${image}'>
+            <img class='cartProductImage' src='/images/${image}'>
             <div class='productDesc'>
                 <h2 class='cartName'>${name}</h2>
                 <div class='secondRow'>

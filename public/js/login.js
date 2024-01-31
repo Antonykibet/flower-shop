@@ -6,7 +6,6 @@ let forgotBtn = document.getElementById('forgot')
 
 forgotBtn.addEventListener('click',async()=>{
     let email = document.getElementById('username').value
-    alert(email)
     if(email==''){
         alert('Enter email address')
         return
@@ -18,7 +17,6 @@ forgotBtn.addEventListener('click',async()=>{
         },
         body:JSON.stringify({email}),
     })
-    alert(await response.json())
 })
 
 eyeIcon.item(0).addEventListener('click',(event)=>{
