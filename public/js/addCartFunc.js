@@ -21,7 +21,6 @@ async function addCartSession(cartItems){
             
             body:JSON.stringify({cartItems}),
         })
-        alert('Added to cart')
     } catch (error) {
         alert(`Did not add to cart succesfully:${error}`)
     }
