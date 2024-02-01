@@ -253,10 +253,7 @@ function createForm(){
                     <option value="Mother's Day">Mother's Day</option>
                     <option value="Get Well">Get Well</option>
                     <option value="Funeral">Funeral</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Birthday">Birthday</option>
+                    <option value="addOns">Add Ons</option>
                 </select>
             </div>
             <input class='input' type="text" name='description' placeholder="Description">
