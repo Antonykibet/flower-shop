@@ -71,15 +71,7 @@ a{
     color: rgb(46, 46, 46);
     font-family: 'Montserrat';
 }
-#content{
-    display: flex;
-    width: 85%;
-    height: auto;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: top; 
-    margin-bottom: 24px;
-}
+
 .secondaryContent{
     position: relative;
     width: 85vw;
@@ -213,7 +205,28 @@ a{
 #proceedAddCart{
     width: 40%;
 }
+#content{
+    display: flex;
+    width: 85%;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: top; 
+    margin-bottom: 24px;
+}
 @media screen and (max-width: 1000px) {
+    #content{
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 85vw;
+        overflow-x: scroll;
+    }
+    #content .productDiv{
+        width: 60vw;
+        min-width: 60vw;
+    }
     body{
         padding-top: 9vh;
         background-color:  rgb(255, 255, 255);
@@ -228,13 +241,7 @@ a{
     #catchPhrase{
         font-size: 250%;
     }
-    #content{
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        border: none;
-    }
+   
     #home{
         margin-top: 7vh;
         background-image: url('./images/pexels-teona-swift-6913055.jpg');
@@ -299,7 +306,5 @@ a{
         padding-top: 0px;
         width: 80%;
     }
-    #content .productDiv{
-        width: 75vw;
-    }
+   
 }

@@ -105,6 +105,20 @@
                 <input class="billingInput" placeholder="Last Name" type="text" id="lname" name="lname" required>
                 <input style="width: 100%;" class="billingInput"  type="text" name="phoneNo" id="phoneNo" required>
                 <input class="billingInput" placeholder="Email Address" type="text" name="email" id="email" required>
+                <input class="billingInput" placeholder="Name of Reciepient" type="text" id="reciepientName" name="reciepientName" >
+                <h3 style="margin-bottom: 0px;" >What time do you want it delivered</h3>
+                <div>
+                    <input type="radio" id="tenAM" name="deliveryTime" value="10.00">
+                    <label for="tenAm">Before 8.00 AM</label><br>
+                    <input type="radio" id="tenAM" name="deliveryTime" value="10.00">
+                    <label for="tenAm">Before 10.00 AM</label><br>
+                    <input type="radio" id="tenAM" name="deliveryTime" value="10.00">
+                    <label for="tenAm">Before 12.00 PM</label><br>
+                </div>
+                <select style="margin-top: 8px;" class="billingInput" name="deliveryMethod" id="">
+                    <option value="">Select delivery option</option>
+                    <option value="">CBD delivery</option>
+                </select>
                 <textarea name="note" id="addNote" placeholder="Add a note ..."></textarea>
                 <input type="hidden" name="totalPrice" id="total">
                 <div id="totalDiv">
