@@ -188,6 +188,9 @@
 #billingDivMobile{
     display: none;
 }
+.checkoutLabels{
+    margin-bottom: 8px;
+}
 @media screen and (max-width: 1000px) {
     #mobileHeader{
         height: 7vh;
