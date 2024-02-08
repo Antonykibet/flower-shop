@@ -127,6 +127,11 @@ export async function modalRender(btn,item){
     let modalBackground = renderModalBackground()
     if(btn==='orderBtn'){
         modalBackground.innerHTML= orderModalRender()
+        if(item.category === 'Valentines'){
+            let infoSection = modalBackground.querySelector('#infoSection')
+            infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
+            infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
+        }
         let checkoutBtn=modalBackground.querySelector('#proceedCheckout')
         checkoutBtn.addEventListener('click',async()=>{
             await addCartFunc(item)
@@ -188,6 +193,7 @@ function orderModalRender(){
         <div class='modal'>
             <i class="bi bi-x-circle"></i>
             <div style='width:100%'>
+                <div id='infoSection'></div>
                 <h2 class='title'>You can add:</h2>
                 <div id='addOns'></div>
             </div>

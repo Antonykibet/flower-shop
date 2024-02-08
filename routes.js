@@ -4,7 +4,8 @@ const path =require('path')
 const authRoute = require('./auth.js')
 const axios = require("axios");
 
-const processMpesa  = require('./payment.js')
+const processMpesa  = require('./safaricomAPI.js')
+const processPesaPal = require('./pesapal.js')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
 
 
@@ -27,12 +28,14 @@ function totalDeliveries(subscription,interval){
         return 8;
     }
 }
-router.get('/paybillCallback',(req,res)=>{
+router.get('/ipnPP',(req,res)=>{
     console.log('Aloooooooooooooooooooooooooo!!')
     console.log(req.body)
 })
-router.get('/safaricomAPI',async(req,res)=>{
-    await  processMpesa(res,totalPrice,phoneNo)
+router.get('/testPesapal',async(req,res)=>{
+    console.log('Test PESA PAL!!')
+    let redirect_url = await processPesaPal()
+    res.redirect(redirect_url)
 })
 router.get('/getSubItems',async (req,res)=>{
     let items = await subscription.find({email:req.session.email}).toArray()

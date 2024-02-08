@@ -20,10 +20,18 @@ a{
     width: 97%;
     height: 40vh;
     border-radius: 8px;
-    background-image: url(/images/otherImage.jpg);
+    background-image: url(/images/valentines_banner.jpg);
     background-size: cover;
     background-position:right 20%;
     display: flex;
+}
+#valentinesBtn{
+    background-color:#bb0606;
+    border: solid white 1px;
+    color: whitesmoke;
+    font-family: 'Poppins',sans-serif;
+    margin-bottom: 8px;
+    border-radius: 4px;
 }
 #landingScreen{
     padding-left: 48px;
