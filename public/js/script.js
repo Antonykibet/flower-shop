@@ -1,13 +1,14 @@
 import { skeletonRender } from "./skeletonRender.js"
 import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let result=null
-
+let addOns =null
 document.addEventListener("DOMContentLoaded", async function() {
     await init()
+    await getAddOns()
 })
 async function getAddOns(){
     let response = await fetch(`/products/addOns`)
-    return result =await response.json()
+    addOns =await response.json()
 }
 
 
@@ -105,7 +106,6 @@ function modalBackgroundDeletion(div){
     div.remove()
 } 
 async function addOnsRender(div){
-    let addOns = await getAddOns()
     addOns.forEach((item)=>{
         let addItem = document.createElement('div')
         addItem.classList.add('addOnsItemDiv')
@@ -127,7 +127,7 @@ export async function modalRender(btn,item){
     let modalBackground = renderModalBackground()
     if(btn==='orderBtn'){
         modalBackground.innerHTML= orderModalRender()
-        if(item.category === 'Valentines'){
+        if(item.catalogue === 'Valentines'){
             let infoSection = modalBackground.querySelector('#infoSection')
             infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
             infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
@@ -140,6 +140,11 @@ export async function modalRender(btn,item){
     }
     if(btn==='cartButton'){
         modalBackground.innerHTML= cartModalRender()
+        if(item.catalogue === 'Valentines'){
+            let infoSection = modalBackground.querySelector('#infoSection')
+            infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
+            infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
+        }
         let addCartBtn=modalBackground.querySelector('#proceedAddCart')
         addCartBtn.addEventListener('click',async()=>{
             await addCartFunc(item)
@@ -147,12 +152,12 @@ export async function modalRender(btn,item){
         })
     }
     
-    await addOnsRender(modalBackground)
     let closeBtn = modalBackground.querySelector('.bi-x-circle')
     closeBtn.addEventListener('click',()=>{
         modalBackgroundDeletion(modalBackground)
     })
     document.body.appendChild(modalBackground)
+    await addOnsRender(modalBackground)
 }
 
 
@@ -181,6 +186,7 @@ function cartModalRender(){
         <div class='modal'>
             <i class="bi bi-x-circle"></i>
             <div style='width:100%'>
+                <div id='infoSection'></div>
                 <h2 class='title'>You can add:</h2>
                 <div id='addOns'></div>
             </div>
