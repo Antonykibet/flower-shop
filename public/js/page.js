@@ -58,7 +58,7 @@ function productDisplay(result){
         productDiv.classList.add('productDiv')
         productDiv.innerHTML=`
             <a class='imageHyperlink' href='/product/${_id}'>
-                <img class='productImage' src='${image}'>
+                <img class='productImage' src='/images/${image}'>
             </a>
             <div class='nameDiv'>
                 <h3 class='productName'>${name}</h3>

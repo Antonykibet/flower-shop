@@ -1,14 +1,13 @@
 import { skeletonRender } from "./skeletonRender.js"
 import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let result=null
-let addOns =null
+
 document.addEventListener("DOMContentLoaded", async function() {
     await init()
-    await getAddOns()
 })
 async function getAddOns(){
     let response = await fetch(`/products/addOns`)
-    addOns =await response.json()
+    return result =await response.json()
 }
 
 
@@ -106,6 +105,7 @@ function modalBackgroundDeletion(div){
     div.remove()
 } 
 async function addOnsRender(div){
+    let addOns = await getAddOns()
     addOns.forEach((item)=>{
         let addItem = document.createElement('div')
         addItem.classList.add('addOnsItemDiv')
@@ -209,6 +209,8 @@ function orderModalRender(){
 }
 
 export async function addCartFunc(item){
+    if(item.catalogue === 'Valentines')
+        alert(`By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`)
     try {
         let cartItems=await getCartItems()
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
