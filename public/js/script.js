@@ -210,10 +210,10 @@ function orderModalRender(){
 
 export async function addCartFunc(item){
     if(item.catalogue === 'Valentines')
-        alert(`By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`)
     try {
         let cartItems=await getCartItems()
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
+        alert(`By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`)
         cartItems.push(item)
         await storeCartItems(cartItems)
     } catch (error) {

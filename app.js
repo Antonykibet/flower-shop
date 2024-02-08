@@ -10,14 +10,14 @@ const mongoDbSession =require('connect-mongodb-session')(sessions)
 const app = express()
 const PORT=5500
 
-/*const mongoStore = new mongoDbSession({
+const mongoStore = new mongoDbSession({
     uri:uri,
     collection:'sessions',
 })
 
 mongoStore.on('error',(error)=>{
     console.error('mongoDb session store down !!',error)
-})*/
+})
 app.use(sessions({
         secret:'sayMyName',
         resave:false,

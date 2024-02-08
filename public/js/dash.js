@@ -206,7 +206,9 @@ function updateForm(){
         <h1>Update Product</h1>
         <form action="/admin/update" method="post" enctype='multipart/form-data'>
             <label for='productsDropdown'>Product name</label>
-            <select class='input' id="productsDropdown" name='prodId'></select>
+            <select class='input' id="productsDropdown" name='prodId'>
+                <option>Select product to update</option>
+            </select>
             <div>
                 <label for="catalogue">Catalogue</label>
                 <select class='input'  name="catalogue" id="catalogue">
@@ -276,7 +278,9 @@ function deleteForm(){
         <h1 >Delete Product</h1>
         <form action="/admin/delete" method="post" >
             <label for='productsDropdown'>Product name</label>
-            <select class='input' id="productsDropdown" name='prodId'></select>
+            <select class='input' id="productsDropdown" name='prodId'>
+                <option>Select product to delete</option>
+            </select>
             <button type='submit' class='submitBtn'>Delete</button>
         </form>
     </div>
