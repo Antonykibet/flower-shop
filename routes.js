@@ -162,10 +162,10 @@ router.get('/signUp',(req,res)=>{
     res.render('sign',{error:''})
 })
 
-router.post('/paycallback', (req, res) => {
+router.post('/pesapalCall', (req, res) => {
   console.log('...............callbackurl............')
   console.log(req.body);
-  res.send('ok');
+  res.send('Payment succesfull');
 })
 router.post('/checkout',async(req,res)=>{
     try {
@@ -173,19 +173,33 @@ router.post('/checkout',async(req,res)=>{
         /*if(payment_method == 'mpesa'){
             await  processMpesa(res,totalPrice,phoneNo)
         }*/
-        const cart = req.session.cartItems
-        let order ={
-            name:`${fname} ${lname}`,
-            phoneNo,
-            email,
-            totalPrice,
-            cart,
+        if(payment_method == 'pesapal'){
+            console.log('Hit Pesapal')
+            try {
+                let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
+                console.log(redirectURL)
+                await sendOrderDb(fname,lname,phoneNo,email,totalPrice)
+                console.log('Pesapal complete')
+                res.redirect(redirectURL)
+            } catch (error) {
+                console.log(error)
+                res.send(error)
+            }
         }
-        await orders.insertOne(order)
-        req.session.cartItems=[]
-        res.redirect('/')
+        async function sendOrderDb(fname,lname,phoneNo,email,totalPrice){
+            const cart = req.session.cartItems
+            let order ={
+                name:`${fname} ${lname}`,
+                phoneNo,
+                email,
+                totalPrice,
+                cart,
+            }
+            await orders.insertOne(order)
+            console.log('Hit db')
+            req.session.cartItems=[]
+        }
     } catch (error) {
-        
         console.log(error)
     }
 })

@@ -2,8 +2,8 @@ import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let contentDiv = document.getElementById('content')
 let totalPrice =document.getElementById('totalPrice')
 let mobileCheckoutBtn=document.getElementById('checkoutDisplay')
-let creditBtn = document.querySelector('.intaSendPayButton')
-let mpesacheckoutBtn = document.querySelector('#mpesacheckoutBtn')
+//let creditBtn = document.querySelector('.intaSendPayButton')
+let pesapalCheckoutBtn = document.querySelector('#pesapalCheckoutBtn')
 const form = document.getElementById('billingForm');
 let billingDiv=document.getElementById('billingDiv')
 let removeBtn=document.querySelector('.bi-x-circle')
@@ -59,20 +59,20 @@ function paymentMethodAttribute(form,method){
     input.value = method;  
     form.appendChild(input);
 }
-mpesacheckoutBtn.addEventListener('click',(event)=>{
+pesapalCheckoutBtn.addEventListener('click',(event)=>{
     event.preventDefault();
     if(isCheckoutFormValid()) return
-    paymentMethodAttribute(event.target.form,'mpesa')
+    paymentMethodAttribute(event.target.form,'pesapal')
     event.target.form.submit()
 })
-creditBtn.addEventListener('click',(event)=>{
+/*creditBtn.addEventListener('click',(event)=>{
     event.preventDefault();
     if(isCheckoutFormValid()) return
     // Trigger IntaSend popup
     intSendPayment(event.target.form)
     paymentMethodAttribute(event.target.form,'creditCard')
     event.target.click()
-})
+})*/
 async function renderCartItems(){
     cartItems = await getCartItems()
     //displays the checkout btn mobile
@@ -98,11 +98,7 @@ function calcTotal(){
     let total = 0
     cartItems.forEach((item)=>{
         total+= Number(item.price*item.unit) 
-    })
-    if(total==0){
-        creditBtn.disabled = true
-    }
-    creditBtn.setAttribute('data-amount',total) 
+    }) 
     totalPrice.innerText=total
     document.getElementById('total').value=total
 }
