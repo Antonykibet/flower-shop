@@ -174,12 +174,9 @@ router.post('/checkout',async(req,res)=>{
             await  processMpesa(res,totalPrice,phoneNo)
         }*/
         if(payment_method == 'pesapal'){
-            console.log('Hit Pesapal')
             try {
                 let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
-                console.log(redirectURL)
                 await sendOrderDb(fname,lname,phoneNo,email,totalPrice)
-                console.log('Pesapal complete')
                 res.redirect(redirectURL)
             } catch (error) {
                 console.log(error)
@@ -196,7 +193,6 @@ router.post('/checkout',async(req,res)=>{
                 cart,
             }
             await orders.insertOne(order)
-            console.log('Hit db')
             req.session.cartItems=[]
         }
     } catch (error) {
