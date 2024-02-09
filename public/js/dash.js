@@ -251,11 +251,16 @@ function createForm(){
                     <option value="Love and Romance">Love and Romance</option>
                     <option value="Thank You">Thank You</option>
                     <option value="For Him">For Him</option>
-                    <option value="Valentines">Valentines</option>
                     <option value="Mother's Day">Mother's Day</option>
                     <option value="Get Well">Get Well</option>
                     <option value="Funeral">Funeral</option>
                     <option value="addOns">Add Ons</option>
+                    <optgroup label='Valentine'>
+                        <option value="Valentines:flowers">Valentines:flowers</option>
+                        <option value="Valentines:flowerPackages">Valentines:flowerPackages</option>
+                        <option value="Valentines:teddyPackages">Valentines:teddyPackages</option>
+                        <option value="Valentines:teddy">Valentines:teddy</option>
+                    </optgroup>
                 </select>
             </div>
             <input class='input' type="text" name='description' placeholder="Description">

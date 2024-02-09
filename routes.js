@@ -112,13 +112,14 @@ router.get('/topProducts',async(req,res)=>{
 
 router.get('/products/:product',async(req,res)=>{
     let {product} =req.params
+    let searchTerm =product
     let isLandingpage = req.headers.fromlandingpage
     if(isLandingpage){
-        let result = await products.find({catalogue: `${product}`}).limit(7).toArray(); //get a limmited  number of document
+        let result = await products.find({catalogue: { $regex: new RegExp(searchTerm, "i") }}).limit(7).toArray(); //get a limmited  number of document
         res.json(result) 
         return
     }
-    let result = await products.find({catalogue:`${product}`}).toArray()
+    let result = await products.find({catalogue:{ $regex: new RegExp(searchTerm, "i") }}).toArray()
     res.json(result)
 })
 router.get('/product/:productID',async(req,res)=>{

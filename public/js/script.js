@@ -127,7 +127,7 @@ export async function modalRender(btn,item){
     let modalBackground = renderModalBackground()
     if(btn==='orderBtn'){
         modalBackground.innerHTML= orderModalRender()
-        if(item.catalogue === 'Valentines'){
+        if(item.catalogue.match(/Valentines/i)){
             let infoSection = modalBackground.querySelector('#infoSection')
             infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
             infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
@@ -140,7 +140,7 @@ export async function modalRender(btn,item){
     }
     if(btn==='cartButton'){
         modalBackground.innerHTML= cartModalRender()
-        if(item.catalogue === 'Valentines'){
+        if(item.catalogue.match(/Valentines/i)){
             let infoSection = modalBackground.querySelector('#infoSection')
             infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
             infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
@@ -209,11 +209,12 @@ function orderModalRender(){
 }
 
 export async function addCartFunc(item){
-    if(item.catalogue === 'Valentines')
     try {
         let cartItems=await getCartItems()
         if(cartItems.some(cartItem=>cartItem._id===item._id)) return
-        alert(`By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`)
+        if(item.catalogue.match(/Valentines/i)){
+            alert(`By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`)
+        }
         cartItems.push(item)
         await storeCartItems(cartItems)
     } catch (error) {

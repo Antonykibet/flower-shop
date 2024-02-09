@@ -60,7 +60,6 @@ router.post('/admin/updateDeliverRecords',async(req,res)=>{
 })
 router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
     let {catalogue,name,price,description,topProduct,}=req.body
-    console.log(catalogue)
     let mainFile = req.files.mainImage ? req.files.mainImage[0].filename : null
     let otherImages = req.files.otherImages ? req.files.otherImages.map(file=>file.filename) : null
     let product ={
@@ -73,7 +72,6 @@ router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ 
         images:otherImages,
         unit:1,
     }
-    console.log(product)
     await products.insertOne(product)
     res.redirect('back')
 })
