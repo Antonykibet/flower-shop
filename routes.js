@@ -163,7 +163,7 @@ router.get('/signUp',(req,res)=>{
     res.render('sign',{error:''})
 })
 
-router.post('/pesapalCall', (req, res) => {
+router.get('/pesapalCall', (req, res) => {
   console.log('...............callbackurl............')
   console.log(req.body);
   res.send('Payment succesfull');
