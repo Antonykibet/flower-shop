@@ -6,6 +6,7 @@ const axios = require("axios");
 
 const processMpesa  = require('./safaricomAPI.js')
 const processPesaPal = require('./pesapal.js')
+const {mailOrder} = require('./mailer')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
 
 
@@ -166,35 +167,50 @@ router.get('/signUp',(req,res)=>{
 router.get('/pesapalCall', (req, res) => {
   console.log('...............callbackurl............')
   console.log(req.body);
-  res.send('Payment succesfull');
+  res.sendFile(path.join(__dirname,'html','paySuccsfull.html'));
+})
+router.post('/cartDetails',async(req,res)=>{
+    let totalPrice = 0
+    let productNames = []
+    const cartDetails = req.body
+    for (const item of cartDetails) {
+        try {
+          const { price,name } = await products.findOne({ _id: new ObjectId(item.id) });
+          productNames.push(name)
+           
+          totalPrice += price * item.unit;
+        } catch (error) {
+          console.log(`Error in /cartDetails ${error}`)
+        }
+      }
+      req.session.productNames = productNames
+      req.session.totalPrice = totalPrice
+      console.log(req.session.productNames)
 })
 router.post('/checkout',async(req,res)=>{
     try {
-        const {fname,lname,phoneNo,email,totalPrice,payment_method} = req.body
-        /*if(payment_method == 'mpesa'){
-            await  processMpesa(res,totalPrice,phoneNo)
-        }*/
+        const {fname,lname,phoneNo,email,payment_method,} = req.body
         if(payment_method == 'pesapal'){
             try {
-                let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
-                await sendOrderDb(fname,lname,phoneNo,email,totalPrice)
-                res.redirect(redirectURL)
+                //let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
+                await sendOrderDb(fname,lname,phoneNo,email,req.session.totalPrice,req.session.productNames)
+                //mailOrder(email,JSON.stringify(req.body))
+                //res.redirect(redirectURL)
             } catch (error) {
                 console.log(error)
                 res.send(error)
             }
         }
-        async function sendOrderDb(fname,lname,phoneNo,email,totalPrice){
-            const cart = req.session.cartItems
+        async function sendOrderDb(fname,lname,phoneNo,email,totalPrice,productNames){
             let order ={
                 name:`${fname} ${lname}`,
                 phoneNo,
                 email,
                 totalPrice,
-                cart,
+                cart:productNames,
             }
             await orders.insertOne(order)
-            req.session.cartItems=[]
+            //req.session.cartItems=[]
         }
     } catch (error) {
         console.log(error)

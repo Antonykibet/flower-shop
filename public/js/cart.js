@@ -31,7 +31,7 @@ function isCheckoutFormValid(){
     return false;
 }
 
-function intSendPayment(form){
+/*function intSendPayment(form){
     IntaSend({
         publicAPIKey: "ISPubKey_test_87bb04e5-be8e-49d2-a4e2-a749b532a0f3",
         live: false //set to true when going live
@@ -51,7 +51,7 @@ function intSendPayment(form){
           // Handle payment in progress status
           alert("Payment in progress...");
         });
-}
+}*/
 function paymentMethodAttribute(form,method){
     var input = document.createElement('input');
     input.type = 'hidden';
@@ -59,10 +59,19 @@ function paymentMethodAttribute(form,method){
     input.value = method;  
     form.appendChild(input);
 }
-pesapalCheckoutBtn.addEventListener('click',(event)=>{
+pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     event.preventDefault();
+    const cartItems = await getCartItems()
+    const cartDetails = cartItems.map((item)=>{
+        return {id:item._id,unit:item.unit}
+    })
+    await fetch('/cartDetails',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(cartDetails),
+      })
     if(isCheckoutFormValid()) return
-    paymentMethodAttribute(event.target.form,'pesapal')
+    paymentMethodAttribute(form,'pesapal')
     event.target.form.submit()
 })
 /*creditBtn.addEventListener('click',(event)=>{

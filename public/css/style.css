@@ -20,7 +20,7 @@ a{
     width: 97%;
     height: 40vh;
     border-radius: 8px;
-    background-image: url(/images/valentines_banner.jpg);
+    background-image: url(/images/bannerImage.jpg);
     background-size: cover;
     background-position:right 20%;
     display: flex;

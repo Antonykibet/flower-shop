@@ -9,16 +9,15 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-function mailOrder(order){
-    let items = order.cart.map(obj => `${obj.catalogue}, ${obj.type}, ${obj.unit} Unit`).join(', ')
-    let orderInfo = `${order.name}, Phone number:${order.phoneNo} has purchased:${items}`
-      
+function mailOrder(receiver,order){
+    /*let items = order.cart.map(obj => `${obj.catalogue}, ${obj.type}, ${obj.unit} Unit`).join(', ')
+    let orderInfo = `${order.name}, Phone number:${order.phoneNo} has purchased:${items}`*/
     let mailOptions = {
         from: 'antonykibet059@gmail.com',
-        to: 'junkmania62@gmail.com',
+        to: receiver,
         //subject: 'New Order',
-        subject: 'Testing order mailing',
-        text: orderInfo
+        subject: 'Calyx order',
+        text: `New order:${order}`
       };
       
       transporter.sendMail(mailOptions, function(error, info){
@@ -36,7 +35,7 @@ function mailOrder(order){
         subject: 'Password reset',
         text: 'You are receiving this because you (or someone else) has requested the reset of the password for your account.\n\n' +
         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-        'https://n3vj0vz2-5500.uks1.devtunnels.ms/reset-password/' + resetToken + '\n\n' +
+        'https://calyxflowerske.com/reset-password/s' + resetToken + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       }
       

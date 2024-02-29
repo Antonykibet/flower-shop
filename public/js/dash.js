@@ -77,13 +77,14 @@ async function getOrderdItems(){
     orderItems=await response.json()
     orderItems.forEach((item,index)=>{
         const {name,phoneNo,email} = item
-        let cart=item.cart || []
+        let cart=item.cart 
+        console.log(item)
         let list = document.createElement('div')
         list.classList.add('orderRecord')
         list.innerHTML=orderList(name,email,phoneNo)
         orderTrack.appendChild(list)
 
-        let productItems = list.querySelector('.productItems')
+        let productItems = list.querySelectorAll('.productItems')
         cart.forEach((item)=>{
             productItems.innerHTML+=`
             <div style='display: flex;width:50%;justify-content:space-evenly;'>
@@ -105,7 +106,6 @@ function orderList(name,email,phoneNo){
     <div  class="productItems">
 
     </div>
-
     `
 }
 
