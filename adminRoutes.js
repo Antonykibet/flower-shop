@@ -88,6 +88,11 @@ router.post('/admin/delete',async(req,res)=>{
     await products.deleteOne({_id:new ObjectId(prodId)})
     res.redirect('back')
 })
+router.post('/admin/dispatched',async(req,res)=>{
+    const {_id} = req.body
+    const response = await orders.updateOne({_id: new ObjectId(_id)},{$set:{dispatched:true}})
+    res.json(response)
+})
 
 
 

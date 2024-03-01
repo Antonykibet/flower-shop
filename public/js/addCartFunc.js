@@ -3,7 +3,6 @@ export async function storeCartItems(cartItems){
 }
 export async function getCartItems(){
     let cartItems = (typeof(Storage) !== "undefined")?JSON.parse(localStorage.getItem('calyxCartItems'))||[]:await getSessionCartItems()
-    console.log(cartItems)
     return cartItems
 }
 async function getSessionCartItems(){

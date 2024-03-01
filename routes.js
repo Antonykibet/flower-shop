@@ -171,29 +171,33 @@ router.get('/pesapalCall', (req, res) => {
 })
 router.post('/cartDetails',async(req,res)=>{
     let totalPrice = 0
-    let productNames = []
+    let productDetails = []
     const cartDetails = req.body
     for (const item of cartDetails) {
         try {
           const { price,name } = await products.findOne({ _id: new ObjectId(item.id) });
-          productNames.push(name)
-           
+          productDetails.push({
+            _id:item.id,
+            name,
+            unit:item.unit
+          })
           totalPrice += price * item.unit;
         } catch (error) {
           console.log(`Error in /cartDetails ${error}`)
         }
       }
-      req.session.productNames = productNames
+      req.session.productDetails = productDetails
       req.session.totalPrice = totalPrice
-      console.log(req.session.productNames)
+      res.json('CHONJO')
 })
 router.post('/checkout',async(req,res)=>{
+    console.log(req.session.totalPrice,req.session.productDetails)
     try {
-        const {fname,lname,phoneNo,email,payment_method,} = req.body
+        const {fname,lname,phoneNo,email,payment_method,logistics,deliveryDate,address,deliveryTime,reciepientName,note} = req.body
         if(payment_method == 'pesapal'){
             try {
                 //let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
-                await sendOrderDb(fname,lname,phoneNo,email,req.session.totalPrice,req.session.productNames)
+                await sendOrderDb(fname,lname,phoneNo,email,req.session.totalPrice,req.session.productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note)
                 //mailOrder(email,JSON.stringify(req.body))
                 //res.redirect(redirectURL)
             } catch (error) {
@@ -201,15 +205,18 @@ router.post('/checkout',async(req,res)=>{
                 res.send(error)
             }
         }
-        async function sendOrderDb(fname,lname,phoneNo,email,totalPrice,productNames){
+        async function sendOrderDb(fname,lname,phoneNo,email,totalPrice,productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note){
             let order ={
                 name:`${fname} ${lname}`,
                 phoneNo,
                 email,
                 totalPrice,
-                cart:productNames,
+                logistics,deliveryDate,address,deliveryTime,reciepientName,note,
+                cart:productDetails,
+                dispatched:false,
             }
-            await orders.insertOne(order)
+            let response = await orders.insertOne(order)
+            console.log(response)
             //req.session.cartItems=[]
         }
     } catch (error) {

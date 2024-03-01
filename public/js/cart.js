@@ -65,23 +65,18 @@ pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     const cartDetails = cartItems.map((item)=>{
         return {id:item._id,unit:item.unit}
     })
-    await fetch('/cartDetails',{
+    console.log(cartDetails)
+    let response = await fetch('/cartDetails',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cartDetails),
       })
-    if(isCheckoutFormValid()) return
+      console.log(response)
+    //if(isCheckoutFormValid()) return
     paymentMethodAttribute(form,'pesapal')
     event.target.form.submit()
 })
-/*creditBtn.addEventListener('click',(event)=>{
-    event.preventDefault();
-    if(isCheckoutFormValid()) return
-    // Trigger IntaSend popup
-    intSendPayment(event.target.form)
-    paymentMethodAttribute(event.target.form,'creditCard')
-    event.target.click()
-})*/
+
 async function renderCartItems(){
     cartItems = await getCartItems()
     //displays the checkout btn mobile
@@ -109,7 +104,6 @@ function calcTotal(){
         total+= Number(item.price*item.unit) 
     }) 
     totalPrice.innerText=total
-    document.getElementById('total').value=total
 }
 
 

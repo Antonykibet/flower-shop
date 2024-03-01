@@ -107,9 +107,9 @@
                 <input style="margin-bottom: 16px;" class="billingInput" placeholder="Email Address" type="text" name="email" id="email" required>
                 <label class="checkoutLabels" for="">Deliver/Pick up?</label>
                 <div>
-                    <input type="radio" id="pickup" name="deliver/pickup" value="pickup">
+                    <input type="radio" id="pickup" name="logistics" value="pickup">
                     <label for="pickup">Pickup</label><br>
-                    <input type="radio" id="deliver" name="deliver/pickup" value="deliver">
+                    <input type="radio" id="deliver" name="logistics" value="deliver">
                     <label for="deliver">Deliver</label><br>
                 </div>
                 <label class="checkoutLabels" for="date">Delivery/Pickup date</label>
@@ -127,8 +127,6 @@
                 </div>
                 <input class="billingInput" placeholder="Name of Reciepient" type="text" id="reciepientName" name="reciepientName" >
                 <textarea class="billingInput" name="note" id="addNote" placeholder="Add a note ...(message on the card and notes about your order)"></textarea>
-                <input type="hidden" name="totalPrice" id="total">
-                <input  name="cartProducts" id="cartProducts">
                 <div id="totalDiv">
                     <h3 class="totalElem">Total</h3>
                     <h3 class="totalElem" id="totalPrice">0</h3>

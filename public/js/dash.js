@@ -14,7 +14,9 @@ async function getItems(){
 getItems()
 getSubscribedItems()
 getOrderdItems()
-
+function sayHi(){
+    alert('Aloo')
+}
 
 function productDropdownFunc(div){
     const productsDropdown = div.querySelector('#productsDropdown')
@@ -74,37 +76,64 @@ async function getSubscribedItems(){
 }
 async function getOrderdItems(){
     let response=await fetch('/admin/orderdItems')
-    orderItems=await response.json()
+    let orderItems=await response.json()
     orderItems.forEach((item,index)=>{
-        const {name,phoneNo,email} = item
+        const {_id,name,phoneNo,email,totalPrice,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched } = item
         let cart=item.cart 
         console.log(item)
         let list = document.createElement('div')
         list.classList.add('orderRecord')
-        list.innerHTML=orderList(name,email,phoneNo)
+        list.innerHTML=orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched)
         orderTrack.appendChild(list)
-
-        let productItems = list.querySelectorAll('.productItems')
-        cart.forEach((item)=>{
-            productItems.innerHTML+=`
-            <div style='display: flex;width:50%;justify-content:space-evenly;'>
-                <p>${item.name}</p>
-                <p>Unit:${item.unit}</p>
-            </div>
-            `
+        let dispatchBtn = list.querySelector('#dispatchBtn')
+        dispatchBtn.addEventListener('click', async(e)=>{
+            alert('Aloo')
+            let _id = e.target.getAttribute('_id')
+            alert(_id)
+            await fetch('/admin/dispatched ',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Indicate sending JSON data
+                  },
+                  body: JSON.stringify({ _id })
+            })            
         })
     })
 }
 
-function orderList(name,email,phoneNo){
+function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched){
+    let orderedProducts = ''
+    cart.forEach((item)=>{
+        orderedProducts+=`<a href='/product/${item._id}' >${item.name}| Units:${item.unit}</a> ,`
+    })
     return `
     <div class="credentials">
         <p id="name">${name}</p>
         <p>${email}</p>
         <p>${phoneNo}</p>
     </div>
+    <div style='display:flex;flex-direction:row;border:solid;'>
+        <div style='border:solid;display:flex;flex-direction:column;'>
+            <p>Address/Location:${address}</p> 
+            <p>Delivery time:${deliveryTime}</p>
+        </div>
+        <div style='border:solid;'>
+            <p>Logistics:${logistics}</p>
+            <p>Delivery date:${deliveryDate}</p>
+        </div>
+        <div style='border:solid;display:flex;flex-direction:column;'>
+            <p>Recepient name:${reciepientName}</p>
+            <p>Note:${note}</p>
+        </div>
+    </div>
     <div  class="productItems">
-
+        <p>${orderedProducts}</p>
+    </div>
+    <div>
+        <p>${totalPrice}</p>
+    </div>
+    <div style='display:flex;justify-content:center; align-items:center;' >
+        <button id='dispatchBtn' _id=${_id} style='height:24px;'>Dispatch</button>
     </div>
     `
 }

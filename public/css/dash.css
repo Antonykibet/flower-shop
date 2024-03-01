@@ -211,8 +211,6 @@ form input{
     margin-top: 8px;
     display: flex;
     border-bottom: solid 1px;
-    justify-content: space-between;
-    align-items: top;
     font-family: 'Roboto';
 }
 .orderRecord h4 {
@@ -230,9 +228,8 @@ form input{
 }
 .credentials{
     display: flex;
-    justify-content: space-around;
-    width: 70%;
     border: solid;
+    flex-direction:column;
 }
 .productItems{
     display: flex;
