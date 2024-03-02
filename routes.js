@@ -101,6 +101,41 @@ router.get('/isLogged',(req,res)=>{
     res.json(false)
 })
 
+router.get('/searchResults',async (req, res) => {
+    const { search } = req.query; 
+    if(search === ''){
+        return
+    }
+    const pipeline=[
+        {
+            $search:{
+                index: "default",
+                text: {
+                  query: search,
+                  path: ['name','description','catalogue'],
+                  fuzzy: {
+                    maxEdits: 2,
+                  },
+                },
+                highlight:{
+                  path:'description'
+                }
+              }
+        },
+        {
+            $project:{
+                name:1,
+                description:1,
+                score:{
+                    $meta: "searchScore"
+                },
+            }
+        }
+    ]
+    const results = await products.aggregate(pipeline).toArray();
+    res.json(results)
+});
+
 router.get('/category/:page',async (req,res)=>{
     const {page} = req.params
      await res.render('page',{title:page})

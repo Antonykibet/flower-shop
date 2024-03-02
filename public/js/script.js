@@ -12,7 +12,7 @@ async function getAddOns(){
 
 
 async function init(){
-    skeletonRender()
+    skeletonRender('productCard')
     let response = await fetch(`/topProducts`)
     let result = await response.json()
     productDisplay(result)
@@ -30,7 +30,33 @@ async function init(){
     })
 }
 
+let searchInput = document.getElementById('search')
+let searchResultsBox = document.getElementById('searchResult') 
 
+searchInput.addEventListener('click',()=>{
+    skeletonRender('searchResults')
+})
+searchInput.addEventListener('keyup',(e)=>{
+    getSearchResults(e.target.value)
+})
+async function getSearchResults(query){
+    const url = `/searchResults?search=${encodeURIComponent(query)}`
+    let response = await fetch( url)
+    let results = await response.json()
+    searchResultsBox.innerHTML=''
+    results.forEach((result)=>{
+        searchResultsRender(result)
+    })
+}
+function searchResultsRender(result){
+    searchResultsBox.innerHTML+=`
+            <div class='resultsDiv'>
+                <h4 class="resultName">${result.name}</h4>
+                <p class="resultDescription" >${result.description}</p>
+                <div style='width:100%;height:1px;background-color:rgba(223, 223, 223);'></div>
+            </div>
+        `
+}
 async function renderSecondarySectCards(sectionId){
     let header={
         method:'GET',

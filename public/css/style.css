@@ -64,30 +64,58 @@ a{
     border-radius: 4px;
     font-family: 'Montserrat',sans-serif;
 }
-.searchResults{
+#searchResult{
     position: absolute;
+    font-family: 'Montserrat',sans-serif;
     top: 100%;
     right: 24px;
     width: 30vw;
     height: 40vh;
     border-radius: 8px;
-    background-color: rgb(248, 248, 248);
+    /*background-color: rgb(248, 248, 248);*/
+    background-color: white;
     box-shadow: 0 2px 8px 0 rgba(112, 112, 112, 0.3);
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
-    padding-top: 4px;
+    align-items: start;
+    padding-top: 8px;
+    padding-bottom: 8px;
     overflow-y: auto;
+    overflow-x: none;
 }
-.searchResults::-webkit-scrollbar {
+#searchResult::-webkit-scrollbar {
     background-color: transparent ;
     width: 6px;
     border-radius: 8px;
 }
-.searchResults::-webkit-scrollbar-thumb{
+#searchResult::-webkit-scrollbar-thumb{
     background-color: rgb(155, 155, 155);
     border-radius: 4px; 
+}
+.resultsDiv{
+    width: 100%;
+    margin-top: 0px;
+}
+.resultsDiv:hover{
+    background-color: rgb(248, 248, 248);
+}
+.resultName{
+    height: .9rem;
+    margin: 0px;
+    margin-left:8px;
+    margin-top: 4px;
+}
+.resultDescription{
+    width:90%;
+    
+    height: 24px;
+    margin: 0px;
+    margin-top: 8px;
+    margin-left:8px;
+    white-space: nowrap; /* Prevent wrapping to multiple lines */
+    overflow: hidden; /* Clip overflowing content */
+    text-overflow: ellipsis;
 }
 #banner{
     width: 97%;
