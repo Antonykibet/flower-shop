@@ -53,16 +53,28 @@ a{
     height: 7vh;
     width: 100vw;
     position: relative;
+    margin-top: 16px;
 }
 #search{
-    position: absolute;
-    right: 24px;
-    top: 50%;
+    border: none;
+    outline: none;
+    font-family: 'Montserrat',sans-serif;
+    padding-left: 8px;
     height: 24px;
-    transform: translateY(-50%);
+    width: 90%;
+}
+#searchBarDiv{
     border: solid 2px  #2e2e2e;
     border-radius: 4px;
-    font-family: 'Montserrat',sans-serif;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    right: 24px;
+    top: 50%;
+    width: 15%;
+    transform: translateY(-50%);
+    padding-right: 8px;
 }
 #searchResult{
     position: absolute;
