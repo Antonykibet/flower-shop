@@ -138,7 +138,7 @@ router.get('/searchResults',async (req, res) => {
 
 router.get('/category/:page',async (req,res)=>{
     const {page} = req.params
-     await res.render('page',{title:page})
+    res.render('page',{title:page})
 })
 
 router.get('/topProducts',async(req,res)=>{

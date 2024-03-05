@@ -11,6 +11,7 @@ export function skeletonRender(identifier){
     }
     if(identifier === 'searchResults'){
         let searchResultsBox = document.getElementById('searchResult')
+        searchResultsBox.innerHTML=''
         for (let i = 0; i < 6; i++) {
             searchResultsBox.append(searchResultsTemplate.content.cloneNode(true))
           }
