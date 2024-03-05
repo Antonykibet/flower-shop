@@ -322,7 +322,9 @@ a{
     #catchPhrase{
         font-size: 250%;
     }
-   
+    #searchResult{
+        width: 70vw;
+    }
     #home{
         margin-top: 7vh;
         background-image: url('./images/pexels-teona-swift-6913055.jpg');
