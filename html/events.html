@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/card.css">
-    <title>Calyx flowers </title>
+    <link rel="stylesheet" href="css/events.css">
+    <title>Events</title>
 </head>
 <body>
     <header id="headerBody">
@@ -94,108 +92,17 @@
         </nav>
     </header>
 
-    <section id="landing">
-        <div id="landingScreen">
-            <h1 id="catchPhrase">Shop<br> and Buy Love</h1>
-            <!--<a href="/category/Valentines">
-                <button id="valentinesBtn">See Valentine's Collection</button>
-            </a>-->
-        </div>
-    </section>
-    <div id="searchDiv">
-        <div id="searchBarDiv">
-            <input id="search" placeholder="Search..." type="text">
-            <i class="bi bi-search"></i>
-        </div>
-        <div id="searchResult">
-        </div>
-    </div>
-    <h1 style="margin-top: 0px;" class="title" >Top Products</h1>
-    <section class="contentContainer" id="content">
-    </section>
-    <div class="lineSeparator"></div>
-    <!--<section id="banner"></section>-->
-    <h1 class="title" >Birthday</h1>
-    <section class="secondaryContent" >
-        <div class="horizontalScroll contentContainer" id="Birthday">
-            
-        </div>
-    </section>
-    <div class="lineSeparator"></div>
-    <h1 class="title" >Congratulation</h1>
-    <section class="secondaryContent" >
-        <div class="horizontalScroll contentContainer" id="Congratulation">
-            
-        </div>
-    </section>
-    <div class="lineSeparator"></div>
-    <h1 class="title">Love and Romance</h1>
-    <h2 class="title">Flowers</h2>
-    <section class="secondaryContent" >
-        <div class="horizontalScroll contentContainer" id="Valentines:flowers">
-        </div>
-    </section>
-    <h2 class="title">Flowers & Packages</h2>
-    <section class="secondaryContent" >
-        <div class="horizontalScroll contentContainer" id="Valentines:flowerPackages">
-        </div>
-    </section>
-    <h2 class="title">Teddy Bears</h2>
-    <section class="secondaryContent" >
-        <div class="horizontalScroll contentContainer" id="Valentines:teddy">
-        </div>
-    </section>
-    <h2 class="title">Teddy Bears & Packages </h2>
-    <section class="secondaryContent" >
-        <div class="horizontalScroll contentContainer" id="Valentines:teddyPackages">
-        </div>
-    </section>
-    
-    
-    
-    <section id="eventHero">
-
-        <div id="eventInfo">
-            <h1 style='margin-left: 16px' id="eventTitle" class="title" >Events</h1>
-            <p style="margin-left: 16px;">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Omnis earum ea similique ad dolorum est dolor aliquam reprehenderit officiis eligendi vero nostrum, 
-                dicta quasi expedita nam numquam, repudiandae a totam! <a href="/events">More...</a>
-            </p>
+    <h1 class="title" >Events</h1>
+    <section id="content">
+        <div class="eventDiv">
+            <h1 style="margin-bottom: 12px;" class="title" >Events</h1>
+            <img class="eventImage" src="/images/landing page screenshot.png" alt="">
+            <p class="eventCaption">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum, corrupti possimus dolore corporis temporibus nihil reiciendis doloremque nostrum deleniti explicabo sequi saepe laudantium quam velit dolores alias dolorem quis ad.</p>
         </div>
     </section>
 
-    <h1 class="title" >Add Ons</h1>
-    <section class="secondaryContent">
-        <div class="horizontalScroll contentContainer" id="addOns">
-            
-        </div>
-    </section>
-    <template id="searchTemplate" style="width: 98%;margin-top: 8px;">
-        <div style="width:30%;height: .9rem;margin-left: 8px;" class="skeleton skeleton-text"></div>
-        <div style="width:90%;margin-left: 8px;" class="skeleton skeleton-text"></div>
-        <div style="width:50%;margin-left: 8px;" class="skeleton skeleton-text"></div>
-    </template>
-    <template id="card-template">
-        <div class="productDiv">
-            <a class="imageHyperlink" >
-                <div class="productImage skeleton" src=""></div>
-            </a>
-            <div class="nameDiv">
-                <div style="width:40%;height: .7rem;" class="skeleton skeleton-text"></div>
-                <div style="width:20%;" class="skeleton skeleton-text"></div>
-            </div>
-            <div style="flex-direction: column;" class="descDiv">
-                <div class="skeleton skeleton-text"></div>
-                <div class="skeleton skeleton-text"></div>
-                <div class="skeleton skeleton-text"></div>
-                <div class="skeleton skeleton-text"></div>
-                <div class="skeleton skeleton-text"></div>
-            </div>
-            <button style="width: 100%; height:3vh;" class='cartButton skeleton'  index="0"></button>
-            <button style="width: 100%; height:3vh;" class="cartButton skeleton" index="0"></button>    
-        </div>
-    </template>
+
+
     <footer id="footer">
         <div id="mainFooter" style="width: 100%;display: flex;justify-content: space-around;">
             <div id="footerLogo" ></div>
@@ -235,9 +142,35 @@
         </div>
         <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
     </footer>
-    <script src="js/header.js"></script>
-    <script type="module" src="js/addCartFunc.js"></script>
-    <script type="module" src="js/skeletonRender.js"></script>
-    <script type="module" src="js/script.js"></script>
+    <script>
+        let contentContainer = document.getElementById('content')
+        async function getEvents(){
+            try {
+                let response = await fetch('/getEvents')
+                let result = await response.json()
+                return result
+            } catch (error) {
+                console.log(`Error at getting events: ${error}`)
+                return []
+            }
+        }
+        async function renderEvents(){
+            let events = await getEvents()
+            if(!events.length > 0) return
+            events.forEach((event)=>{
+                let div = document.createElement('div')
+                div.classList.add('eventDiv')
+                div.innerHTML=`
+                <h1 style="margin-bottom: 12px;" class="title" >${event.title}</h1>
+                <img class="eventImage" src="/images/${event.image}" alt="">
+                <p class="eventCaption">${event.caption}</p>
+                `
+                contentContainer.appendChild(div)
+            })
+        }
+        document.addEventListener("DOMContentLoaded", async function() {
+            await renderEvents()
+        })
+    </script>
 </body>
 </html>

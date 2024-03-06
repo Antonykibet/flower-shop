@@ -1,4 +1,5 @@
 let lists = document.querySelectorAll('.CRUD')
+let eventPhotos = document.getElementById('addEventPhoto')
 let subscribersTrack=document.getElementById('subscribersTrack')
 let orderTrack=document.getElementById('orderTrack')
 let items = []
@@ -41,7 +42,16 @@ function updateSelectFunc(div){
     })
 }
 
-
+eventPhotos.addEventListener('click',(e)=>{
+    let modalBackground = document.createElement('div')
+    modalBackground.classList.add('modalBackground')
+    modalBackground.innerHTML=addEventPhotoForm()
+    modalBackground.querySelector('.bi-x-circle').addEventListener('click', () => {
+        // Close the modal or perform any desired action here
+        modalBackground.remove();
+    });
+    document.body.appendChild(modalBackground)
+})
 
 lists.forEach((list)=>{
     list.addEventListener('click',()=>{
@@ -319,4 +329,18 @@ function deleteForm(){
         </form>
     </div>
     `
+}
+
+function addEventPhotoForm(){
+    return `
+    <div class='modal'>
+        <i class="bi bi-x-circle"></i>
+        <h1 style='padding-top:0px;'>Add Event</h1>
+        <form action="/admin/addEventPhoto" method="post" enctype="multipart/form-data">
+            <input class='input' type="text" name='eventTitle' placeholder="Event title">
+            <input class='input' type="file" name='image' multiple accept='.jpeg, .jpg, .png'  placeholder="Other Images">
+            <input style='width:50%' class='input' type="text" name='caption' placeholder="Caption...">
+            <button type='submit' class='submitBtn'>Add Event</button>
+        </form>
+    </div>`
 }

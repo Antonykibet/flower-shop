@@ -1,0 +1,40 @@
+.title{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: flex;
+    width: 95%;
+    color: #2e2e2e;
+    font-family: 'Montserrat';
+}
+.eventDiv{
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px rgb(155, 155, 155);
+    border-radius: 8px;
+    padding: 8px;
+    margin-top: 24px;
+}
+.eventImage{
+    width: 100%;
+    height: 40vh;
+    object-fit: contain;
+}
+.eventCaption{
+    width: 90%;
+    color: #2e2e2e;
+    font-family: 'Montserrat';
+}
+@media screen and (max-width: 1000px) {
+    #content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .eventDiv{
+        width: 90%;
+    }
+}

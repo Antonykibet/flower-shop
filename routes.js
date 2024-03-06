@@ -7,7 +7,7 @@ const axios = require("axios");
 const processMpesa  = require('./safaricomAPI.js')
 const processPesaPal = require('./pesapal.js')
 const {mailOrder} = require('./mailer')
-const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId} = require('./mongoConfig');
+const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId, events} = require('./mongoConfig');
 
 
 router.use(authRoute)
@@ -187,6 +187,19 @@ router.get('/',async(req,res)=>{
         console.log(error)
     }
     res.sendFile(path.join(__dirname,'html','index.html'))
+})
+router.get('/getEvents',async(req,res)=>{
+    try {
+        let eventsData = await events.find().toArray()
+        console.log(eventsData)
+        res.json(eventsData)
+    } catch (error) {
+        console.log(`Error at /getEvents:${error}`)
+        res.json(error)
+    }
+})
+router.get('/events',(req,res)=>{
+    res.sendFile(path.join(__dirname,'html','events.html'))
 })
 router.get('/cart',(req,res)=>{
     res.sendFile(path.join(__dirname,'html','cart.html'))

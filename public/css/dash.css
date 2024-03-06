@@ -167,7 +167,7 @@ form input{
     justify-content: space-between;
     color: #2e2e2e;
 }
-#productLab{
+.crudDiv{
     height: 23%;
     border: solid 2px rgb(155, 155, 155);
     border-radius: 8px;
@@ -281,7 +281,7 @@ form input{
     #productList{
         display: none;
     }
-    #productLab{
+    .crudDiv{
         padding-bottom: 16px;
         margin-bottom: 16px;
     }

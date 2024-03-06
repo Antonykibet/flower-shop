@@ -9,10 +9,11 @@ let accounts =  db.collection('accounts')
 let orders = db.collection('Orders')
 let dashboard =db.collection('dashboard')
 let subscription = db.collection('subscription')
+let events = db.collection('events')
 
 
 async function dbInit(){
     await dbClient.connect();
 }
 
-module.exports = {uri,dbInit,products,accounts,orders,dashboard,subscription,ObjectId}
+module.exports = {uri,dbInit,products,accounts,orders,dashboard,subscription,events,ObjectId}

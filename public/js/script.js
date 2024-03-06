@@ -171,11 +171,11 @@ export async function modalRender(btn,item){
     let modalBackground = renderModalBackground()
     if(btn==='orderBtn'){
         modalBackground.innerHTML= orderModalRender()
-        if(item.catalogue.match(/Valentines/i)){
+        /*if(item.catalogue.match(/Valentines/i)){
             let infoSection = modalBackground.querySelector('#infoSection')
             infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
             infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
-        }
+        }*/
         let checkoutBtn=modalBackground.querySelector('#proceedCheckout')
         checkoutBtn.addEventListener('click',async()=>{
             await addCartFunc(item)

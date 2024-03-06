@@ -3,7 +3,7 @@ const router = express.Router()
 const path =require('path')
 const multer = require('multer');
 const bodyParser = require('body-parser');
-const {dbInit,products,accountCollection,subscription, orders, dashboard,ObjectId} = require('./mongoConfig');
+const {dbInit,products,accountCollection,subscription, orders, dashboard,events,ObjectId} = require('./mongoConfig');
 
 const storage = multer.diskStorage(
     {
@@ -56,6 +56,20 @@ router.post('/admin/updateDeliverRecords',async(req,res)=>{
                 nextDelivery:nextDelivery
             }
          })
+    res.redirect('back')
+})
+router.post('/admin/addEventPhoto',upload.single('image'),async(req,res)=>{
+    const {caption,eventTitle} = req.body
+    if(req.file){
+        const image = req.file.originalname
+        console.log(image)
+        const eventData={
+            caption,
+            image,
+            title:eventTitle
+        }
+        await events.insertOne(eventData)
+    }
     res.redirect('back')
 })
 router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
