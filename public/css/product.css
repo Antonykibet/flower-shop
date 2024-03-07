@@ -96,7 +96,10 @@ body{
     height: 32px;
     margin-right: 8px;
     margin-bottom: 8px;
-    border: solid rgba(189, 189, 189, 0.89);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
 }
 
 .CTOs{

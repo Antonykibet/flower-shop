@@ -280,7 +280,7 @@
     #billingForm{
         width: 90%;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         height: auto;
     }
     #addNote{

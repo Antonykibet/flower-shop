@@ -161,8 +161,9 @@ router.get('/products/:product',async(req,res)=>{
 router.get('/product/:productID',async(req,res)=>{
     let {productID} =req.params
     let item  = await products.findOne(new ObjectId(productID))
-    let {image,name,description,price,images,catalogue} =item
+    let {_id,image,name,description,price,images,catalogue} =item
     let details={
+        _id,
         image:image,
         images:JSON.stringify(images),
         name:name,
@@ -171,7 +172,7 @@ router.get('/product/:productID',async(req,res)=>{
         item:JSON.stringify(item)
     }
     
-    await res.render('product',details)
+    res.render('product',details)
 })
 router.get('/getProducts',async (req,res)=>{
     let result = await products.find().toArray()

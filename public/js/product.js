@@ -1,4 +1,4 @@
-import { productDisplay,addCartFunc,} from "/js/script.js"
+import { addCartFunc} from "./addCartFunc.js"
 
 
 let cartBtn=document.getElementById('cartBtn')
@@ -14,7 +14,37 @@ async function isLogged(){
     return result
 }
 
+function productDisplay(result,section = 'content'){
+    let contentDiv = document.getElementById(section)
+    contentDiv.innerHTML=''
+    result.forEach((item, index)=>{
+        let {_id,name,description,price,image} = item
+        let productDiv = document.createElement('div')
+        productDiv.classList.add('productDiv')
+        productDiv.innerHTML=productCardRender(_id,name,description,price,image,index)
+        contentDiv.appendChild(productDiv)
+        productDiv.querySelector('.cartButton').addEventListener('click',()=>{
+            alert('add on added')
+            addCartFunc(item)
+        })
+    })
+}
 
+function productCardRender(_id,name,description,price,image,index){
+    return `
+        <a class='imageHyperlink' href='/product/${_id}'>
+            <img class='productImage' src='/images/${image}'>
+        </a>
+        <div class='nameDiv'>
+            <h3 class='productName'>${name}</h3>
+            <h4 class='productPrice'>${price}</h4>
+        </div>
+        <div class='descDiv'>
+            <p class='description'>${description}</p>
+        </div>
+        <button class='cartButton' index='${index}'>Add to Cart</button>    
+    `
+}
 async function getAddOnsProducts(){
     let response = await fetch(`/products/addOns`)
     let result =await response.json()

@@ -109,16 +109,25 @@
             </p>
             <h2 class="productPriceMain"><%= price %></h2>
             <div style="display: flex;align-items: center;" >
-                <div class="icons"></div>
-                lorem
+                <div class="icons">
+                    <i class="bi bi-whatsapp"></i>
+                </div>
+                <a style="color: inherit;" href="whatsapp://send?text=Check out this awesome product from Calyx flowers: <%= name %>. You can find it here https://calyxflowerske.com/product/<%= _id %>"  data-action="share/whatsapp/share">
+                  Whatsapp</a>
             </div>
             <div style="display: flex;align-items: center;" >
-                <div class="icons"></div>
-                lorem
+                <div class="icons">
+                    <i class="bi bi-facebook"></i>
+                </div>
+                <a style="color: inherit;" href="https://www.facebook.com/sharer.sharer.php?u=https://calyxflowerske.com/product/<%= _id %>" target="_blank">
+                    Facebook
+                  </a>
             </div>
             <div style="display: flex;align-items: center;" >
-                <div class="icons"></div>
-                lorem
+                <div class="icons"><i class="bi bi-twitter-x"></i></div>
+                <a style="color: inherit;" href="https://twitter.com/intent/tweet?text=Check out this awesome product from Calyx flowers: <%= name %>. You can find it here https://calyxflowerske.com/product/<%= _id %> " target="_blank">
+                    Twitter
+                  </a>
             </div>
             <div class="btnDiv">
                 <button class="CTOs" id="continueBtn">Continue shopping</button>
@@ -169,15 +178,13 @@
       </div>
       <div id="lowerFooter"> Designed and developed by <a href="">webGuy</a> </div>
       </footer>
-      <script type="module" src="/js/script.js" ></script>
       <script  src="/js/header.js"></script>
       <script type="module" src="/js/product.js"></script>
       <script>
             let productImageMain = document.getElementsByClassName('productImageMain').item(0)
             let imgCollection = document.getElementById('imgCollection')
             let otherImgDiv = document.getElementById('otherImgDiv')
-            let images = document.getElementById('images').innerText
-            images=JSON.parse(images)
+            let images = document.getElementById('images').innerText && []
             images.forEach((image)=>{
                 imgCollection.innerHTML+=`
                 <img class="otherImg" src="/images/${image}" alt="">

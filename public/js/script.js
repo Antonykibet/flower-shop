@@ -1,5 +1,5 @@
 import { skeletonRender } from "./skeletonRender.js"
-import { getCartItems,storeCartItems } from "./addCartFunc.js"
+import {addCartFunc } from "./addCartFunc.js"
 let result=null
 
 document.addEventListener("DOMContentLoaded", async function() {
@@ -117,7 +117,6 @@ export function productDisplay(result,section = 'content'){
             modalRender(btn,item)
         })
         //addCartFunc(productDiv,item)
-        
     })
 }
 
@@ -252,17 +251,5 @@ function orderModalRender(){
     `
 }
 
-export async function addCartFunc(item){
-    try {
-        let cartItems=await getCartItems()
-        if(cartItems.some(cartItem=>cartItem._id===item._id)) return
-        if(item.catalogue.match(/Valentines/i)){
-            alert(`By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`)
-        }
-        cartItems.push(item)
-        await storeCartItems(cartItems)
-    } catch (error) {
-        alert(`Error:Did not add to cart.`)
-    }
-}
+
 
