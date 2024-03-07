@@ -1,5 +1,6 @@
 let lists = document.querySelectorAll('.CRUD')
 let eventPhotos = document.getElementById('addEventPhoto')
+let removeEventPhotoBtn = document.getElementById('removeEventPhoto')
 let subscribersTrack=document.getElementById('subscribersTrack')
 let orderTrack=document.getElementById('orderTrack')
 let items = []
@@ -41,7 +42,31 @@ function updateSelectFunc(div){
         div.querySelector('#catalogue').value=catalogue
     })
 }
+async function getEvents(){
+    try {
+        let response = await fetch('/getEvents')
+        let result = await response.json()
+        return result
+    } catch (error) {
+        console.log(`Error at getting events: ${error}`)
+        return []
+    }
+}
+removeEventPhotoBtn.addEventListener('click',async(e)=>{
+    let modalBackground = document.createElement('div')
+    modalBackground.classList.add('modalBackground')
+    modalBackground.innerHTML=removeEventPhoto()
+    modalBackground.querySelector('.bi-x-circle').addEventListener('click', () => {
+        // Close the modal or perform any desired action here
+        modalBackground.remove();
+    });
+    document.body.appendChild(modalBackground)
+    let events = await getEvents()
+    events.forEach((event)=>{
+        modalBackground.querySelector('#eventList').innerHTML+=`<option value='${event._id}'>${event.title}</option>`
+    })
 
+})
 eventPhotos.addEventListener('click',(e)=>{
     let modalBackground = document.createElement('div')
     modalBackground.classList.add('modalBackground')
@@ -330,7 +355,19 @@ function deleteForm(){
     </div>
     `
 }
-
+function removeEventPhoto(){
+    return `
+    <div class='modal'>
+        <i class="bi bi-x-circle"></i>
+        <h1 style='padding-top:0px;'>Delete Event</h1>
+        <form action="/admin/removeEventPhoto"  method="post" >
+            <select name='event' id='eventList'>
+                <option>Select Event to delete</option>
+            </select>
+            <button type= 'submit' class='submitBtn'>Remove</button>
+        </form>
+    </div>`
+}
 function addEventPhotoForm(){
     return `
     <div class='modal'>

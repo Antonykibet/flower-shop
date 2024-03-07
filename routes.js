@@ -191,7 +191,6 @@ router.get('/',async(req,res)=>{
 router.get('/getEvents',async(req,res)=>{
     try {
         let eventsData = await events.find().toArray()
-        console.log(eventsData)
         res.json(eventsData)
     } catch (error) {
         console.log(`Error at /getEvents:${error}`)

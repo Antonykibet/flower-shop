@@ -58,6 +58,17 @@ router.post('/admin/updateDeliverRecords',async(req,res)=>{
          })
     res.redirect('back')
 })
+router.post('/admin/removeEventPhoto',async(req,res)=>{
+    const {event} = req.body
+    try {
+        let response = await events.deleteOne({_id:new ObjectId(event)})
+        console.log(response)
+        res.redirect('back')
+    } catch (error) {
+        console.log(`Erorr removing event: ${error}`)
+        res.json(error)
+    }
+})
 router.post('/admin/addEventPhoto',upload.single('image'),async(req,res)=>{
     const {caption,eventTitle} = req.body
     if(req.file){
