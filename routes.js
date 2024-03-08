@@ -4,7 +4,7 @@ const path =require('path')
 const authRoute = require('./auth.js')
 const axios = require("axios");
 
-const processMpesa  = require('./safaricomAPI.js')
+//const processMpesa  = require('./safaricomAPI.js')
 const processPesaPal = require('./pesapal.js')
 const {mailOrder} = require('./mailer')
 const {dbInit,accounts,products,orders,dashboard,subscription,ObjectId, events} = require('./mongoConfig');
@@ -246,8 +246,8 @@ router.post('/checkout',async(req,res)=>{
             try {
                 //let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
                 await sendOrderDb(fname,lname,phoneNo,email,req.session.totalPrice,req.session.productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note)
-                //mailOrder(email,JSON.stringify(req.body))
-                //res.redirect(redirectURL)
+                mailOrder(email,JSON.stringify(req.body))
+                res.redirect(redirectURL)
             } catch (error) {
                 console.log(error)
                 res.send(error)

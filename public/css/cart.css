@@ -191,7 +191,13 @@
 .checkoutLabels{
     margin-bottom: 8px;
 }
+#footer{
+    margin-top: 40vh;
+}
 @media screen and (max-width: 1000px) {
+    #footer{
+        margin-top: 5vh;
+    }
     #mobileHeader{
         height: 7vh;
         width: 100%;

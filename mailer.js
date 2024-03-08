@@ -13,10 +13,9 @@ function mailOrder(receiver,order){
     /*let items = order.cart.map(obj => `${obj.catalogue}, ${obj.type}, ${obj.unit} Unit`).join(', ')
     let orderInfo = `${order.name}, Phone number:${order.phoneNo} has purchased:${items}`*/
     let mailOptions = {
-        from: 'antonykibet059@gmail.com',
-        to: receiver,
-        //subject: 'New Order',
-        subject: 'Calyx order',
+        from: receiver,
+        to: 'antonykibet059@gmail.com',
+        subject: 'New Order from website',
         text: `New order:${order}`
       };
       

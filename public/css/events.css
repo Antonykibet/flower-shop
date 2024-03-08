@@ -27,6 +27,9 @@
     color: #2e2e2e;
     font-family: 'Montserrat';
 }
+#content{
+    min-height: 100vh;
+}
 @media screen and (max-width: 1000px) {
     #content{
         display: flex;

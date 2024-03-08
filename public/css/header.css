@@ -110,6 +110,7 @@ a{
     color: whitesmoke;
     font-family: 'Poppins';
     font-size: 13px;
+    padding: 8px;
 }
 .navItem:hover .dropdown-menu {
     display: flex;

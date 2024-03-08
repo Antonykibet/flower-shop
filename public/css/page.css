@@ -22,7 +22,7 @@ body{
     margin-top: 16px;
     padding-bottom: 6px;
     border-bottom: solid 2px grey;
-    display: flex;
+    display: none;
     flex-direction: row;
     width: 95%;
     align-items:center;

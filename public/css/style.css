@@ -140,9 +140,18 @@ a{
     margin-top: 24px;
     margin-bottom: 24px;
     width: 97%;
-    height: 90vh;
-    border: solid;
+    height: 100vh;
     border-radius: 8px;
+    background-image: url(/images/eventHero2.jpg);
+    background-position: bottom;
+    background-size: cover;
+}
+.bi-arrow-right-circle-fill{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 32px;
+    color: #B7A28A;
 }
 #eventInfo{
     position: absolute;
@@ -151,6 +160,8 @@ a{
     right: 0;
     width: 100%;
     height: auto;
+    font-family: 'Montserrat',sans-serif;
+    color: white;
 }
 .title{
     margin-bottom: 0px;
@@ -377,6 +388,11 @@ a{
         font-size: 2vh;
         margin-left: 24px;
         margin-right: 24px;
+    }
+    #eventHero{
+        width: 95vw;
+        height: 70vh;
+        background-size:cover;
     }
     #topPicks{
         height: 100vh;

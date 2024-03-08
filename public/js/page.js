@@ -1,10 +1,10 @@
-import { addCartFunc} from "/js/script.js"
+import { addCartFunc} from "/js/addCartFunc.js"
 import { skeletonRender } from "./skeletonRender.js"
 
 let catalogueTitle = document.getElementById('catalogueTitle')
 let catalogueNav = document.getElementById('catalogueNav')
 let MainTitle = document.querySelector('.mainTitle')
-let byOccassion = ['Congratulation', 'Birthday','Love and romance','Thank you','Valentines','Mothers day','Get well','Funeral']
+let byOccassion = ['Congratulation', 'Birthday','Love and romance','Thank you','Valentines:flowerPackages','Valentines:flowers','Valentines:teddy','Mothers day','Get well','Funeral']
 let giftHampers = ['For him','For Her','Bestie','Baby shower','Bridal shower']
 let subscription=['Monthly','Quartely','Yearly']
 
@@ -15,10 +15,12 @@ if(byOccassion.includes(catalogueTitle.innerText)){
 }
 if(giftHampers.includes(catalogueTitle.innerText)){
     renderNavbarAndTitle('Gift Hampers',giftHampers)
+    await getProducts(catalogueTitle)
     catalogBtnToggle()
 }
 if(subscription.includes(catalogueTitle.innerText)){
     renderNavbarAndTitle('Subscription',subscription)
+    await getProducts(catalogueTitle)
     catalogBtnToggle()
 }
 function renderNavbarAndTitle(title,catalogue){
