@@ -34,7 +34,7 @@ function mailOrder(receiver,order){
         subject: 'Password reset',
         text: 'You are receiving this because you (or someone else) has requested the reset of the password for your account.\n\n' +
         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-        'https://calyxflowerske.com/reset-password/s' + resetToken + '\n\n' +
+        'http://localhost:5500/reset-password/' + resetToken + '\n\n' +
         'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       }
       

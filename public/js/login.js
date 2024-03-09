@@ -17,6 +17,8 @@ forgotBtn.addEventListener('click',async()=>{
         },
         body:JSON.stringify({email}),
     })
+    let result = await response.json()
+    alert(result)
 })
 
 eyeIcon.item(0).addEventListener('click',(event)=>{

@@ -112,24 +112,32 @@ router.post('/forgotPassword',async(req,res)=>{
   const resetToken = crypto.randomBytes(20).toString('hex');
   const hashedToken = await bcrypt.hash(resetToken, 10);
   try {
-      await accounts.updateOne({email},{$set:{
+      let result = await accounts.updateOne({email},{$set:{
           resetPasswordToken : hashedToken,
           resetPasswordExpires : Date.now() + 3600000, // 1 hour
       }})
+      if(result.matchedCount == 0){
+        res.json('Email non-existient')
+        return
+      }
+      console.log(result)
+      console.log(result + `stored hashed token`)
       resetPassword(resetToken,email)
       res.json('Check your email!')    
   } catch (error) {
       console.log(error)
   }
-  
 })
 router.get('/reset-password/:token',(req,res)=>{
   let token = req.params.token
   res.render('resetPassword',{tokenplaceholder:token})
 })
 router.post('/reset-password/:token', async (req, res) => {
+  console.log('Woyo')
   const user = await accounts.findOne({email:req.body.email});
   const tokenMatches = await bcrypt.compare(req.params.token, user.resetPasswordToken);
+  //remember to change URL
+  console.log(tokenMatches)
   if (!tokenMatches || Date.now() > user.resetPasswordExpires) {
       res.status(400).send('Password reset token is invalid or has expired.');
       return;
