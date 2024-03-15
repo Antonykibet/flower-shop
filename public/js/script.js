@@ -183,11 +183,11 @@ export async function modalRender(btn,item){
     }
     if(btn==='cartButton'){
         modalBackground.innerHTML= cartModalRender()
-        if(item.catalogue.match(/Valentines/i)){
+        /*if(item.catalogue.match(/Valentines/i)){
             let infoSection = modalBackground.querySelector('#infoSection')
             infoSection.style.cssText='border:solid rgba(223, 223, 223); border-radius:8px;padding:4px;margin-top:24px;'
             infoSection.innerHTML=` <i class="bi bi-info-circle"></i> By Booking you'll get your product on 14th Feb, proceed to add more delivery details...`
-        }
+        }*/
         let addCartBtn=modalBackground.querySelector('#proceedAddCart')
         addCartBtn.addEventListener('click',async()=>{
             await addCartFunc(item)
