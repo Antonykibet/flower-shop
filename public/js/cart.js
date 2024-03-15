@@ -1,7 +1,9 @@
 import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let contentDiv = document.getElementById('content')
-let totalPrice =document.getElementById('totalPrice')
+let subTotal =document.getElementById('subTotal')
+let shippingCostDisplay = document.getElementById('shippingCost')
 let mobileCheckoutBtn=document.getElementById('checkoutDisplay')
+let totalPrice = document.getElementById('totalPrice')
 //let creditBtn = document.querySelector('.intaSendPayButton')
 let pesapalCheckoutBtn = document.querySelector('#pesapalCheckoutBtn')
 const form = document.getElementById('billingForm');
@@ -9,12 +11,43 @@ let billingDiv=document.getElementById('billingDiv')
 let removeBtn=document.querySelector('.bi-x-circle')
 let cartItems = null
 
+const pickupRadio = document.getElementById('pickup');
+const deliverRadio = document.getElementById('deliver');
+const deliveryData = document.getElementById('deliveryData');
 
+function calcTotal(shippingCost,subTotal){
+    const total = parseInt(shippingCost) +parseInt( subTotal)
+    totalPrice.innerText = total 
+}
+    
+
+pickupRadio.addEventListener('change', function() {
+    shippingCostDisplay.innerText='0'
+    const shippingCostRadioButtons = document.querySelectorAll('input[name="shippingCost"]');
+    shippingCostRadioButtons.forEach(radio => radio.checked = false);
+    if (this.checked) {
+        deliveryData.style.display = 'none';
+    } else {
+        deliveryData.style.display = 'block';
+    }
+});
+deliverRadio.addEventListener('change', function() {
+    deliveryData.style.display = 'block';
+  });
+  const shippingCostInput = document.querySelectorAll('input[name="shippingCost"]');
+
+  shippingCostInput.forEach(radio => {
+    radio.addEventListener('change', (event) => {
+      const selectedCost = event.target.value;
+      shippingCostDisplay.innerText =selectedCost
+      calcTotal(selectedCost,subTotal.innerText)
+    });
+  });
 function isCheckoutFormValid(){
     let phoneNo = document.querySelector('#phoneNo')
     let formInputs =document.querySelectorAll('.billingInput')
-    totalPrice = parseFloat(totalPrice.textContent);
-    if (totalPrice === 0) {
+    subTotal = parseFloat(subTotal.textContent);
+    if (subTotal === 0) {
         alert("Cart is Empty, continue shopping.");
         return true
     }
@@ -61,6 +94,8 @@ function paymentMethodAttribute(form,method){
 }
 pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     event.preventDefault();
+    const shippingCost = shippingCostDisplay.value;
+    alert(shippingCost)
     const cartItems = await getCartItems()
     const cartDetails = cartItems.map((item)=>{
         return {id:item._id,unit:item.unit}
@@ -69,7 +104,7 @@ pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     let response = await fetch('/cartDetails',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(cartDetails),
+        body: JSON.stringify({cart:cartDetails,shippingCost}),
       })
       console.log(response)
     //if(isCheckoutFormValid()) return
@@ -84,7 +119,7 @@ async function renderCartItems(){
         mobileCheckoutBtn.style.display='none'
     }
     displayCartItems()
-    calcTotal()
+    calcSubTotal()
 }
 renderCartItems()
 
@@ -98,12 +133,13 @@ removeBtn.addEventListener('click',()=>{
 
 
 //Calculates total price of cart Items
-function calcTotal(){
+function calcSubTotal(){
     let total = 0
     cartItems.forEach((item)=>{
         total+= Number(item.price*item.unit) 
     }) 
-    totalPrice.innerText=total
+    subTotal.innerText=total
+    calcTotal(shippingCostDisplay.innerText,total)
 }
 
 
@@ -135,7 +171,7 @@ function displayCartItems(){
             subFunc(bigDiv,item)
             removeFunc(bigDiv,item)
         })
-        //calcTotal()
+        //calcSubTotal()
 }
 
 
@@ -147,7 +183,7 @@ function addFunc(div,item){
         let itemIndex = cartItems.indexOf(item)
         cartItems[itemIndex].unit = unit
         div.querySelector('.digitDisplay').innerText=unit
-        calcTotal()
+        calcSubTotal()
         await updFunc()
     })
 }
@@ -161,7 +197,7 @@ function subFunc(div,item){
             let itemIndex = cartItems.indexOf(item)
             cartItems[itemIndex].unit = unit
             div.querySelector('.digitDisplay').innerText=unit
-            calcTotal()
+            calcSubTotal()
             await updFunc()
         }
     })
@@ -174,7 +210,7 @@ function removeFunc(div,item){
         let index = cartItems.indexOf(item)
         cartItems.splice(index,1)
         div.remove()
-        calcTotal()
+        calcSubTotal()
         await updFunc()
         location.reload()
     })
@@ -182,7 +218,7 @@ function removeFunc(div,item){
 
 
 async function updFunc(){
-    //totalPrice.innerText= calcTotal()
+    //subTotal.innerText= calcSubTotal()
     await storeCartItems(cartItems)
 }
 

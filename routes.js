@@ -220,32 +220,34 @@ router.get('/pesapalCall', (req, res) => {
 router.post('/cartDetails',async(req,res)=>{
     let totalPrice = 0
     let productDetails = []
-    const cartDetails = req.body
-    for (const item of cartDetails) {
+    const {cart, shippingCost} = req.body
+    for (const item of cart) {
         try {
           const { price,name } = await products.findOne({ _id: new ObjectId(item.id) });
           productDetails.push({
             _id:item.id,
             name,
-            unit:item.unit
+            unit:item.unit,
           })
           totalPrice += price * item.unit;
         } catch (error) {
           console.log(`Error in /cartDetails ${error}`)
         }
       }
+      req.session.shippingCost= shippingCost
       req.session.productDetails = productDetails
-      req.session.totalPrice = totalPrice
+      req.session.subTotal = totalPrice
       res.json('CHONJO')
 })
 router.post('/checkout',async(req,res)=>{
-    console.log(req.session.totalPrice,req.session.productDetails)
+    console.log(req.session.subTotal,req.session.productDetails)
     try {
+        const totalPrice = req.session.subTotal + req.session.shippingCost
         const {fname,lname,phoneNo,email,payment_method,logistics,deliveryDate,address,deliveryTime,reciepientName,note} = req.body
         if(payment_method == 'pesapal'){
             try {
                 //let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
-                await sendOrderDb(fname,lname,phoneNo,email,req.session.totalPrice,req.session.productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note)
+                await sendOrderDb(fname,lname,phoneNo,email,req.session.subTotal,req.session.shippingCost,req.session.productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note)
                 mailOrder(email,JSON.stringify(req.body))
                 res.redirect(redirectURL)
             } catch (error) {
@@ -253,19 +255,19 @@ router.post('/checkout',async(req,res)=>{
                 res.send(error)
             }
         }
-        async function sendOrderDb(fname,lname,phoneNo,email,totalPrice,productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note){
+        async function sendOrderDb(fname,lname,phoneNo,email,subTotal,shippingCost,productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note){
             let order ={
                 name:`${fname} ${lname}`,
                 phoneNo,
                 email,
-                totalPrice,
+                subTotal,
+                shippingCost,
                 logistics,deliveryDate,address,deliveryTime,reciepientName,note,
                 cart:productDetails,
                 dispatched:false,
             }
             let response = await orders.insertOne(order)
             console.log(response)
-            //req.session.cartItems=[]
         }
     } catch (error) {
         console.log(error)

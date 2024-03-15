@@ -131,10 +131,18 @@
     color: #2e2e2e;
     font-family: 'Montserrat';
 }
+.moneyInfo{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
 #totalDiv{
     width: 95%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 24px; 
 }
 .totalElem{
@@ -192,7 +200,7 @@
     margin-bottom: 8px;
 }
 #footer{
-    margin-top: 40vh;
+    margin-top: 55vh;
 }
 @media screen and (max-width: 1000px) {
     #footer{

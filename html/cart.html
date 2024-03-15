@@ -11,7 +11,7 @@
 </head>
 <body>
     <header id="headerBody">
-        <div id="topHeader">✔ 7 Day Freshness Guarantee ✔ Order Before 9pm For Next Day Delivery ✔ Free Chocolates Available!</div>
+        <div id="topHeader">✔ Flower shop in Nairobi Kenya ✔ Order Before 6pm EAT for a same day delivery ✔ Delivery within 3 hours</div>
         <div id="desktopHeader">
             <img id="logo" src="/images/Calyx Flowers Logo.png" alt="">
 
@@ -114,10 +114,9 @@
                 </div>
                 <label class="checkoutLabels" for="date">Delivery/Pickup date</label>
                 <input class="billingInput" id="date" name="deliveryDate" type="date" placeholder="DD/MM/YYYY">
-                <label class="checkoutLabels" for="address">Delivery Address(delivery fee applys, you’ll receive a message on the fee & payment method)</label>
-                <input class="billingInput" id="address" type="text" placeholder="Estate and Street name" name="address">
+
                 <label class="checkoutLabels" for="deliveryTime" >Delivery/Pickup time slot</label>
-                <div>
+                <div style="margin-bottom: 8px;">
                     <input type="radio" id="elevenAm" name="deliveryTime" value="10.00">
                     <label for="elevenAm">11 am - 1pm</label> <br>
                     <input type="radio" id="oneAm" name="deliveryTime" value="10.00">
@@ -125,11 +124,38 @@
                     <input type="radio" id="threePm" name="deliveryTime" value="10.00">
                     <label for="threePm">3pm - 6pm</label> <br>
                 </div>
-                <input class="billingInput" placeholder="Name of Reciepient" type="text" id="reciepientName" name="reciepientName" >
+
+                <div style="width: 100%;margin-top: 16px;margin-bottom: 16px;" id="deliveryData">
+                    <label class="checkoutLabels" for="address">Delivery Address</label> <br>
+                    <input style="width: 90%;margin-top: 8px;" class="billingInput" id="address" type="text" placeholder="Estate and Street name" name="address">
+
+                    <div id="shippingDiv">
+                        <label style="margin-bottom: 8px;" for="">Delivery Location</label><br>
+                        <input type="radio" name="shippingCost" value="100" id="CBD">
+                        <label for="CBD">CBD(100/=)</label><br>
+                        <input type="radio" name="shippingCost" value="400" id="NairobiEnvirons">
+                        <label for="NairobiEnvirons">Nairobi & its environs(400/=)</label><br>
+                        <input type="radio" name="shippingCost" value="800" id="OutsideNairobi">
+                        <label for="OutsideNairobi">Outside Nairobi(800/=)(Thika, Ngong, Kikuyu, Rongai)</label><br>
+                    </div>
+                    <input style="width: 90%;margin-top: 8px;" class="billingInput" placeholder="Name of Reciepient" type="text" id="reciepientName" name="reciepientName" >
+                </div>
+
                 <textarea class="billingInput" name="note" id="addNote" placeholder="Add a note ...(message on the card and notes about your order)"></textarea>
+    
                 <div id="totalDiv">
-                    <h3 class="totalElem">Total</h3>
-                    <h3 class="totalElem" id="totalPrice">0</h3>
+                    <div class="moneyInfo">
+                        <h3 class="totalElem">Sub Total</h3>
+                        <h3 class="totalElem" id="subTotal">0</h3>
+                    </div>
+                    <div class="moneyInfo">
+                        <h3 class="totalElem">Shipping Cost</h3>
+                        <h3 class="totalElem" id="shippingCost">0</h3>
+                    </div>
+                    <div class="moneyInfo">
+                        <h3 class="totalElem">Total</h3>
+                        <h3 class="totalElem" id="totalPrice">0</h3>
+                    </div>
                 </div>
                 <button class="billingBtns" id="pesapalCheckoutBtn" type="submit" name="payment_method" value="pesapal">Proceed to payment</button>
             </form>
