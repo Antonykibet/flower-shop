@@ -94,8 +94,7 @@ function paymentMethodAttribute(form,method){
 }
 pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     event.preventDefault();
-    const shippingCost = shippingCostDisplay.value;
-    alert(shippingCost)
+    const shippingCost = shippingCostDisplay.innerText;
     const cartItems = await getCartItems()
     const cartDetails = cartItems.map((item)=>{
         return {id:item._id,unit:item.unit}

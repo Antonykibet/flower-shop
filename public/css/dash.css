@@ -213,6 +213,12 @@ form input{
     border-bottom: solid 1px;
     font-family: 'Roboto';
 }
+.orderRecord div{
+    margin-left: 16px;
+    border-right: #2e2e2e solid 1px;
+    padding: 8px;
+    margin-bottom: 4px;
+}
 .orderRecord h4 {
     margin-top: 0px;
     margin-bottom: 8px;    
@@ -228,13 +234,11 @@ form input{
 }
 .credentials{
     display: flex;
-    border: solid;
     flex-direction:column;
 }
 .productItems{
     display: flex;
     flex-direction: column;
-    border: solid;
     width: 30%;
 }
 #pleaseWaitModal{

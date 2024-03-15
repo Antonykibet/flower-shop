@@ -234,6 +234,7 @@ router.post('/cartDetails',async(req,res)=>{
           console.log(`Error in /cartDetails ${error}`)
         }
       }
+      console.log(`shipping:${shippingCost}`)
       req.session.shippingCost= shippingCost
       req.session.productDetails = productDetails
       req.session.subTotal = totalPrice
@@ -242,11 +243,12 @@ router.post('/cartDetails',async(req,res)=>{
 router.post('/checkout',async(req,res)=>{
     console.log(req.session.subTotal,req.session.productDetails)
     try {
-        const totalPrice = req.session.subTotal + req.session.shippingCost
+        const totalPrice = parseInt(req.session.subTotal) + parseInt(req.session.shippingCost)
+        console.log(req.session.shippingCost)
         const {fname,lname,phoneNo,email,payment_method,logistics,deliveryDate,address,deliveryTime,reciepientName,note} = req.body
         if(payment_method == 'pesapal'){
             try {
-                //let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
+                let redirectURL=await  processPesaPal(fname,lname,email,phoneNo,totalPrice)
                 await sendOrderDb(fname,lname,phoneNo,email,req.session.subTotal,req.session.shippingCost,req.session.productDetails,logistics,deliveryDate,address,deliveryTime,reciepientName,note)
                 mailOrder(email,JSON.stringify(req.body))
                 res.redirect(redirectURL)
@@ -265,6 +267,7 @@ router.post('/checkout',async(req,res)=>{
                 logistics,deliveryDate,address,deliveryTime,reciepientName,note,
                 cart:productDetails,
                 dispatched:false,
+                totalPrice,
             }
             let response = await orders.insertOne(order)
             console.log(response)

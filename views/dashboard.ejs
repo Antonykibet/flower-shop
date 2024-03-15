@@ -8,7 +8,7 @@
 </head>
 <body>
     <header id="dashHeader">
-        <h2 id="adminHeaderTitle" style="margin-right: 56px;" >Admin Dashboard</h2>
+        <h2 id="adminHeaderTitle" style="margin-right: 56px;">Admin Dashboard</h2>
     </header>
     <section class="column" id="firstColumn">
         <div class="crudDiv" id="productLab">
@@ -41,8 +41,13 @@
                 <h2 class="indicatorValue"><%= checkouts %></h2>
             </div>
         </div>
+        <h1 style="margin-bottom: 16px; border-bottom: solid 1px;" class="title">Track Orders</h1>
+            <select style="width: 30%;" name="orderResultConfig" id="orderResultConfig">
+                <option value="notDispatched">Not Dispatched</option>
+                <option value="dispatched">Dispatched</option>
+            </select>
         <div class="trackingContainers" id="orderTrack">
-            <h1 class="title">Track Orders</h1>
+            
         </div>
         <div class="trackingContainers" id="subscribersTrack">
             <h1 class="title">Track Subscribers</h1>

@@ -15,7 +15,7 @@ async function getItems(){
 }
 getItems()
 getSubscribedItems()
-getOrderdItems()
+getOrderdItems('notDispatched')
 function sayHi(){
     alert('Aloo')
 }
@@ -27,6 +27,16 @@ function productDropdownFunc(div){
     })
     
 }
+
+let orderResultConfig = document.getElementById('orderResultConfig')
+orderResultConfig.addEventListener('change',async(e)=>{
+    if(e.target.value === 'notDispatched'){
+        await getOrderdItems('notDispatched')
+    }
+    if(e.target.value === 'dispatched'){
+        await getOrderdItems('dispatched')
+    }
+})
 
 function updateSelectFunc(div){
     const productsDropdown = div.querySelector('#productsDropdown')
@@ -109,37 +119,40 @@ async function getSubscribedItems(){
     subscibedItems=await response.json()
     displaySubscribedItems()
 }
-async function getOrderdItems(){
-    let response=await fetch('/admin/orderdItems')
+async function getOrderdItems(filter){
+    let response=await fetch(`/admin/orderdItems/${filter}`)
     let orderItems=await response.json()
+    orderTrack.innerHTML=''
     orderItems.forEach((item,index)=>{
-        const {_id,name,phoneNo,email,totalPrice,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched } = item
+        const {_id,name,phoneNo,email,totalPrice,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched, shippingCost} = item
         let cart=item.cart 
         console.log(item)
         let list = document.createElement('div')
         list.classList.add('orderRecord')
-        list.innerHTML=orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched)
+        list.innerHTML=orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost)
         orderTrack.appendChild(list)
         let dispatchBtn = list.querySelector('#dispatchBtn')
         dispatchBtn.addEventListener('click', async(e)=>{
-            alert('Aloo')
             let _id = e.target.getAttribute('_id')
-            alert(_id)
             await fetch('/admin/dispatched ',{
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json' // Indicate sending JSON data
                   },
                   body: JSON.stringify({ _id })
-            })            
+            })   
+            location.reload()         
         })
+        if(filter==='dispatched'){
+            dispatchBtn.disabled = true
+        }
     })
 }
 
-function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched){
+function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost){
     let orderedProducts = ''
     cart.forEach((item)=>{
-        orderedProducts+=`<a href='/product/${item._id}' >${item.name}| Units:${item.unit}</a> ,`
+        orderedProducts+=`<a href='/product/${item._id}' >${item.name}| Units:${item.unit} </a> ,`
     })
     return `
     <div class="credentials">
@@ -147,22 +160,25 @@ function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate
         <p>${email}</p>
         <p>${phoneNo}</p>
     </div>
-    <div style='display:flex;flex-direction:row;border:solid;'>
-        <div style='border:solid;display:flex;flex-direction:column;'>
+    <div style='display:flex;flex-direction:row;border-right:none;'>
+        <div style='display:flex;flex-direction:column;'>
             <p>Address/Location:${address}</p> 
             <p>Delivery time:${deliveryTime}</p>
         </div>
-        <div style='border:solid;'>
+        <div >
             <p>Logistics:${logistics}</p>
             <p>Delivery date:${deliveryDate}</p>
         </div>
-        <div style='border:solid;display:flex;flex-direction:column;'>
+        <div style='display:flex;flex-direction:column;'>
             <p>Recepient name:${reciepientName}</p>
             <p>Note:${note}</p>
         </div>
     </div>
     <div  class="productItems">
         <p>${orderedProducts}</p>
+    </div>
+    <div>
+        <p>Shipping Cost:${shippingCost}</p>
     </div>
     <div>
         <p>${totalPrice}</p>
