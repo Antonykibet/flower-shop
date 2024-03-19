@@ -157,13 +157,21 @@ async function addOnsRender(div){
             <p  class='addOnName'>${item.name}</p>
             <i id='${item.name.split(' ').join('') }' class="bi bi-plus-circle-fill"></i>
         </div>`
-        div.querySelector('#addOns').appendChild(addItem)
-    })
-    addOns.forEach((item)=>{
-        div.querySelector(`#${item.name.split(' ').join('')}`).addEventListener('click',async()=>{
+        if(item.catalogue == 'addOns:chocolates'){
+            div.querySelector('#chocolateAddOns').appendChild(addItem)
+        }
+        if(item.catalogue == 'addOns:wine'){
+            div.querySelector('#wineAddOns').appendChild(addItem)
+        }
+        addItem.addEventListener('click',async()=>{
             await addCartFunc(item)
         })
     })
+    /*addOns.forEach((item)=>{
+        div.querySelector(`#${item.name.split(' ').join('')}`).addEventListener('click',async()=>{
+            await addCartFunc(item)
+        })
+    })*/
 }
 
 export async function modalRender(btn,item){
@@ -231,7 +239,10 @@ function cartModalRender(){
             <div style='width:100%'>
                 <div id='infoSection'></div>
                 <h2 class='title'>You can add:</h2>
-                <div id='addOns'></div>
+                <h3 class='title'>Wine</h3>
+                <div id='wineAddOns'></div>
+                <h3 class='title'>Chocolates</h3>
+                <div id='chocolateAddOns'></div>
             </div>
             <button class='modalSubmitBtn' id='proceedAddCart'>Proceed to Add to Cart</button>
         </div>
@@ -244,7 +255,10 @@ function orderModalRender(){
             <div style='width:100%'>
                 <div id='infoSection'></div>
                 <h2 class='title'>You can add:</h2>
-                <div id='addOns'></div>
+                <h3 class='title'>Wine</h3>
+                <div id='wineAddOns'></div>
+                <h3 class='title'>Chocolates</h3>
+                <div id='chocolateAddOns'></div>
             </div>
             <button class='modalSubmitBtn' id='proceedCheckout'>Proceed to Checkout</button>
         </div>

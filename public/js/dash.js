@@ -292,11 +292,24 @@ function updateForm(){
             <div>
                 <label for="catalogue">Catalogue</label>
                 <select class='input'  name="catalogue" id="catalogue">
-                    <option value="Congratulation">Congratulations</option>
                     <option value="Birthday">Birthday</option>
+                    <option value="Congratulation">Congratulation</option>
                     <option value="Love and Romance">Love and Romance</option>
                     <option value="Thank You">Thank You</option>
-                    <option value="addOns">Add Ons</option>
+                    <option value="For Him">For Him</option>
+                    <option value="Mother's Day">Mother's Day</option>
+                    <option value="Get Well">Get Well</option>
+                    <option value="Funeral">Funeral</option>
+                    <optgroup label='Add Ons'>
+                        <option value='addOns:chocolates'>addOns:chocolates</option>
+                        <option value='addOns:wine'>addOns:wine</option>
+                    </optgroup>
+                    <optgroup label='Valentine'>
+                        <option value="Valentines:flowers">Valentines:flowers</option>
+                        <option value="Valentines:flowerPackages">Valentines:flowerPackages</option>
+                        <option value="Valentines:teddyPackages">Valentines:teddyPackages</option>
+                        <option value="Valentines:teddy">Valentines:teddy</option>
+                    </optgroup>
                 </select>
             </div>
             <input type='text' id='identifier' style='display:none;'>
@@ -334,7 +347,10 @@ function createForm(){
                     <option value="Mother's Day">Mother's Day</option>
                     <option value="Get Well">Get Well</option>
                     <option value="Funeral">Funeral</option>
-                    <option value="addOns">Add Ons</option>
+                    <optgroup label='Add ons'>
+                        <option value='addOns:chocolates'>addOns:chocolates</option>
+                        <option value='addOns:wine'>addOns:wine</option>
+                    </optgroup>
                     <optgroup label='Valentine'>
                         <option value="Valentines:flowers">Valentines:flowers</option>
                         <option value="Valentines:flowerPackages">Valentines:flowerPackages</option>

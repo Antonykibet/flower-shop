@@ -263,6 +263,7 @@ a{
 .modal{
     width: auto;
     height: 50%;
+    overflow-y: scroll;
     width: 35%;
     display: flex;
     justify-content: space-between;

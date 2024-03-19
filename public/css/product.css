@@ -212,6 +212,9 @@ body{
     justify-content: space-between;
     align-items: center;
 }
+.addOnsItem :hover{
+    border-color:rgba(223, 223, 223)
+}
 .bi-plus-circle-fill{
     font-size: 20px;
     color:#B7A28A ;

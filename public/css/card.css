@@ -97,6 +97,12 @@ button:hover{
     color: whitesmoke;
     font-family: 'Poppins',sans-serif;
     border-radius: 2px;
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    box-shadow: 0 8px 16px 0 rgba(54, 53, 53, 0.3);
 }
 .cartButton{
     background-color:  #B7A28A;
