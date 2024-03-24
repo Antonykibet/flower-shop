@@ -73,7 +73,7 @@ a{
 #logo{
     width: 10%;
     height: 9vh;
-    object-fit: cover;
+    object-fit: contain;
 }
 #account{
     width: 24px;
