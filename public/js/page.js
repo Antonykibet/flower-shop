@@ -55,16 +55,29 @@ function productDisplay(result){
     let contentDiv = document.getElementById('pageContent')
     contentDiv.innerHTML=''
     result.forEach((item, index)=>{
-        let {_id,name,description,price,image} = item
+        let {_id,name,description,price,image,isDiscounted,discountedPrice} = item
+        let priceDetails = `<h4 class='productPrice'>${price}</h4>`
+        let discountTag =``
+        if(isDiscounted){
+            priceDetails = `
+                <del style="color: red; " ><h4 style="color: red; " class='productPrice'>${price}</h4></del>
+                <h4 class='productPrice'>${discountedPrice}</h4>
+                `
+                discountTag =`<img  src='/images/discount tag 20.png'>`
+        }
+
         let productDiv = document.createElement('div')
         productDiv.classList.add('productDiv')
         productDiv.innerHTML=`
+            <div class='discountSticker'>${discountTag}</div>
             <a class='imageHyperlink' href='/product/${_id}'>
                 <img class='productImage' src='/images/${image}'>
             </a>
             <div class='nameDiv'>
                 <h3 class='productName'>${name}</h3>
-                <h4 class='productPrice'>${price}</h4>
+                <div>
+                    ${priceDetails}
+                </div>
             </div>
             <div class='descDiv'>
                 <p class='description'>${description}</p>
