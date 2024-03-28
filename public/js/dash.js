@@ -104,7 +104,10 @@ lists.forEach((list)=>{
             modalBackground.innerHTML=deleteForm()
             productDropdownFunc(modalBackground)
         }
-        
+        if(list.getAttribute('id')=='discount'){
+            modalBackground.innerHTML=discountForm()
+            
+        }
         
         modalBackground.querySelector('.bi-x-circle').addEventListener('click', () => {
             // Close the modal or perform any desired action here
@@ -371,7 +374,18 @@ function createForm(){
     </div>
     `
 }
-
+function discountForm(){
+    return `
+    <div id='discountModal' class='modal'>
+        <i class="bi bi-x-circle"></i>
+        <h1 >Set Discount</h1>
+        <form action="/admin/discount" method="post" >
+            <input style='width:50%' class='input' type="text" name='discount' placeholder="Set discount percentage eg 30">
+            <button type='submit' class='submitBtn'>Set Discount</button>
+        </form>
+    </div>
+    `
+}
 function deleteForm(){
     return `
     <div id='deleteModal' class='modal'>

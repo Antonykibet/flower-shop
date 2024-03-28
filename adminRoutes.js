@@ -92,6 +92,41 @@ router.post('/admin/addEventPhoto',upload.single('image'),async(req,res)=>{
     }
     res.redirect('back')
 })
+router.post('/admin/discount',async(req,res)=>{
+    let {discount} = req.body
+    discount = parseFloat(discount)
+    const discountFactor = 1 - discount / 100;
+    try {
+        // Fetch all products
+        const allProducts = await products.find({}).toArray();
+
+        // Calculate discounted price for each product
+        const updatedProducts = allProducts.map(product => {
+            const originalPrice = parseFloat(product.price);
+            const discountedPrice = originalPrice * discountFactor;
+
+            return {
+                ...product,
+                isDiscounted: true,
+                discountedPrice
+            };
+        });
+
+        await products.bulkWrite(updatedProducts.map(product => ({
+            updateOne: {
+                filter: { _id: product._id },
+                update: { $set: { discountedPrice: product.discountedPrice,isDiscounted: product.isDiscounted } }
+            }
+        })));
+    
+       //console.log(`${updateResult.modifiedCount} products were successfully discounted.`);
+        res.status(200).redirect('back')
+    } catch (error) {
+        console.error("Error setting discount:", error);
+        res.status(400).send('Discount set failed')
+    }
+})
+
 router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
     let {catalogue,name,price,description,topProduct,}=req.body
     let mainFile = req.files.mainImage ? req.files.mainImage[0].filename : null

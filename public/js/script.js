@@ -99,10 +99,10 @@ export function productDisplay(result,section = 'content'){
     let contentDiv = document.getElementById(section)
     contentDiv.innerHTML=''
     result.forEach((item, index)=>{
-        let {_id,name,description,price,image} = item
+        let {_id,name,description,price,image,isDiscounted,discountedPrice} = item
         let productDiv = document.createElement('div')
         productDiv.classList.add('productDiv')
-        productDiv.innerHTML=productCardRender(_id,name,description,price,image,index)
+        productDiv.innerHTML=productCardRender(_id,name,description,price,image,index,isDiscounted,discountedPrice)
         contentDiv.appendChild(productDiv)
         let cartBtn = productDiv.querySelector('.cartButton')
         let orderBtn = productDiv.querySelector('#orderBtn')
@@ -120,14 +120,26 @@ export function productDisplay(result,section = 'content'){
     })
 }
 
-function productCardRender(_id,name,description,price,image,index){
+function productCardRender(_id,name,description,price,image,index,isDiscounted,discountedPrice){
+    let priceDetails = `<h4 class='productPrice'>${price}</h4>`
+    let discountTag =``
+    if(isDiscounted){
+        priceDetails = `
+            <del style="color: red; " ><h4 style="color: red; " class='productPrice'>${price}</h4></del>
+            <h4 class='productPrice'>${discountedPrice}</h4>
+            `
+            discountTag =`<img  src='/images/discount tag 20.png'>`
+    }
     return `
+        <div class='discountSticker'>${discountTag}</div>
         <a class='imageHyperlink' href='/product/${_id}'>
             <img class='productImage' src='/images/${image}'>
         </a>
         <div class='nameDiv'>
             <h3 class='productName'>${name}</h3>
-            <h4 class='productPrice'>${price}</h4>
+            <div>
+                ${priceDetails}
+            </div>
         </div>
         <div class='descDiv'>
             <p class='description'>${description}</p>

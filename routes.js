@@ -161,7 +161,10 @@ router.get('/products/:product',async(req,res)=>{
 router.get('/product/:productID',async(req,res)=>{
     let {productID} =req.params
     let item  = await products.findOne(new ObjectId(productID))
-    let {_id,image,name,description,price,images,catalogue} =item
+    let {_id,image,name,description,price,images,catalogue,isDiscounted,discountedPrice} =item
+    if(isDiscounted){
+        price = discountedPrice
+    }
     let details={
         _id,
         image:image,
@@ -223,13 +226,17 @@ router.post('/cartDetails',async(req,res)=>{
     const {cart, shippingCost} = req.body
     for (const item of cart) {
         try {
-          const { price,name } = await products.findOne({ _id: new ObjectId(item.id) });
+          const { price,name,isDiscounted,discountedPrice} = await products.findOne({ _id: new ObjectId(item.id) });
           productDetails.push({
             _id:item.id,
             name,
             unit:item.unit,
           })
-          totalPrice += price * item.unit;
+          if(isDiscounted){
+            totalPrice += discountedPrice * item.unit;
+          }else{
+            totalPrice += price * item.unit;
+          }
         } catch (error) {
           console.log(`Error in /cartDetails ${error}`)
         }
@@ -238,6 +245,7 @@ router.post('/cartDetails',async(req,res)=>{
       req.session.shippingCost= shippingCost
       req.session.productDetails = productDetails
       req.session.subTotal = totalPrice
+      console.log('/cartdetails'+req.session.subTotal)
       res.json('CHONJO')
 })
 router.post('/checkout',async(req,res)=>{

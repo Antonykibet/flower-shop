@@ -135,7 +135,11 @@ removeBtn.addEventListener('click',()=>{
 function calcSubTotal(){
     let total = 0
     cartItems.forEach((item)=>{
-        total+= Number(item.price*item.unit) 
+        if(item.isDiscounted){
+            total+= Number(item.discountedPrice*item.unit) 
+        }else{
+            total+= Number(item.price*item.unit)
+        } 
     }) 
     subTotal.innerText=total
     calcTotal(shippingCostDisplay.innerText,total)
@@ -145,7 +149,10 @@ function calcSubTotal(){
 
 function displayCartItems(){
     cartItems.forEach((item,index)=>{
-        let {name,price,image,unit} = item
+        let {name,price,image,unit,isDiscounted,discountedPrice} = item
+        if(isDiscounted){
+            price = discountedPrice
+        }
         let bigDiv = document.createElement('div')
         bigDiv.classList.add('cartProductDiv')
         bigDiv.innerHTML=`

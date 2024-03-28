@@ -36,6 +36,7 @@ button:hover{
 .productDiv{
     width: 15vw;
     height: auto;
+    position: relative;
     display: flex;
     box-shadow: 0 8px 16px 0 rgba(54, 53, 53, 0.3);
     border-radius: 8px;
@@ -50,6 +51,11 @@ button:hover{
 }
 .imageHyperlink{
     width: 100%;
+}
+.discountSticker{
+    position: absolute;
+    right: -10px;
+    top: -10px;
 }
 .productImage{
     width: 100%;
