@@ -106,7 +106,7 @@ pesapalCheckoutBtn.addEventListener('click',async (event)=>{
         body: JSON.stringify({cart:cartDetails,shippingCost}),
       })
       console.log(response)
-    //if(isCheckoutFormValid()) return
+    if(isCheckoutFormValid()) return
     paymentMethodAttribute(form,'pesapal')
     event.target.form.submit()
 })
