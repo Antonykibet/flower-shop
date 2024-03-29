@@ -14,7 +14,7 @@ function mailOrder(receiver,order){
     let orderInfo = `${order.name}, Phone number:${order.phoneNo} has purchased:${items}`*/
     let mailOptions = {
         from: receiver,
-        to: 'antonykibet059@gmail.com',
+        to: 'calyxflowerske@gmail.com',
         subject: 'New Order from website',
         text: `New order:${order}`
       };

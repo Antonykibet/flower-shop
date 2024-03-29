@@ -45,7 +45,7 @@ deliverRadio.addEventListener('change', function() {
   });
 function isCheckoutFormValid(){
     let phoneNo = document.querySelector('#phoneNo')
-    let formInputs =document.querySelectorAll('.billingInput')
+    let formInputs =document.querySelectorAll('.formInput')
     subTotal = parseFloat(subTotal.textContent);
     if (subTotal === 0) {
         alert("Cart is Empty, continue shopping.");

@@ -101,10 +101,10 @@
             <h1 style="margin-bottom: 8px;" class="title" id="checkoutTitle">Checkout</h1>
             
             <form id="billingForm" action="/checkout" method="post">
-                <input class="billingInput" placeholder="First Name" type="text" id="fname" name="fname" required>
-                <input class="billingInput" placeholder="Last Name" type="text" id="lname" name="lname" required>
-                <input style="width: 100%;" class="billingInput"  type="text" name="phoneNo" id="phoneNo" required>
-                <input style="margin-bottom: 16px;" class="billingInput" placeholder="Email Address" type="text" name="email" id="email" required>
+                <input class="billingInput formInput" placeholder="First Name" type="text" id="fname" name="fname" required>
+                <input class="billingInput formInput" placeholder="Last Name" type="text" id="lname" name="lname" required>
+                <input style="width: 100%;" class="billingInput "  type="text" name="phoneNo" id="phoneNo" required>
+                <input style="margin-bottom: 16px;" class="billingInput formInput" placeholder="Email Address" type="text" name="email" id="email" required>
                 <label class="checkoutLabels" for="">Deliver/Pick up?</label>
                 <div>
                     <input type="radio" id="pickup" name="logistics" value="pickup">
@@ -113,7 +113,7 @@
                     <label for="deliver">Deliver</label><br>
                 </div>
                 <label class="checkoutLabels" for="date">Delivery/Pickup date</label>
-                <input class="billingInput" id="date" name="deliveryDate" type="date" placeholder="DD/MM/YYYY">
+                <input class="billingInput formInput" id="date" name="deliveryDate" type="date" placeholder="DD/MM/YYYY">
 
                 <label class="checkoutLabels" for="deliveryTime" >Delivery/Pickup time slot</label>
                 <div style="margin-bottom: 8px;">
@@ -138,7 +138,7 @@
                         <input type="radio" name="shippingCost" value="800" id="OutsideNairobi">
                         <label for="OutsideNairobi">Outside Nairobi(800/=)(Thika, Ngong, Kikuyu, Rongai)</label><br>
                     </div>
-                    <input style="width: 90%;margin-top: 8px;" class="billingInput" placeholder="Name of Reciepient" type="text" id="reciepientName" name="reciepientName" >
+                    <input style="width: 90%;margin-top: 8px;" class="billingInput " placeholder="Name of Reciepient" type="text" id="reciepientName" name="reciepientName" >
                 </div>
 
                 <textarea class="billingInput" name="note" id="addNote" placeholder="Add a note ...(message on the card and notes about your order)"></textarea>
