@@ -16,6 +16,15 @@ body{
 a{
     color: whitesmoke;
 }
+#whatsappIcon{
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+}
+#whatsappIcon img {
+    height: 54px;
+    width: 54px;
+}
 #landing{
     width: 97%;
     height: 40vh;
