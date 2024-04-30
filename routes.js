@@ -138,6 +138,7 @@ router.get('/searchResults',async (req, res) => {
 
 router.get('/category/:page',async (req,res)=>{
     const {page} = req.params
+    console.log(page)
     res.render('page',{title:page})
 })
 
