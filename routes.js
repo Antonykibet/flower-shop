@@ -29,16 +29,8 @@ function totalDeliveries(subscription,interval){
         return 8;
     }
 }
-router.get('/googled51a30e29739e201',async(req,res)=>{
-    try {
-        if(!req.session.visited){
-            await dashboard.updateOne({ _id: new ObjectId('652f3ad8c237523c7b489530')},{ $inc: { visits: 1 }})
-            req.session.visited=true
-        }   
-    } catch (error) {
-        console.log(error)
-    }
-    res.sendFile(path.join(__dirname,'googled51a30e29739e201.html'))
+router.get('/sitemap',async(req,res)=>{
+    res.sendFile(path.join(__dirname,'sitemap.xml'))
 })
 router.get('/ipnPP',(req,res)=>{
     console.log('Aloooooooooooooooooooooooooo!!')
