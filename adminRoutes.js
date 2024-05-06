@@ -113,9 +113,9 @@ router.post('/admin/discount',async(req,res)=>{
         });
 
         await products.bulkWrite(updatedProducts.map(product => ({
-            updateOne: {
-                filter: { _id: product._id },
-                update: { $set: { discountedPrice: product.discountedPrice,isDiscounted: product.isDiscounted } }
+            updateMany: {
+                filter: { top: true},
+                update: { $set: { discountedPrice: product.discountedPrice,isDiscounted: true } }
             }
         })));
     

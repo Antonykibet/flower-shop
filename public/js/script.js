@@ -128,7 +128,7 @@ function productCardRender(_id,name,description,price,image,index,isDiscounted,d
             <del style="color: red; " ><h4 style="color: red; " class='productPrice'>${price}</h4></del>
             <h4 class='productPrice'>${discountedPrice}</h4>
             `
-            discountTag =`<img  src='/images/discount tag 20.png'>`
+            discountTag =`<img style='width:64px;height:64px;' src='/images/discountTen(pink).png'>`
     }
     return `
         <div class='discountSticker'>${discountTag}</div>
