@@ -99,32 +99,36 @@ router.post('/admin/discount',async(req,res)=>{
     try {
         // Fetch all products
         const allProducts = await products.find({}).toArray();
-
-        // Calculate discounted price for each product
-        const updatedProducts = allProducts.map(product => {
-            const originalPrice = parseFloat(product.price);
-            const discountedPrice = originalPrice * discountFactor;
-
-            return {
-                ...product,
-                isDiscounted: true,
-                discountedPrice
-            };
+    
+        // Filter top products
+        const topProducts = allProducts.filter(product => product.top === true);
+    
+        // Calculate discounted prices for top products
+        const updatedTopProducts = topProducts.map(product => {
+          const originalPrice = parseFloat(product.price);
+          const discountedPrice = originalPrice * discountFactor;
+    
+          return {
+            ...product,
+            isDiscounted: true,
+            discountedPrice: discountedPrice,
+          };
         });
-
-        await products.bulkWrite(updatedProducts.map(product => ({
-            updateMany: {
-                filter: { top: true},
-                update: { $set: { discountedPrice: product.discountedPrice,isDiscounted: true } }
-            }
+    
+        // Perform bulk update (assuming updatedTopProducts holds the correct data)
+        const updateResult = await products.bulkWrite(updatedTopProducts.map(product => ({
+          updateOne: {
+            filter: { _id: product._id }, // Update by product ID for better control
+            update: { $set: { discountedPrice: product.discountedPrice, isDiscounted: true } },
+          },
         })));
     
-       //console.log(`${updateResult.modifiedCount} products were successfully discounted.`);
-        res.status(200).redirect('back')
-    } catch (error) {
+        console.log(`${updateResult.modifiedCount} top products were successfully discounted.`);
+        res.status(200).redirect('back');
+      } catch (error) {
         console.error("Error setting discount:", error);
-        res.status(400).send('Discount set failed')
-    }
+        res.status(400).send('Discount set failed');
+      }
 })
 
 router.post('/admin/create',upload.fields([{ name: 'mainImage', maxCount: 1 },{ name: 'otherImages', maxCount: 5 }]),async(req,res)=>{
