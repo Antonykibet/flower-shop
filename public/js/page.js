@@ -70,7 +70,7 @@ function productDisplay(result){
         productDiv.classList.add('productDiv')
         productDiv.innerHTML=`
             <div class='discountSticker'>${discountTag}</div>
-            <a class='imageHyperlink' href='/product/${_id}'>
+            <a class='imageHyperlink' href='/product/${name}'>
                 <img class='productImage' src='/images/${image}'>
             </a>
             <div class='nameDiv'>

@@ -69,8 +69,8 @@ function searchResultsRender(result){
     let div = document.createElement('div')
     div.classList.add('resultsDiv')
     div.innerHTML = `
-                <a href='/product/${result._id}' style = 'color:inherit;'><h4 class="resultName">${result.name}</h4> </a>
-                <a href='/product/${result._id}' style = 'color:inherit;'><p class="resultDescription" >${result.description}</p></a>
+                <a href='/product/${result.name}' style = 'color:inherit;'><h4 class="resultName">${result.name}</h4> </a>
+                <a href='/product/${result.name}' style = 'color:inherit;'><p class="resultDescription" >${result.description}</p></a>
                 <div style='width:100%;height:1px;background-color:rgba(223, 223, 223);'></div>
     `
     searchResultsBox.appendChild(div)
@@ -132,7 +132,7 @@ function productCardRender(_id,name,description,price,image,index,isDiscounted,d
     }
     return `
         <div class='discountSticker'>${discountTag}</div>
-        <a class='imageHyperlink' href='/product/${_id}'>
+        <a class='imageHyperlink' href='/product/${name}'>
             <img class='productImage' src='/images/${image}'>
         </a>
         <div class='nameDiv'>

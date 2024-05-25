@@ -160,7 +160,7 @@ async function getOrderdItems(filter){
 function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost){
     let orderedProducts = ''
     cart.forEach((item)=>{
-        orderedProducts+=`<a href='/product/${item._id}' >${item.name}| Units:${item.unit} </a> ,`
+        orderedProducts+=`<a href='/product/${item.name}' >${item.name}| Units:${item.unit} </a> ,`
     })
     return `
     <div class="credentials">

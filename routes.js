@@ -166,9 +166,9 @@ router.get('/products/:product',async(req,res)=>{
     let result = await products.find({catalogue:{ $regex: new RegExp(searchTerm, "i") }}).toArray()
     res.json(result)
 })
-router.get('/product/:productID',async(req,res)=>{
-    let {productID} =req.params
-    let item  = await products.findOne(new ObjectId(productID))
+router.get('/product/:name',async(req,res)=>{
+    let productName =req.params.name
+    let item  = await products.findOne({name:productName})
     let {_id,image,name,description,price,images,catalogue,isDiscounted,discountedPrice} =item
     if(isDiscounted){
         price = discountedPrice
