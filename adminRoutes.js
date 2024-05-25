@@ -31,7 +31,7 @@ function auth(req,res,next){
         res.send('intruder')
     }
 }
-//router.use('/admin',auth)
+router.use('/admin',auth)
 router.get('/admin/dashboard', async (req,res)=>{
     const orderdItems = await orders.countDocuments()
     const {visits, cartItems} = await dashboard.findOne({_id:new ObjectId(`652f3ad8c237523c7b489530`)})
