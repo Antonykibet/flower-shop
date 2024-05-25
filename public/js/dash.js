@@ -109,6 +109,10 @@ lists.forEach((list)=>{
             modalBackground.innerHTML=discountForm()
             
         }
+        if(list.getAttribute('id')=='setTitle'){
+            modalBackground.innerHTML=setTitleForm()
+            
+        }
         
         modalBackground.querySelector('.bi-x-circle').addEventListener('click', () => {
             // Close the modal or perform any desired action here
@@ -371,6 +375,18 @@ function createForm(){
                 <label for="topProduct">To Appear in Top Products Section</label>
             </div>
             <button type='submit' class='submitBtn'>Create</button>
+        </form>
+    </div>
+    `
+}
+function setTitleForm(){
+    return `
+    <div id='setTitleModal' class='modal'>
+        <i class="bi bi-x-circle"></i>
+        <h1 >Set Title</h1>
+        <form action="/admin/setTitle" method="post" >
+            <input style='width:50%' class='input' type="text" name='title' placeholder="Set Top Title">
+            <button type='submit' class='submitBtn'>Set </button>
         </form>
     </div>
     `

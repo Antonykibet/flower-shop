@@ -126,7 +126,7 @@
         <div id="searchResult">
         </div>
     </div>
-    <h1 style="margin-top: 0px;" class="title" >Mother's Day Offer</h1>
+    <h1 style="margin-top: 0px;" id="topTitle" class="title" ></h1>
     <section class="contentContainer" id="content">
     </section>
     <div class="lineSeparator"></div>
@@ -256,6 +256,14 @@
         <img src="/icons/icons8-whatsapp-48.png" alt="">
     </a>
     <script src="js/header.js"></script>
+    <script>
+        async function getTitle(){
+            let response= await fetch('/getTitle')
+            let result = await response.json()
+            document.getElementById('topTitle').innerText= result
+        }
+        getTitle()
+    </script>
     <script type="module" src="js/addCartFunc.js"></script>
     <script type="module" src="js/skeletonRender.js"></script>
     <script type="module" src="js/script.js"></script>

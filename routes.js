@@ -32,6 +32,10 @@ function totalDeliveries(subscription,interval){
 router.get('/sitemap',async(req,res)=>{
     res.sendFile(path.join(__dirname,'sitemap.xml'))
 })
+router.get('/getTitle',async(req,res)=>{
+    const {topTitle} = await dashboard.findOne({_id:new ObjectId(`652f3ad8c237523c7b489530`)})
+    res.json(topTitle)
+})
 router.get('/ipnPP',(req,res)=>{
     console.log('Aloooooooooooooooooooooooooo!!')
     console.log(req.body)
