@@ -2,6 +2,8 @@ import { getCartItems,storeCartItems } from "./addCartFunc.js"
 let contentDiv = document.getElementById('content')
 let subTotal =document.getElementById('subTotal')
 let shippingCostDisplay = document.getElementById('shippingCost')
+let bouquetCostDisplay = document.getElementById('bouquetCost')
+let moneyBouquetAmountInput = document.getElementById('bouquetMoney')
 let mobileCheckoutBtn=document.getElementById('checkoutDisplay')
 let totalPrice = document.getElementById('totalPrice')
 //let creditBtn = document.querySelector('.intaSendPayButton')
@@ -15,11 +17,17 @@ const pickupRadio = document.getElementById('pickup');
 const deliverRadio = document.getElementById('deliver');
 const deliveryData = document.getElementById('deliveryData');
 
-function calcTotal(shippingCost,subTotal){
-    const total = parseInt(shippingCost) +parseInt( subTotal)
+function calcTotal(shippingCost,bouquetCostDisplay,subTotal){
+    const total = parseInt(shippingCost) + parseInt( subTotal) + parseInt(bouquetCostDisplay)
     totalPrice.innerText = total 
 }
-    
+
+moneyBouquetAmountInput.addEventListener("keyup",(e)=>{
+    const amount = e.target.value
+    bouquetCostDisplay.innerText = amount
+    calcTotal(shippingCostDisplay.innerText,amount,subTotal.innerText)
+})
+
 
 pickupRadio.addEventListener('change', function() {
     shippingCostDisplay.innerText='0'
@@ -32,15 +40,14 @@ pickupRadio.addEventListener('change', function() {
     }
 });
 deliverRadio.addEventListener('change', function() {
-    deliveryData.style.display = 'block';
-  });
+    deliveryData.style.display = 'block';});
   const shippingCostInput = document.querySelectorAll('input[name="shippingCost"]');
 
   shippingCostInput.forEach(radio => {
     radio.addEventListener('change', (event) => {
       const selectedCost = event.target.value;
       shippingCostDisplay.innerText =selectedCost
-      calcTotal(selectedCost,subTotal.innerText)
+      calcTotal(selectedCost,bouquetCostDisplay.innerText,subTotal.innerText,)
     });
   });
 function isCheckoutFormValid(){
@@ -95,6 +102,7 @@ function paymentMethodAttribute(form,method){
 pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     event.preventDefault();
     const shippingCost = shippingCostDisplay.innerText;
+    const bouquetAmount = moneyBouquetAmountInput.innerText
     const cartItems = await getCartItems()
     const cartDetails = cartItems.map((item)=>{
         return {id:item._id,unit:item.unit}
@@ -103,7 +111,7 @@ pesapalCheckoutBtn.addEventListener('click',async (event)=>{
     let response = await fetch('/cartDetails',{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({cart:cartDetails,shippingCost}),
+        body: JSON.stringify({cart:cartDetails,shippingCost,bouquetAmount}),
       })
       console.log(response)
     if(isCheckoutFormValid()) return
@@ -117,6 +125,15 @@ async function renderCartItems(){
     if(cartItems.length==0){
         mobileCheckoutBtn.style.display='none'
     }
+    cartItems.forEach((item)=>{
+        let div = document.querySelectorAll(".bouquetDetailsSect")
+        if(item.subCatalogue == "money bouquet"){
+            div.forEach((item)=>{
+                item.style.display = "flex"
+            })
+            return
+        }
+    })
     displayCartItems()
     calcSubTotal()
 }
@@ -142,7 +159,7 @@ function calcSubTotal(){
         } 
     }) 
     subTotal.innerText=total
-    calcTotal(shippingCostDisplay.innerText,total)
+    calcTotal(shippingCostDisplay.innerText,bouquetCostDisplay.innerText,total)
 }
 
 

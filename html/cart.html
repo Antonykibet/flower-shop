@@ -122,6 +122,19 @@
                 <input class="billingInput formInput" placeholder="Last Name" type="text" id="lname" name="lname" required>
                 <input style="width: 100%;" class="billingInput "  type="text" name="phoneNo" id="phoneNo" required>
                 <input style="margin-bottom: 16px;" class="billingInput formInput" placeholder="Email Address" type="text" name="email" id="email" required>
+                <div class="bouquetDetailsSect" >
+                    <label class="checkoutLabels"  for="bouquetMoney">Money bouquet details</label>
+                    <input name="bouquetMoney" id="bouquetMoney" class="billingInput"  type="number" min="0" placeholder="Amount of money for the bouquet">
+                    <select class="billingInput" name="bouquetDenomination" id="">
+                        <option value="">Select denomination</option>
+                        <option value="50note">50 note</option>
+                        <option value="100note">100 note</option>
+                        <option value="200note">200 note</option>
+                        <option value="500note">500 note</option>
+                        <option value="1000note">1000 note</option>
+                    </select>
+                </div>
+            
                 <label class="checkoutLabels" for="">Deliver/Pick up?</label>
                 <div>
                     <input type="radio" id="pickup" name="logistics" value="pickup">
@@ -168,6 +181,10 @@
                     <div class="moneyInfo">
                         <h3 class="totalElem">Shipping Cost</h3>
                         <h3 class="totalElem" id="shippingCost">0</h3>
+                    </div>
+                    <div id="bouquetCostdiv" class="bouquetDetailsSect moneyInfo">
+                        <h3 class="totalElem">Money Bouquet Cost</h3>
+                        <h3 class="totalElem" id="bouquetCost">0</h3>
                     </div>
                     <div class="moneyInfo">
                         <h3 class="totalElem">Total</h3>

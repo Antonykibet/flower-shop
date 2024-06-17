@@ -148,6 +148,15 @@
 .totalElem{
     margin: 0px;
 }
+.bouquetDetailsSect{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    display: none;
+}
+#bouquetCostdiv{
+    flex-direction: row;
+}
 #billingForm{
     font-family: 'Roboto';
     display: flex;

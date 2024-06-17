@@ -132,12 +132,12 @@ async function getOrderdItems(filter){
     let orderItems=await response.json()
     orderTrack.innerHTML=''
     orderItems.forEach((item,index)=>{
-        const {_id,name,phoneNo,email,totalPrice,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched, shippingCost} = item
+        const {_id,name,phoneNo,email,totalPrice,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched, shippingCost,bouquetDenomination,bouquetAmount} = item
         let cart=item.cart 
         console.log(item)
         let list = document.createElement('div')
         list.classList.add('orderRecord')
-        list.innerHTML=orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost)
+        list.innerHTML=orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost,bouquetDenomination,bouquetAmount)
         orderTrack.appendChild(list)
         let dispatchBtn = list.querySelector('#dispatchBtn')
         dispatchBtn.addEventListener('click', async(e)=>{
@@ -157,7 +157,7 @@ async function getOrderdItems(filter){
     })
 }
 
-function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost){
+function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate,address,deliveryTime,reciepientName,note,dispatched,shippingCost,bouquetDenomination,bouquetAmount){
     let orderedProducts = ''
     cart.forEach((item)=>{
         orderedProducts+=`<a href='/product/${item.name}' >${item.name}| Units:${item.unit} </a> ,`
@@ -186,10 +186,12 @@ function orderList(_id,name,email,phoneNo,totalPrice,cart,logistics,deliveryDate
         <p>${orderedProducts}</p>
     </div>
     <div>
-        <p>Shipping Cost:${shippingCost}</p>
+        <p>Bouquet Amount:${bouquetAmount || 0}</p>
+        <p>Bouquet Denomination:${bouquetDenomination}</p>
     </div>
     <div>
-        <p>${totalPrice}</p>
+        <p>Shipping Cost:${shippingCost}</p>
+        <p>Total Amount:${totalPrice}</p>
     </div>
     <div style='display:flex;justify-content:center; align-items:center;' >
         <button id='dispatchBtn' _id=${_id} style='height:24px;'>Dispatch</button>
